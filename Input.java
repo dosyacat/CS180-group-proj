@@ -12,6 +12,14 @@ public class Input {
         return str.charAt(0);
     }
 
+
+    public static void pressAnyKeyToExit() {
+        System.out.println("Press Enter key to exit...");
+        scanner.nextLine();
+        System.out.println("Exit!");
+    }
+
+
     public static int readInt(int limit) {
         int n;
         for (; ; ) {
@@ -108,6 +116,7 @@ public class Input {
         }
         return c;
     }
+
 
 
 

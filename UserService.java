@@ -4,7 +4,7 @@ public class UserService {
 
     private User user = new User();
 
-    public boolean checkUser(String account, String password) {
+    public boolean checkSecurity(String account, String password) {
         return DataBase.check(account, password);
     }
 
@@ -23,6 +23,15 @@ public class UserService {
     public boolean existFriendRequest(User user1, User user2) {
         if (user1 == null || user2 == null) return false;
         return user1.getFriendDataBase().getRequestFriendHashMap().containsKey(user2.getUsername());
+    }
+
+    public boolean chechMessagePrivacySetting(User user) {
+        try {
+            return user.isMessagePrivacySettings();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
 

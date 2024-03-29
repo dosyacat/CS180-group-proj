@@ -9,6 +9,19 @@ public class User implements Serializable {
     private MessageDataBase sendMessageDataBase = new MessageDataBase();
     private MessageDataBase receiveMessageDataBase = new MessageDataBase();
     private UserFriendDataBase friendDataBase = new UserFriendDataBase();
+    private boolean messagePrivacySettings = true;
+
+    public void setFriendDataBase(UserFriendDataBase friendDataBase) {
+        this.friendDataBase = friendDataBase;
+    }
+
+    public boolean isMessagePrivacySettings() {
+        return messagePrivacySettings;
+    }
+
+    public void setMessagePrivacySettings(boolean messagePrivacySettings) {
+        this.messagePrivacySettings = messagePrivacySettings;
+    }
 
     public void addFriend(User user) {
         if (user.getFriendDataBase().getBlockedFriendHashMap().get(this.username) != null) {
@@ -139,4 +152,15 @@ public class User implements Serializable {
                 "\nemail : " + email +
                 "\nbio : " + bio;
     }
+
+    public void profileInformation() {
+        System.out.println("=========== " + username +"=============");
+        System.out.println("Username : " + username +
+                "\nEmail : " + email +
+                "\nBio : " + bio);
+    }
+
+
+
+
 }

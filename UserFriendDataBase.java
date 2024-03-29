@@ -42,7 +42,23 @@ public class UserFriendDataBase {
         requestFriendHashMap.remove(user.getUsername());
     }
 
-    public void requestFriendHashMapInformation() {
+    public void blockedFriendsInfromation() {
+        if (blockedFriendHashMap.isEmpty()) {
+            System.out.println();
+            System.out.println("Your blocked friends list is empty now!");
+            return;
+        }
+        System.out.println("===================Blocked Friends List================");
+        int i = 1;
+        for (User user : blockedFriendHashMap.values()) {
+            System.out.println("User "+ i + ": " + user.toString());
+            System.out.println();
+            i++;
+        }
+    }
+
+
+    public void requestFriendsInformation() {
         if (requestFriendHashMap.isEmpty()) {
             System.out.println();
             System.out.println("Your friend request list is empty now!");
@@ -51,7 +67,7 @@ public class UserFriendDataBase {
         System.out.println("===================Friend Request List================");
         int i = 1;
         for (User user : requestFriendHashMap.values()) {
-            System.out.println("Friend "+ i + ": " + user.toString());
+            System.out.println("User "+ i + ": " + user.toString());
             System.out.println();
             i++;
         }
@@ -95,7 +111,7 @@ public class UserFriendDataBase {
             return;
         }
         blockedFriendHashMap.put(user.getUsername(), user);
-        System.out.println("Block " + user.getUsername() + "successfully!");
+        System.out.println("Block " + user.getUsername() + " successfully!");
     }
 
     public void unBlockFriend(User user) {
@@ -104,7 +120,7 @@ public class UserFriendDataBase {
             return;
         }
         blockedFriendHashMap.remove(user.getUsername());
-        System.out.println("unBlock " + user.getUsername() + "successfully!");
+        System.out.println("unBlock " + user.getUsername() + " successfully!");
     }
 
 }
