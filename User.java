@@ -10,13 +10,12 @@ public class User implements Serializable {
     private MessageDataBase receiveMessageDataBase = new MessageDataBase();
 
     public void addSendMessage(Message message) {
-        sendMessageDataBase.addSendMessage(message);
+        sendMessageDataBase.addMessage(message);
     }
 
     public void addReceiveMessage(Message message) {
-        receiveMessageDataBase.addReceiveMessage(message);
+        receiveMessageDataBase.addMessage(message);
     }
-
 
     public MessageDataBase getSendMessageDataBase() {
         return sendMessageDataBase;
@@ -35,11 +34,11 @@ public class User implements Serializable {
     }
 
     public ArrayList<Message> getSendMessageArrayList() {
-        return sendMessageDataBase.getSendArrayList();
+        return sendMessageDataBase.getArrayList();
     }
 
     public ArrayList<Message> getReceiveArrayList() {
-        return receiveMessageDataBase.getReceiveArrayList();
+        return receiveMessageDataBase.getArrayList();
     }
 
     public User() {}
