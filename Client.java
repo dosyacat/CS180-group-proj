@@ -94,6 +94,10 @@ public class Client {
                 case "2" : {
                     System.out.println("Please enter your Username, which will be limited to 20 digits");
                     String username = Input.readString(20, false);
+                    while (DataBase.findUser(username) != null) {
+                        System.out.println("This username is already taken! Enter again!");
+                        username = Input.readString(20, false);
+                    }
                     System.out.println("Please enter your password, which will be limited to 20 digits");
                     String password = Input.readString(20, false);
                     System.out.println("Please enter your email");
