@@ -41,8 +41,8 @@ public class Message implements Serializable {
 
     @Override
     public String toString() {
-        return "Message : " +
-                "sender : " + sender +
+        return "\nMessage : " +
+                "\nsender : " + sender +
                 ", receiver :" + receiver +
                 "\ncontent : " + content +
                 "\nmessageTime : " + messageTime;
