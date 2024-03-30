@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class DataBase {
+public class DataBase{
     private static HashMap<String, User> userHashMap = new HashMap<>();
 
     public static void add(User user) {

@@ -8,9 +8,17 @@ public class Input {
     private static Scanner scanner = new Scanner(System.in);
 
     public static char readChar() {
-        String str = readKeyBoard(1);//就是一个字符
+        String str = readKeyBoard(1);
         return str.charAt(0);
     }
+
+
+    public static void pressAnyKeyToExit() {
+        System.out.println("Press Enter key to exit...");
+        scanner.nextLine();
+        System.out.println("Exit!");
+    }
+
 
     public static int readInt(int limit) {
         int n;
@@ -20,11 +28,34 @@ public class Input {
                 n = Integer.parseInt(str);
                 break;
             } catch (NumberFormatException e) {
-                System.out.print("It is not an integer, enter again!");
+                System.out.print("It is not an integer, enter again:");
+            }
+        }
+
+        return n;
+    }
+
+    public static int readRange(int min, int max) {
+        int n;
+        for (; ; ) {
+            String str = readKeyBoard();
+            try {
+                n = Integer.parseInt(str);
+                if (n < min || n > max) {
+                    System.out.println("This number must be greater than or equal to " + min
+                            + " and be less than or equal to " + max + ", enter again:");
+                    continue;
+                }
+                break;
+            } catch (NumberFormatException e) {
+                System.out.print("It is not an integer, enter again:");
             }
         }
         return n;
     }
+
+
+
 
     public static String readString(int limit) {
         String str = readKeyBoard(limit);
@@ -44,7 +75,7 @@ public class Input {
         String email = readKeyBoard(limit, blankReturn);
         boolean flag = true;
         while (!(flag = email.contains("@"))) {
-            System.out.println("Invalid email. Please include an '@' in the email address.");
+            System.out.println("Invalid email. Please include an '@' in the email address, enter again:");
             email = readString(limit, blankReturn);
         }
         return email;
@@ -57,7 +88,7 @@ public class Input {
         while (scanner.hasNextLine()) {
             line = scanner.nextLine();
             if (line.isEmpty() || line.length() > limit) {
-                System.out.print("The length must be less than or equal to " + limit + " please enter again!");
+                System.out.print("The length must be less than or equal to " + limit + " please enter again:");
                 continue;
             }
             break;
@@ -79,13 +110,13 @@ public class Input {
             if (line.length() == 0) {
                 if (blankReturn) return line;
                 else {
-                    System.out.println("Cannot enter nothing, please enter again");
+                    System.out.println("Cannot enter nothing, please enter again:");
                     continue;
                 }
             }
 
             if (line.length() < 1 || line.length() > limit) {
-                System.out.println("The length must be less than or equal to " + limit + "\n please enter again");
+                System.out.println("The length must be less than or equal to " + limit + "\n please enter again:");
                 continue;
             }
             break;
@@ -103,11 +134,35 @@ public class Input {
             if (c == 'Y' || c == 'N') {
                 break;
             } else {
-                System.out.print("Invalid input! please enter again");
+                System.out.print("Invalid input! please enter again:");
             }
         }
         return c;
     }
+
+    private static String readMax(int limit, boolean blankReturn) {
+
+        String line = "";
+        while (scanner.hasNextLine()) {
+            line = scanner.nextLine();
+            if (line.length() == 0) {
+                if (blankReturn) return line;
+                else {
+                    System.out.println("Cannot enter nothing, please enter again:");
+                    continue;
+                }
+            }
+
+            if (line.length() < 1 || line.length() > limit) {
+                System.out.println("The length must be less than or equal to " + limit + "\n please enter again:");
+                continue;
+            }
+            break;
+        }
+
+        return line;
+    }
+
 
 
 
