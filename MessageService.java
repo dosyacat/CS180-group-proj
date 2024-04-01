@@ -3,7 +3,7 @@ import java.util.Date;
  * The MessageService class provides methods for sending messages and picture messages.
  */
 
-public class MessageService {
+public class MessageService implements MessageServiceInterface {
     /* Sends a text message from the sender to the receiver with the given content.
        sender   The username of the sender
        receiver The username of the receiver
