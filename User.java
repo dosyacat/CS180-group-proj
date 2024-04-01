@@ -4,6 +4,9 @@ import java.util.ArrayList;
  * The User class represents a user in the messaging system.
  * Implements Serializable to allow objects of this class to be serialized.
  * Implements UserInterface to provide user-related functionality.
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
+ * @version April 1, 2024
  */
 
 public class User implements Serializable, UserInterface {
