@@ -1,5 +1,5 @@
-public interface PictureInterface {
-    /**
+
+/**
  * Interface for Picture.java
  *
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
@@ -7,7 +7,7 @@ public interface PictureInterface {
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 1, 2024
  */
-
+public interface PictureInterface {
     // Uploads a picture from the user's computer.
     public static byte[] uploadPicture() {
         // Method signature, no implementation in interface
