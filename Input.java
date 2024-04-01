@@ -2,7 +2,7 @@ import java.util.*;
 /**
  * The Input class provides methods for reading user input from the console.
  */
-public class Input {
+public class Input implements InputInterface {
 
     private static Scanner scanner = new Scanner(System.in);
 
