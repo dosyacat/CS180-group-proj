@@ -1,3 +1,11 @@
+/**
+ * Interface for Input.java
+ *
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ *
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
+ * @version April 1, 2024
+ */
 public interface InputInterface {
 
     // Reads a single character from the console input.
