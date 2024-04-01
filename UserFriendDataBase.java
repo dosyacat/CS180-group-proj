@@ -52,7 +52,7 @@ public class UserFriendDataBase implements UserFriendDataBaseInterface {
     }
 
     // Method to display blocked friends
-    public void blockedFriendsInformation() {
+    public void blockedFriendsInfromation() {
         if (blockedFriendHashMap.isEmpty()) {
             System.out.println();
             System.out.println("Your blocked friends list is empty now!");
