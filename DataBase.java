@@ -1,7 +1,12 @@
 import java.util.HashMap;
-/**
+  /**
  * The DataBase class manages the storage and retrieval of user data.
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ *
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong , Kaustubh Mathur
+ * @version April 1, 2024
  */
+ 
 
 public class DataBase implements DataBaseInterface {
     // HashMap to store users with their usernames as keys
