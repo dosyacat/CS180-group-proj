@@ -25,29 +25,31 @@ The Message class serves as a representation of messages within a messaging syst
 
 ## 'Input.java'
 
- The Input class provides methods for reading user input from the console. It includes functionalities to read characters, integers within a range, strings with specified length limits, email addresses, and user selections.
+The Input class simplifies console input in Java programs, providing functions for reading characters, integers with defined bounds, strings with or without spaces, and email addresses. It ensures input validation, manages empty or lengthy input, and prompts users for appropriate responses.  
 
 ## 'Database.java'
 
-The DataBase class serves as a storage mechanism for user data within the messenger application. It utilizes a HashMap to efficiently store and retrieve user objects based on their usernames.
+The DataBase class serves as a data manager, utilizing a HashMap to link usernames to user objects. It enables adding users, verifying account credentials, and accessing user details. Additionally, it offers functionality for displaying user information and viewing profile pictures, enhancing the user experience.  
 
 ## 'MessageDataBase.java'
 
-The MessageDataBase class serves as a storage mechanism for messages within the messenger application. It maintains an ArrayList to store messages and a HashMap to index messages by receiver usernames for efficient retrieval.
+The MessageDataBase class functions as a storage system for messages in the messenger application. It utilizes an ArrayList to store messages and a HashMap to index messages by receiver usernames, ensuring efficient retrieval.  
 
 ## 'MessageService.java'
 
-The MessageService class provides functionality for sending messages between users within the messenger application. It creates a message object, sets its attributes such as sender, receiver, content, and time, and then adds the message to both the sender's and receiver's message lists.
+The MessageService class facilitates the exchange of messages among users in the messenger application. It initializes a message object, configuring its attributes like sender, receiver, content, and timestamp, before adding the message to both the sender's and receiver's message repositories.  
 
-## 'UserFriendDataBase.java'
+## 'UserFriendDataBase.java
 
-The UserFriendDataBase class manages the friend-related functionalities for users within the messenger application. It keeps track of friends, friend requests, and blocked friends using separate hash maps. 
+In Java, the UserFriendDataBase class implements the UserFriendDataBaseInterface, overseeing user friendships. It manages friend requests, blocking/unblocking friends, and displaying friend lists. Utilizing HashMaps, it effectively stores and manages friend, request, and blocked friend information in the application. 
 
-## 'UserMessageDataBase.java'
+## 'UserMessageDataBase.java
 
-The UserMessageDataBase class manages the message-related functionalities for users within the messenger application. It keeps track of sent and received messages using separate array lists and hash maps. 
+The UserMessageDataBase class oversees message-related features for users in the messenger application. It tracks sent and received messages through separate array lists and hash maps.  
 
 ## 'UserService'
 
-The UserService class encapsulates several methods designed to manage and check various aspects of user interactions within a messenger application.
+The UserService class comprises multiple methods aimed at overseeing and verifying distinct aspects of user interactions within a messenger application.  
+
+
 	
