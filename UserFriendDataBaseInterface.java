@@ -20,7 +20,7 @@ public interface UserFriendDataBaseInterface {
 
     public void declineFriendRequest(User user);
 
-    public void blockedFriendsInformation();
+    public void blockedFriendsInfromation();
 
     public void requestFriendsInformation();
 
