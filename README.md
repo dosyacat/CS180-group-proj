@@ -13,11 +13,11 @@ Currently, our application is in the development phase. To begin using it, you w
 
 ## 'Client.java'
 
-The Client class represents the main entry point for the messenger application. It provides functionality for user authentication, sign up, and navigation through various menus.
+The Client class serves as the primary interface for the messenger application, acting as the central entry point. It facilitates essential functionalities such as user authentication, sign-up processes, and navigation across different menus within the application's interface. This pivotal class orchestrates user interactions and ensures seamless navigation throughout the messaging platform's features and functionalities.
 
 ## 'User.java
 
-The User class represents a user of the messenger application. It encapsulates user information such as username, password, email, and bio, and provides methods for managing friends, messages, and profile information. 
+The User class embodies an individual within the messenger application, encapsulating vital user details like their username, password, email, and bio. Additionally, it furnishes methods for overseeing various aspects of user engagement, including friend interactions, message management, and profile information updates. This class serves as the foundational structure for user entities, ensuring comprehensive management and interaction capabilities within the messaging platform. 
 
 ## 'Message.java'
 
@@ -51,5 +51,58 @@ The UserMessageDataBase class oversees message-related features for users in the
 
 The UserService class comprises multiple methods aimed at overseeing and verifying distinct aspects of user interactions within a messenger application.  
 
+## Picture.java 
+
+The Picture class facilitates image uploading and display in a graphical user interface. Using Java's ImageIO and Swing libraries, it enables users to upload and view images from their computer, with resizable options. This enhances Java applications, offering seamless image handling and integration within the interface.
+
+## PictureMessage.java
+
+PictureMessage class represents a serialized message with an image, implementing SuperMessage for message functionalities. It stores sender, receiver, image data, and time. Methods manage message details, including toString() for displaying the message with the image.  
+
+## DataBaseInterface.java 
+
+The DataBaseInterface defines methods for database management in Java. It covers adding users, checking credentials, displaying user info with profile pictures, and finding users by username. It's a blueprint for implementing database operations, ensuring standardized interaction with user data. Implementing classes customize these methods as needed. 
+
+## InputInterface.java 
+
+The InputInterface simplifies console input handling in Java applications by providing methods to read characters, integers within specified limits or ranges, strings with or without spaces, email addresses, and single-character selections ('Y' or 'N'). Implementing classes are required to define these methods, promoting consistent input processing and enhancing usability across the application. 
+
+## MessageDataBaseInterface.java  
+
+The MessageDataBaseInterface defines methods for handling message data in Java applications. It includes functions for adding messages, accessing and updating message collections stored as ArrayLists and HashMaps. This interface acts as a guide for implementing message-related database operations in Java programs. 
+
+## MessageInterface
+
+The MessageInterface extends Serializable and specifies methods for handling message data. It provides functionality to retrieve and update sender and receiver details, message content, and timestamp. This interface guarantees that message objects can be serialized to preserve data integrity during storage or transmission. 
+
+## MessageServiceInterface.java   
+
+The MessageServiceInterface defines methods for sending text and picture messages in Java applications. It provides functionality to send text messages with designated sender, receiver, and content, along with sending picture messages between users. 
+
+## PictureInterface.java  
+
+The PictureInterface manages picture-related tasks in Java apps, enabling users to upload images from their computers and display them. These methods serve as a framework for implementing picture functionalities while allowing adaptability in application development. 
+
+## PictureMessageInterface.java 
+
+The PictureMessageInterface handles picture messages in Java, allowing manipulation of sender, receiver, image data, and message time. It also facilitates conversion to string format and image display. 
+
+## UserInterface.java 
+
+The UserInterface, which extends Serializable, outlines methods to handle user data in Java applications. It covers functions such as managing friends, message privacy settings, handling messages, and accessing user profile details. Serving as a blueprint, it ensures uniformity and adaptability in application development. 
+
+## UserFriendDataBaseInterface.java 
+
+The UserFriendDataBaseInterface in Java outlines operations for handling user friendships. It enables adding, removing, and manipulating friends, accepting or declining friend requests, and blocking or unblocking friends. This interface supports retrieval of data about blocked friends, pending requests, and existing connections, facilitating effective user interaction in applications. 
+
+## UserMessageDataBaseInterface.java 
+
+The Java UserMessageDataBaseInterface manages user messages, enabling addition, display, and deletion of sent and received messages, alongside message count retrieval. It also offers functionality for accessing and modifying message arrays and hash maps, streamlining message management in applications. 
+
+## UserServiceInterface.java 
+
+The UserServiceInterface provides essential user-related functionalities in Java apps, including security checks, friendship, message handling, and privacy settings. These methods enable efficient user interaction and security management within the application environment. 
+
+ 
 
 	
