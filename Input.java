@@ -162,10 +162,4 @@ public class Input implements InputInterface {
 
         return line;
     }
-
-
-
-
-
-
 }
