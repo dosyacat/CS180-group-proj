@@ -1,10 +1,14 @@
 import java.util.HashMap;
 
-public class UserFriendDataBase {
+public class UserFriendDataBase implements UserFriendDataBaseInterface {
+    // HashMap to store friends
     private HashMap<String, User> friendHashMap = new HashMap<>();
+    // HashMap to store friend requests
     private HashMap<String, User> requestFriendHashMap = new HashMap<>();
+    // HashMap to store blocked friends
     private HashMap<String, User> blockedFriendHashMap = new HashMap<>();
 
+    // Getter and setter for blockedFriendHashMap
     public HashMap<String, User> getBlockedFriendHashMap() {
         return blockedFriendHashMap;
     }
@@ -13,6 +17,7 @@ public class UserFriendDataBase {
         this.blockedFriendHashMap = blockedFriendHashMap;
     }
 
+    // Getter and setter for requestFriendHashMap
     public HashMap<String, User> getRequestFriendHashMap() {
         return requestFriendHashMap;
     }
@@ -21,6 +26,7 @@ public class UserFriendDataBase {
         this.requestFriendHashMap = requestFriendHashMap;
     }
 
+    // Getter and setter for friendHashMap
     public HashMap<String, User> getFriendHashMap() {
         return friendHashMap;
     }
@@ -29,20 +35,24 @@ public class UserFriendDataBase {
         this.friendHashMap = friendHashMap;
     }
 
+    // Method to find a friend by username
     public User findFriend(String username) {
         return friendHashMap.get(username);
     }
 
+    // Method to accept a friend request
     public void acceptFriendRequest(User user) {
         friendHashMap.put(user.getUsername(), user);
         requestFriendHashMap.remove(user.getUsername());
     }
 
+    // Method to decline a friend request
     public void declineFriendRequest(User user) {
         requestFriendHashMap.remove(user.getUsername());
     }
 
-    public void blockedFriendsInfromation() {
+    // Method to display blocked friends
+    public void blockedFriendsInformation() {
         if (blockedFriendHashMap.isEmpty()) {
             System.out.println();
             System.out.println("Your blocked friends list is empty now!");
@@ -51,13 +61,13 @@ public class UserFriendDataBase {
         System.out.println("===================Blocked Friends List================");
         int i = 1;
         for (User user : blockedFriendHashMap.values()) {
-            System.out.println("User "+ i + ": " + user.toString());
+            System.out.println("User " + i + ": " + user.toString());
             System.out.println();
             i++;
         }
     }
 
-
+    // Method to display friend requests
     public void requestFriendsInformation() {
         if (requestFriendHashMap.isEmpty()) {
             System.out.println();
@@ -67,12 +77,13 @@ public class UserFriendDataBase {
         System.out.println("===================Friend Request List================");
         int i = 1;
         for (User user : requestFriendHashMap.values()) {
-            System.out.println("User "+ i + ": " + user.toString());
+            System.out.println("User " + i + ": " + user.toString());
             System.out.println();
             i++;
         }
     }
 
+    // Method to display friends
     public void friendsInformation() {
         if (friendHashMap.isEmpty()) {
             System.out.println();
@@ -82,12 +93,13 @@ public class UserFriendDataBase {
         System.out.println("===================Friend List================");
         int i = 1;
         for (User user : friendHashMap.values()) {
-            System.out.println("Friend "+ i + ": " + user.toString());
+            System.out.println("Friend " + i + ": " + user.toString());
             System.out.println();
             i++;
         }
     }
 
+    // Method to add a friend
     public boolean addFriend(User user) {
         if (friendHashMap.get(user.getUsername()) != null) {
             System.out.println(user.getUsername() + " is already your friend, you can't add again.");
@@ -96,6 +108,7 @@ public class UserFriendDataBase {
         return true;
     }
 
+    // Method to remove a friend
     public boolean removeFriend(User user) {
         if (friendHashMap.get(user.getUsername()) == null) {
             System.out.println(user.getUsername() + " is not your friend!");
@@ -105,6 +118,7 @@ public class UserFriendDataBase {
         return true;
     }
 
+    // Method to block a friend
     public void blockFriend(User user) {
         if (blockedFriendHashMap.get(user.getUsername()) != null) {
             System.out.println("You have blocked " + user.getUsername() + ". Cannot block again.");
@@ -114,6 +128,7 @@ public class UserFriendDataBase {
         System.out.println("Block " + user.getUsername() + " successfully!");
     }
 
+    // Method to unblock a friend
     public void unBlockFriend(User user) {
         if (blockedFriendHashMap.get(user.getUsername()) == null) {
             System.out.println("Them is not in your block list!");
@@ -122,5 +137,4 @@ public class UserFriendDataBase {
         blockedFriendHashMap.remove(user.getUsername());
         System.out.println("unBlock " + user.getUsername() + " successfully!");
     }
-
 }
