@@ -2,8 +2,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 /**
  * The MessageDataBase class manages the storage and retrieval of messages.
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
+ * @version April 1, 2024
  */
-
 public class MessageDataBase implements MessageDataBaseInterface {
     // ArrayList to store all messages
     private ArrayList<Message> arrayList = new ArrayList<>();
