@@ -1,6 +1,6 @@
 import java.io.Serializable;
  /**
- * Interface for MessageInterface
+ * Interface for Message.java
  *
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
  *
