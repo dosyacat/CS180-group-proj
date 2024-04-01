@@ -1,3 +1,11 @@
+/**
+ * Interface for UserService.java
+ *
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ *
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
+ * @version April 1, 2024
+ */
 public interface UserServiceInterface {
 
     boolean checkSecurity(String account, String password);
