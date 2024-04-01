@@ -165,11 +165,12 @@ public class Client {
         }
 
     }
-
+    //Method for check messages the user have sent.
     private void checkSendMessages(User user) {
         user.getMessageDataBase().showSendMessages();
     }
 
+    //Method for user to send pictures.
     private void sendPictureMessages(User user) {
         while (true) {
             System.out.println("Send private message");
@@ -212,10 +213,12 @@ public class Client {
         }
     }
 
+    //Method for check pirctures the user received
     private void checkReceivePictures(User user) {
         user.getMessageDataBase().showReceivePictures();
     }
 
+    //Methods for check messages the user received.
     private void checkReceiveMessages(User user) {
         user.getMessageDataBase().showReceiveMessages();
     }
@@ -483,6 +486,7 @@ public class Client {
         }
     }
 
+    //Method for Setting Menu
     private void settingMenu(User user) {
         System.out.println("Welcome to the Setting!");
         while (true) {
