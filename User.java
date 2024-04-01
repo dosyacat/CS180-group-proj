@@ -131,7 +131,7 @@ public class User implements Serializable, UserInterface {
         return messageDataBase;
     }
     //Default Constructor
-    public User() {}
+    public User() { }
     //Parameterized Constructor 
     public User(String username, String password) {
         this.username = username;
@@ -187,7 +187,7 @@ public class User implements Serializable, UserInterface {
     }
     //Method to display profile information
     public void profileInformation() {
-        System.out.println("=========== " + username +"=============");
+        System.out.println("=========== " + username + "=============");
         System.out.println(this.toString());
     }
 }

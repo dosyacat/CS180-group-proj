@@ -1,9 +1,6 @@
 
 
 public class UserService {
-
-    private User user = new User();
-
     public boolean checkSecurity(String account, String password) {
         return DataBase.check(account, password);
     }
@@ -44,10 +41,5 @@ public class UserService {
     public int checkMessageCount(User user1, User user2) {
         return user1.getMessageDataBase().getReceiveMessageHashMap().get(user2.getUsername()).size();
     }
-
-
-
-
-
 
 }
