@@ -5,7 +5,7 @@ import java.io.Serializable;
  * Implements SuperMessage to provide message-related functionality.
  */
 
-public class Message implements Serializable, SuperMessage {
+public class Message implements Serializable, SuperMessage, MessageInterface {
 
     private String sender;
     private String receiver;
