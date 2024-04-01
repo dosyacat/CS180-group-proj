@@ -3,8 +3,10 @@ import java.io.Serializable;
  * The Message class represents a message in the messaging system.
  * Implements Serializable to allow objects of this class to be serialized.
  * Implements SuperMessage to provide message-related functionality.
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
+ * @version April 1, 2024
  */
-
 public class Message implements Serializable, SuperMessage, MessageInterface {
 
     private String sender;
