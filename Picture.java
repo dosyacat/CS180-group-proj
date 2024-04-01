@@ -12,7 +12,7 @@ import java.io.IOException;
  * The Picture class provides methods for uploading and displaying images.
  */
 
-public class Picture {
+public class Picture implements PictureInterface {
     //Uploads a picture from the user's computer.
     public static byte[] uploadPicture() {
         byte[][] fileBytes = new byte[1][];
