@@ -3,7 +3,7 @@ import java.util.HashMap;
  * The DataBase class manages the storage and retrieval of user data.
  */
 
-public class DataBase implements DataBaseInterface{
+public class DataBase implements DataBaseInterface {
     // HashMap to store users with their usernames as keys
     private static HashMap<String, User> userHashMap = new HashMap<>();
     //Adds a user to the database.
@@ -14,8 +14,7 @@ public class DataBase implements DataBaseInterface{
     public static boolean check(String account, String password) {
         User user = userHashMap.get(account);
         if (user == null) return false;
-        if (!(user.getPassword().equals(password))) return false;
-        return true;
+        return user.getPassword().equals(password);
     }
     //Displays information about all users in the database and allows viewing their profile pictures
     public static void userInformation() {

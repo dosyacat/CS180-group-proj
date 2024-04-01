@@ -1,6 +1,4 @@
-import java.sql.SQLOutput;
 
-@SuppressWarnings("all")
 public class Client {
 
     private String key = "";
@@ -281,8 +279,7 @@ public class Client {
                 System.out.println("Enter Y/y to exit, Enter N/n to try it again.");
                 char answer = Input.readSelection();
                 if (answer == 'Y') return;
-            }
-            else break;
+            } else break;
         }
         System.out.println("Which one do you want to delete?");
         int count = userService.checkMessageCount(user, DataBase.findUser(name));
@@ -395,7 +392,8 @@ public class Client {
                             System.out.println("Who do you want to unblock?");
                             String username = Input.readString(20, false);
                             while (!userService.checkBlocked(user, DataBase.findUser(username))) {
-                                System.out.println("The user you want to unblock does not exist in your blocked list");
+                                System.out.println("The user you want to unblock" +
+                                        " does not exist in your blocked list");
                                 System.out.println("Enter Y to exit, Enter N to try again.");
                                 char answer = Input.readSelection();
                                 if (answer == 'Y') return;
@@ -549,23 +547,23 @@ public class Client {
     //Edits or changes the profile picture
     private void editProfilesPicture(User user) {
         while (true) {
-        System.out.println("\t\t\t\t 1 Show Current Profile Picture");
-        System.out.println("\t\t\t\t 2 Upload a new Profile Picture");
-        System.out.println("\t\t\t\t 9 Exit");
-        String operation1 = Input.readString(1);
-        switch (operation1) {
-            case "1":
-                user.showProfilePicture();
-                break;
-            case "2":
-                System.out.println("Image upload manager has opened, Please check all programs in your computer.");
-                user.uploadProfilePicture();
-                break;
-            case "9":
-                System.out.println("Exit!");
-                return;
-            default:
-                System.out.println("Invalid input! Enter again!");
+            System.out.println("\t\t\t\t 1 Show Current Profile Picture");
+            System.out.println("\t\t\t\t 2 Upload a new Profile Picture");
+            System.out.println("\t\t\t\t 9 Exit");
+            String operation1 = Input.readString(1);
+            switch (operation1) {
+                case "1":
+                    user.showProfilePicture();
+                    break;
+                case "2":
+                    System.out.println("Image upload manager has opened, Please check all programs in your computer.");
+                    user.uploadProfilePicture();
+                    break;
+                case "9":
+                    System.out.println("Exit!");
+                    return;
+                default:
+                    System.out.println("Invalid input! Enter again!");
             }
         }
     }

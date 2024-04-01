@@ -73,10 +73,11 @@ public class Input implements InputInterface {
     //Reads an email address from the console input within the specified limit and allows or disallows blank return.
     public static String readEmail(int limit, boolean blankReturn) {
         String email = readKeyBoard(limit, blankReturn);
-        boolean flag = true;
-        while (!(flag = email.contains("@"))) {
+        boolean flag = email.contains("@");
+        while (!flag) {
             System.out.println("Invalid email. Please include an '@' in the email address, enter again:");
             email = readString(limit, blankReturn);
+            flag = email.contains("@");
         }
         return email;
     }

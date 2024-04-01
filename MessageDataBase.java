@@ -6,24 +6,24 @@ import java.util.HashMap;
 
 public class MessageDataBase implements MessageDataBaseInterface {
     // ArrayList to store all messages
-    private ArrayList<Message> ArrayList = new ArrayList<>();
+    private ArrayList<Message> arrayList = new ArrayList<>();
     // HashMap to store messages grouped by receiver
     private HashMap<String, ArrayList<Message>> messageHashMap = new HashMap<>();
     //Adds a message to the database.
     public void addMessage(Message message) {
         // Add the message to the ArrayList
-        ArrayList.add(message);
-        messageHashMap.put(message.getReceiver(), ArrayList);
+        arrayList.add(message);
+        messageHashMap.put(message.getReceiver(), arrayList);
     }
 
     //Gets the ArrayList containing all messages.
 
     public ArrayList<Message> getArrayList() {
-        return ArrayList;
+        return arrayList;
     }
     //Sets the ArrayList containing all messages.
     public void setArrayList(ArrayList<Message> sendArrayList) {
-        this.ArrayList = sendArrayList;
+        this.arrayList = sendArrayList;
     }
     //Gets the HashMap containing messages grouped by receiver.
     public HashMap<String, ArrayList<Message>> getMessageHashMap() {
