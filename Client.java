@@ -1,6 +1,4 @@
-
-public class Client {
-    /**
+/**
  * Client class - Contains the Main Method and runs the code
  *
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
@@ -8,8 +6,8 @@ public class Client {
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 1, 2024
  */
-public c
-
+public class Client {
+    
     private String key = "";
     private UserService userService = new UserService();
 
