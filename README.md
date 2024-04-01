@@ -1,12 +1,12 @@
-#Name
+## Name
 
 Messenger app, “ChatEase”
 
-#Description
+## Description
 
 Our messenger app offers a unique experience by enabling users to exchange individual messages seamlessly. What sets our app apart is its feature that displays a list of users interested in chatting, allowing you to initiate conversations by searching for their username or email. Additionally, users can create personalized bios, providing an opportunity to share insights about themselves or anything else they desire.
 
-#Usage
+### Usage
 
 Right now, our app is still under development, therefore, in order to start it, you would have to download the code and go to the class named “Client.java” and run it. 
 
