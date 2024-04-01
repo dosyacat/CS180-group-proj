@@ -111,7 +111,7 @@ public class Client {
 
                 case "9":
                     System.out.println("Exit!");
-                    return;
+                    System.exit(0);
 
                 default:
                     System.out.println("Invalid input! Enter again!");
