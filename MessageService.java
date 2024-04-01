@@ -1,8 +1,10 @@
 import java.util.Date;
 /**
- * The MessageService class provides methods for sending messages and picture messages.
+ *  The MessageService class provides methods for sending messages and picture messages.
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
+ * @version April 1, 2024
  */
-
 public class MessageService implements MessageServiceInterface {
     /* Sends a text message from the sender to the receiver with the given content.
        sender   The username of the sender
