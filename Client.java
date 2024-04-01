@@ -35,7 +35,7 @@ public class Client {
         }
     }
     // Method for user sign up
-    private void userSignUp() { 
+    private void userSignUp() {
         System.out.println("Please enter your Username, which will be limited to 20 digits");
         String username = Input.readString(20, false);
         while (DataBase.findUser(username) != null) {
@@ -475,7 +475,7 @@ public class Client {
             }
         }
     }
-    
+
     private void settingMenu(User user) {
         System.out.println("Welcome to the Setting!");
         while (true) {
@@ -556,7 +556,8 @@ public class Client {
                     user.showProfilePicture();
                     break;
                 case "2":
-                    System.out.println("Image upload manager has opened, Please check all programs in your computer.");
+                    System.out.println("Image upload manager has opened, " +
+                            "Please check all programs in your computer.");
                     user.uploadProfilePicture();
                     break;
                 case "9":
