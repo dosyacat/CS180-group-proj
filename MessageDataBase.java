@@ -4,7 +4,7 @@ import java.util.HashMap;
  * The MessageDataBase class manages the storage and retrieval of messages.
  */
 
-public class MessageDataBase {
+public class MessageDataBase implements MessageDataBaseInterface {
     // ArrayList to store all messages
     private ArrayList<Message> ArrayList = new ArrayList<>();
     // HashMap to store messages grouped by receiver
