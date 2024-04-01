@@ -4,26 +4,24 @@ Messenger app, “ChatEase”
 
 ## Description
 
-Our messenger app offers a unique experience by enabling users to exchange individual messages seamlessly. What sets our app apart is its feature that displays a list of users interested in chatting, allowing you to initiate conversations by searching for their username or email. Additionally, users can create personalized bios, providing an opportunity to share insights about themselves or anything else they desire.
+Our messaging platform, “ChatEase”, offers a unique user journey, ensuring smooth communication through the effortless exchange of individual messages. What sets our application apart is its innovative feature that curates a list of users eager to engage in conversations, empowering you to initiate dialogues by searching for their username or email. Additionally, users can personalize their profiles with bios, providing a platform to share personal anecdotes, interests, or any other relevant information. This feature enhances user interaction, fostering meaningful connections and enriching the overall messaging experience.   
 
 ### Usage
 
-Right now, our app is still under development, therefore, in order to start it, you would have to download the code and go to the class named “Client.java” and run it. 
-
-After running it, you would have to first sign up and therefore, create an account. When you have successfully created your account, you have to sign it using your credentials. If you’re signed in, you are able to see other users who have created an account and send them messages 
+Currently, our application is in the development phase. To begin using it, you will need to download the code and navigate to the "Client.java" class to execute it. Upon execution, you will be prompted to sign up and create an account. Once your account is created, you'll need to sign in using your credentials. After signing in successfully, you will gain access to view other users who also have registered accounts. You can then proceed to send messages to these users. This process ensures a seamless user experience as you navigate through the app's functionalities during its development stage.  
 
 
 ## 'Client.java'
 
 The Client class represents the main entry point for the messenger application. It provides functionality for user authentication, sign up, and navigation through various menus.
 
-## 'User.java'
+## 'User.java
 
-The User class represents a user of the messenger application. It encapsulates user information such as username, password, email, and bio, and provides methods for managing friends, messages, and profile information.
+The User class represents a user of the messenger application. It encapsulates user information such as username, password, email, and bio, and provides methods for managing friends, messages, and profile information. 
 
 ## 'Message.java'
 
-The Message class represents a message exchanged between users within the messenger application. It encapsulates information such as the sender, receiver, content, and timestamp of the message.
+The Message class serves as a representation of messages within a messaging system. It utilizes Serializable for object serialization and SuperMessage for extra message-related features. This class encapsulates sender, receiver, content, and message time properties, offering methods for retrieval and modification. Additionally, its toString method generates a string representation of the message. 
 
 ## 'Input.java'
 
