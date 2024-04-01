@@ -1,4 +1,10 @@
 import java.util.HashMap;
+/**
+ * UserFriendDataBase Class - To store information of friends
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
+ * @version April 1, 2024
+ */
 
 public class UserFriendDataBase implements UserFriendDataBaseInterface {
     // HashMap to store friends
