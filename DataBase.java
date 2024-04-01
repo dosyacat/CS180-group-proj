@@ -21,7 +21,7 @@ public class DataBase implements DataBaseInterface {
         System.out.println("Here is the information for our users!");
         int i = 1;
         for (User user : userHashMap.values()) {
-            System.out.println("User"+ i + ": " + user.toString());
+            System.out.println("User" + i + ": " + user.toString());
             System.out.println();
             i++;
         }
