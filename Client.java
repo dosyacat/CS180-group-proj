@@ -9,7 +9,7 @@ public class Client {
     public static void main(String[] args) {
         new Client().mainMenu();
     }
-
+    //Main menu for user interaction
     public void mainMenu() {
         while (true) {
             System.out.println("=========Welcome Login========");
@@ -36,8 +36,8 @@ public class Client {
             }
         }
     }
-
-    private void userSignUp() {
+    // Method for user sign up
+    private void userSignUp() { 
         System.out.println("Please enter your Username, which will be limited to 20 digits");
         String username = Input.readString(20, false);
         while (DataBase.findUser(username) != null) {
@@ -51,24 +51,25 @@ public class Client {
         String email = Input.readEmail(30, false);
         System.out.println("Please enter your bio, which will be limited to 100 words");
         String bio = Input.readString(100);
-
+        //Creating a new user object and adding it to database
         User user = new User(username, password, email, bio);
         DataBase.add(user);
         System.out.println("You have signed up successfully! And you can upload a picture as your profile at Setting!");
     }
-
+    //Method for User SignIn
     private void userSignin() {
         System.out.print("Please enter your account:");
         String account = Input.readString();
         System.out.print("Please enter your password:");
         String password = Input.readString();
+        //Checking user security credentials
         if (userService.checkSecurity(account, password)) {
             userMenu(account);
         } else {
             System.out.println("The account or password is not correct!");
         }
     }
-
+    //Method for user menu
     private void userMenu(String account) {
         System.out.println("==================== Welcome " + account + " !   =====================");
 
@@ -118,7 +119,7 @@ public class Client {
         }
     }
 
-
+    //Method for Message Menu
     private void messagesMenu(User user) {
         boolean flag = true;
         while (flag) {
@@ -213,7 +214,7 @@ public class Client {
     private void checkReceiveMessages(User user) {
         user.getMessageDataBase().showReceiveMessages();
     }
-
+    //Method to send messages
     private void sendMessages(User user) {
         while (true) {
             System.out.println("Send private message");
@@ -223,6 +224,7 @@ public class Client {
             if (DataBase.findUser(receiver) == null) {
                 System.out.print("Sending messages failed!");
                 System.out.println("Receiver not found");
+                //Option to exit or to try again
                 System.out.println("Enter Y to exit, Enter N to try it again.");
                 char answer = Input.readSelection();
                 if (answer == 'Y') break;
@@ -256,7 +258,7 @@ public class Client {
             break;
         }
     }
-
+    //Method to Delete Messages
     private void deleteMessages(User user) {
         user.getMessageDataBase().showReceiveMessages();
         if (user.getMessageDataBase().getReceiveMessageHashMap().isEmpty())
@@ -287,7 +289,7 @@ public class Client {
         int answer = Input.readRange(1, count);
         user.deleteMessage(name, answer);
     }
-
+    //Method to search for a user
     private void userSearch() {
         while (true) {
             System.out.println("Who are you searching for?");
@@ -308,7 +310,7 @@ public class Client {
             if (answer1 == 'N') return;
         }
     }
-
+    //Method for the friend Menu
     private void friendMenu(User user) {
         System.out.println("Welcome to your Friends Menu!");
         boolean flag = true;
@@ -330,6 +332,7 @@ public class Client {
                     break;
 
                 case "2":
+                    //Adding a friend
                     new Object() {
                         void judge() {
                             System.out.println("Who do you want to add?");
@@ -348,6 +351,7 @@ public class Client {
                     break;
 
                 case "3":
+                    //Removing a Friend
                     new Object() {
                         void judge() {
                             System.out.println("Who do you want to remove?");
@@ -366,6 +370,7 @@ public class Client {
                     break;
 
                 case "4":
+                    //Blocking a User
                     new Object() {
                         void judge() {
                             System.out.println("Who do you want to block?");
@@ -384,6 +389,7 @@ public class Client {
                     break;
 
                 case "5":
+                    //Unblocking a user
                     new Object() {
                         void judge() {
                             System.out.println("Who do you want to unblock?");
@@ -401,12 +407,14 @@ public class Client {
                     }.judge();
                     break;
                 case "6":
+                    //Displaying Blocked Accounts Lists
                     user.getFriendDataBase().blockedFriendsInfromation();
                     Input.pressAnyKeyToExit();
                     break;
 
 
                 case "7":
+                    //Handling Friend Requests
                     boolean flag1 = true;
                     while (flag1) {
                         user.getFriendDataBase().requestFriendsInformation();
@@ -469,7 +477,7 @@ public class Client {
             }
         }
     }
-
+    
     private void settingMenu(User user) {
         System.out.println("Welcome to the Setting!");
         while (true) {
@@ -493,7 +501,7 @@ public class Client {
             }
         }
     }
-
+    //Method to set and edit message privacy settings
     private void messagesPrivacyMenu(User user) {
         while (true) {
             if (user.isMessagePrivacySettings())
@@ -515,7 +523,7 @@ public class Client {
             }
         }
     }
-
+    //Method to display the profile menu and furthermore call the required method based on the user's choice
     private void profilesMenu(User user) {
         while (true) {
             user.profileInformation();
@@ -538,7 +546,7 @@ public class Client {
             }
         }
     }
-
+    //Edits or changes the profile picture
     private void editProfilesPicture(User user) {
         while (true) {
         System.out.println("\t\t\t\t 1 Show Current Profile Picture");
@@ -564,7 +572,7 @@ public class Client {
 
 
 
-
+    //Method to edit profile details
     private void editProfilesMenu(User user) {
         while (true) {
             System.out.println("What do you want to change?");
@@ -576,6 +584,7 @@ public class Client {
             String operation2 = Input.readString(2);
             switch (operation2) {
                 case "1":
+                    //Editing the Username
                     System.out.println("Please enter your Username, which will be limited to 20 digits");
                     String username = Input.readString(20, false);
 
@@ -592,6 +601,7 @@ public class Client {
                     break;
 
                 case "2":
+                    //Editing the Email
                     System.out.println("Please enter your email");
                     String email = Input.readEmail(30, false);
                     user.setEmail(email);
@@ -599,6 +609,7 @@ public class Client {
                     break;
 
                 case "3":
+                    //Edtiting the Bio
                     System.out.println("Please enter your bio, which will be limited to 100 words");
                     String bio = Input.readString(100);
                     user.setBio(bio);
@@ -606,6 +617,7 @@ public class Client {
                     break;
 
                 case "4" :
+                    //Editing the password
                     new Object() {
                         void judge() {
                             System.out.println("Please enter your current password!");
