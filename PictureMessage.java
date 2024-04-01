@@ -3,6 +3,9 @@ import java.io.Serializable;
  * The PictureMessage class represents a message containing an image.
  * Implements Serializable to allow objects of this class to be serialized.
  * Implements SuperMessage to provide message-related functionality.
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
+ * @version April 1, 2024
  */
 
 public class PictureMessage implements Serializable, SuperMessage, PictureMessageInterface {
