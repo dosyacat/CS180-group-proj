@@ -5,7 +5,7 @@ import java.io.Serializable;
  * Implements SuperMessage to provide message-related functionality.
  */
 
-public class PictureMessage implements Serializable, SuperMessage {
+public class PictureMessage implements Serializable, SuperMessage, PictureMessageInterface {
     private String sender;
     private String receiver;
     private byte[] image;
