@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
  /**
- * Interface for MessageDataBaseInterface
+ * Interface for MessageData.java
  *
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
  *
