@@ -4,18 +4,16 @@ Messenger app, “ChatEase”
 
 ## Description
 
-Our messenger app offers a unique experience by enabling users to exchange individual messages seamlessly. What sets our app apart is its feature that displays a list of users interested in chatting, allowing you to initiate conversations by searching for their username or email. Additionally, users can create personalized bios, providing an opportunity to share insights about themselves or anything else they desire.
+Our messaging platform, “ChatEase”, offers a unique user journey, ensuring smooth communication through the effortless exchange of individual messages. What sets our application apart is its innovative feature that curates a list of users eager to engage in conversations, empowering you to initiate dialogues by searching for their username or email. Additionally, users can personalize their profiles with bios, providing a platform to share personal anecdotes, interests, or any other relevant information. This feature enhances user interaction, fostering meaningful connections and enriching the overall messaging experience.  
 
 ### Usage
 
-Right now, our app is still under development, therefore, in order to start it, you would have to download the code and go to the class named “Client.java” and run it. 
-
-After running it, you would have to first sign up and therefore, create an account. When you have successfully created your account, you have to sign it using your credentials. If you’re signed in, you are able to see other users who have created an account and send them messages 
+Currently, our application is in the development phase. To begin using it, you will need to download the code and navigate to the "Client.java" class to execute it. Upon execution, you will be prompted to sign up and create an account. Once your account is created, you'll need to sign in using your credentials. After signing in successfully, you will gain access to view other users who also have registered accounts. You can then proceed to send messages to these users. This process ensures a seamless user experience as you navigate through the app's functionalities during its development stage. 
 
 
 ## 'Client.java'
 
-The Client class represents the main entry point for the messenger application. It provides functionality for user authentication, sign up, and navigation through various menus.
+The Client class serves as the primary gateway to the messenger app, offering features for user authentication, registration, and menu navigation. 
 
 ## 'User.java'
 
@@ -23,33 +21,97 @@ The User class represents a user of the messenger application. It encapsulates u
 
 ## 'Message.java'
 
-The Message class represents a message exchanged between users within the messenger application. It encapsulates information such as the sender, receiver, content, and timestamp of the message.
+ The Message class serves as a representation of messages within a messaging system. It utilizes Serializable for object serialization and SuperMessage for extra message-related features. This class encapsulates sender, receiver, content, and message time properties, offering methods for retrieval and modification. Additionally, its toString method generates a string representation of the message.
 
 ## 'Input.java'
 
- The Input class provides methods for reading user input from the console. It includes functionalities to read characters, integers within a range, strings with specified length limits, email addresses, and user selections.
-
+ The Input class simplifies console input in Java programs, providing functions for reading characters, integers with defined bounds, strings with or without spaces, and email addresses. It ensures input validation, manages empty or lengthy input, and prompts users for appropriate responses. 
+ 
 ## 'Database.java'
 
-The DataBase class serves as a storage mechanism for user data within the messenger application. It utilizes a HashMap to efficiently store and retrieve user objects based on their usernames.
+ The DataBase class serves as a data manager, utilizing a HashMap to link usernames to user objects. It enables adding users, verifying account credentials, and accessing user details. Additionally, it offers functionality for displaying user information and viewing profile pictures, enhancing the user experience. 
 
 ## 'MessageDataBase.java'
 
-The MessageDataBase class serves as a storage mechanism for messages within the messenger application. It maintains an ArrayList to store messages and a HashMap to index messages by receiver usernames for efficient retrieval.
+The MessageDataBase class functions as a storage system for messages in the messenger application. It utilizes an ArrayList to store messages and a HashMap to index messages by receiver usernames, ensuring efficient retrieval. 
 
 ## 'MessageService.java'
 
-The MessageService class provides functionality for sending messages between users within the messenger application. It creates a message object, sets its attributes such as sender, receiver, content, and time, and then adds the message to both the sender's and receiver's message lists.
+The MessageService class facilitates the exchange of messages among users in the messenger application. It initializes a message object, configuring its attributes like sender, receiver, content, and timestamp, before adding the message to both the sender's and receiver's message repositories. 
 
 ## 'UserFriendDataBase.java'
 
-The UserFriendDataBase class manages the friend-related functionalities for users within the messenger application. It keeps track of friends, friend requests, and blocked friends using separate hash maps. 
+In Java, the UserFriendDataBase class implements the UserFriendDataBaseInterface, overseeing user friendships. It manages friend requests, blocking/unblocking friends, and displaying friend lists. Utilizing HashMaps, it effectively stores and manages friend, request, and blocked friend information in the application.
 
 ## 'UserMessageDataBase.java'
 
-The UserMessageDataBase class manages the message-related functionalities for users within the messenger application. It keeps track of sent and received messages using separate array lists and hash maps. 
+The UserMessageDataBase class oversees message-related features for users in the messenger application. It tracks sent and received messages through separate array lists and hash maps. 
 
-## 'UserService'
+## 'UserService'.java
 
-The UserService class encapsulates several methods designed to manage and check various aspects of user interactions within a messenger application.
+The UserService class comprises multiple methods aimed at overseeing and verifying distinct aspects of user interactions within a messenger application. 
+
+## Picture.java
+
+The Picture class facilitates image uploading and display in a graphical user interface. Using Java's ImageIO and Swing libraries, it enables users to upload and view images from their computer, with resizable options. This enhances Java applications, offering seamless image handling and integration within the interface. 
+
+## PictureMessage.java
+
+PictureMessage class represents a serialized message with an image, implementing SuperMessage for message functionalities. It stores sender, receiver, image data, and time. Methods manage message details, including toString() for displaying the message with the image. 
+
+## DataBaseInterface.java
+
+The DataBaseInterface defines methods for database management in Java. It covers adding users, checking credentials, displaying user info with profile pictures, and finding users by username. It's a blueprint for implementing database operations, ensuring standardized interaction with user data. Implementing classes customize these methods as needed.
+
+## InputInterface.java
+
+The InputInterface simplifies console input handling in Java applications by providing methods to read characters, integers within specified limits or ranges, strings with or without spaces, email addresses, and single-character selections ('Y' or 'N'). Implementing classes are required to define these methods, promoting consistent input processing and enhancing usability across the application.
+
+## MessageDataBaseInterface.java
+
+The MessageDataBaseInterface defines methods for handling message data in Java applications. It includes functions for adding messages, accessing and updating message collections stored as ArrayLists and HashMaps. This interface acts as a guide for implementing message-related database operations in Java programs.
+
+## MessageInterface.java
+
+The MessageInterface extends Serializable and specifies methods for handling message data. It provides functionality to retrieve and update sender and receiver details, message content, and timestamp. This interface guarantees that message objects can be serialized to preserve data integrity during storage or transmission.
+
+## MessageServiceInterface.java
+
+The MessageServiceInterface defines methods for sending text and picture messages in Java applications. It provides functionality to send text messages with designated sender, receiver, and content, along with sending picture messages between users.
+
+## PictureInterface.java
+
+The PictureInterface manages picture-related tasks in Java apps, enabling users to upload images from their computers and display them. These methods serve as a framework for implementing picture functionalities while allowing adaptability in application development.
+
+## PictureMessageInterface.java
+
+The PictureMessageInterface handles picture messages in Java, allowing manipulation of sender, receiver, image data, and message time. It also facilitates conversion to string format and image display.
+
+## UserInterface.java
+
+The UserInterface, which extends Serializable, outlines methods to handle user data in Java applications. It covers functions such as managing friends, message privacy settings, handling messages, and accessing user profile details. Serving as a blueprint, it ensures uniformity and adaptability in application development.
+
+## UserFriendDataBaseInterface.java
+
+The UserFriendDataBaseInterface in Java outlines operations for handling user friendships. It enables adding, removing, and manipulating friends, accepting or declining friend requests, and blocking or unblocking friends. This interface supports retrieval of data about blocked friends, pending requests, and existing connections, facilitating effective user interaction in applications.
+
+## UserMessageDataBaseInterface.java
+
+The Java UserMessageDataBaseInterface manages user messages, enabling addition, display, and deletion of sent and received messages, alongside message count retrieval. It also offers functionality for accessing and modifying message arrays and hash maps, streamlining message management in applications.
+
+## UserService.java
+
+The UserServiceInterface provides essential user-related functionalities in Java apps, including security checks, friendship, message handling, and privacy settings. These methods enable efficient user interaction and security management within the application environment.
+
+
+
+
+
+
+
+
+
+
+
+
 	
