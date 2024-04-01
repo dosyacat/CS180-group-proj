@@ -10,6 +10,8 @@ Our messaging platform, “ChatEase”, offers a unique user journey, ensuring s
 
 Currently, our application is in the development phase. To begin using it, you will need to download the code and navigate to the "Client.java" class to execute it. Upon execution, you will be prompted to sign up and create an account. Once your account is created, you'll need to sign in using your credentials. After signing in successfully, you will gain access to view other users who also have registered accounts. You can then proceed to send messages to these users. This process ensures a seamless user experience as you navigate through the app's functionalities during its development stage.  
 
+In Phase 2 of the project, we will implementing a feature to store the database so that users can resume their sessions if they terminate the program and restart it. To achieve this, we plan to store the data on the server side rather than using a file-based approach. Socket connections will be established to facilitate communication with clients. However, we are currently encountering an issue where the data from the previous session is lost upon restarting the program, i.e., "as of now upon restart the information is lost and is not saved in the database like one would desire it to." 
+
 
 ## 'Client.java'
 
