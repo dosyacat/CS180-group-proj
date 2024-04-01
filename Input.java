@@ -1,25 +1,25 @@
 import java.util.*;
 /**
-
-
+ * The Input class provides methods for reading user input from the console.
  */
 public class Input {
 
     private static Scanner scanner = new Scanner(System.in);
 
+    // Reads a single character from the console input.
     public static char readChar() {
         String str = readKeyBoard(1);
         return str.charAt(0);
     }
 
-
+    //Prompts the user to press Enter key to exit.
     public static void pressAnyKeyToExit() {
         System.out.println("Press Enter key to exit...");
         scanner.nextLine();
         System.out.println("Exit!");
     }
 
-
+    //Reads an integer from the console input within the specified limit.
     public static int readInt(int limit) {
         int n;
         for (; ; ) {
@@ -34,7 +34,7 @@ public class Input {
 
         return n;
     }
-
+    //Reads an integer from the console input within the specified range.
     public static int readRange(int min, int max) {
         int n;
         for (; ; ) {
@@ -56,21 +56,21 @@ public class Input {
 
 
 
-
+    //Reads a string from the console input within the specified limit.
     public static String readString(int limit) {
         String str = readKeyBoard(limit);
         return str;
     }
-
+    //Reads a string from the console input.
     public static String readString() {
         return readKeyBoard();
     }
-
+    //Reads a string from the console input within the specified limit and allows or disallows spaces.
     public static String readString(int limit, boolean space) {
         return readKeyBoard(limit, space);
     }
 
-
+    //Reads an email address from the console input within the specified limit and allows or disallows blank return.
     public static String readEmail(int limit, boolean blankReturn) {
         String email = readKeyBoard(limit, blankReturn);
         boolean flag = true;
@@ -124,7 +124,7 @@ public class Input {
 
         return line;
     }
-
+    //Reads a single character ('Y' or 'N') from the console input
     public static char readSelection() {
         System.out.print("Please enter Y or N:");
         char c;
