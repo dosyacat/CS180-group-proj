@@ -9,6 +9,42 @@ public class User implements Serializable {
     private UserMessageDataBase messageDataBase = new UserMessageDataBase();
     private UserFriendDataBase friendDataBase = new UserFriendDataBase();
     private boolean messagePrivacySettings = true;
+    private byte[] picture;
+
+    public void setMessageDataBase(UserMessageDataBase messageDataBase) {
+        this.messageDataBase = messageDataBase;
+    }
+
+    public byte[] getPicture() {
+        return picture;
+    }
+
+    public void setPicture(byte[] picture) {
+        this.picture = picture;
+    }
+
+    public void showProfilePicture() {
+        if (picture == null) {
+            System.out.println("The user haven't set profile picture!");
+            return;
+        }
+        Picture.displayPicture(picture);
+    }
+
+    public void uploadProfilePicture() {
+        byte[] pictureBytes = Picture.uploadPicture();
+        while (pictureBytes == null) {
+            System.out.println("Invalid picture");
+            System.out.println("Enter N to exit, Enter Y to try again.");
+            char answer = Input.readSelection();
+            if (answer == 'N') return;
+            pictureBytes = Picture.uploadPicture();
+        }
+        this.setPicture(pictureBytes);
+        System.out.println("Upload Successfully! You can view your profile picture now!");
+    }
+
+
 
     public void setFriendDataBase(UserFriendDataBase friendDataBase) {
         this.friendDataBase = friendDataBase;
@@ -63,6 +99,14 @@ public class User implements Serializable {
 
     public UserFriendDataBase getFriendDataBase() {
         return friendDataBase;
+    }
+
+    public void addSendPicture(PictureMessage pictureMessage) {
+        messageDataBase.addSendPicture(pictureMessage);
+    }
+
+    public void addReceivePicture(PictureMessage pictureMessage) {
+        messageDataBase.addReceivePicture(pictureMessage);
     }
 
     public void addSendMessage(Message message) {

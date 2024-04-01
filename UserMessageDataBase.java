@@ -14,6 +14,50 @@ public class UserMessageDataBase {
     private ArrayList<Message> receiveArrayList = new ArrayList<>();
     private HashMap<String, ArrayList<Message>> receiveMessageHashMap = new HashMap<>();
 
+    private ArrayList<PictureMessage> sentPictureArrayList = new ArrayList<>();
+    private HashMap<String, ArrayList<PictureMessage>> sentPictureHashMap = new HashMap<>();
+
+    private ArrayList<PictureMessage> receivePictureArrayList = new ArrayList<>();
+    private HashMap<String, ArrayList<PictureMessage>> receivePictureHashMap = new HashMap<>();
+
+    public void addReceivePicture(PictureMessage pictureMessage) {
+        receiveMessagesCount++;
+        receivePictureArrayList = receivePictureHashMap.get(pictureMessage.getReceiver());
+        if (receivePictureArrayList == null) receivePictureArrayList = new ArrayList<>();
+        receivePictureArrayList.add(pictureMessage);
+        receivePictureHashMap.put(pictureMessage.getSender(), receivePictureArrayList);
+    }
+
+    public void addSendPicture(PictureMessage pictureMessage) {
+        sentMessagesCount++;
+        sentPictureArrayList = sentPictureHashMap.get(pictureMessage.getReceiver());
+        if (sentPictureArrayList == null) sentPictureArrayList = new ArrayList<>();
+        sentPictureArrayList.add(pictureMessage);
+        sentPictureHashMap.put(pictureMessage.getReceiver(), sentPictureArrayList);
+    }
+
+    public void showReceivePictures() {
+        if (receivePictureHashMap.isEmpty()) {
+            System.out.println("You haven't received any pictures!");
+            return;
+        }
+        int i = 1;
+        int j = 1;
+        System.out.println("===================Received Messages================");
+        for (Map.Entry<String, ArrayList<PictureMessage>> entry : receivePictureHashMap.entrySet()) {
+            System.out.println(i + " " + entry.getKey());
+            for (PictureMessage pictureMessage : entry.getValue()) {
+                System.out.println(j + pictureMessage.toString());
+                j++;
+            }
+            i++;
+            j = 1;
+        }
+    }
+
+
+
+
     public void addSendMessage(Message message) {
         sentMessagesCount++;
         allReceiveMessages.add(message);
@@ -34,7 +78,7 @@ public class UserMessageDataBase {
 
     public void showSendMessages() {
         if (sentMessageHashMap.isEmpty()) {
-            System.out.println("You haven't sent any messages!");
+            System.out.println("You haven't sent any text messages!");
             return;
         }
 
@@ -54,7 +98,7 @@ public class UserMessageDataBase {
 
     public void showReceiveMessages() {
         if (receiveMessageHashMap.isEmpty()) {
-            System.out.println("You haven't received any messages!");
+            System.out.println("You haven't received any text messages!");
             return;
         }
         int i = 1;

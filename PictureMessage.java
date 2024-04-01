@@ -1,10 +1,9 @@
 import java.io.Serializable;
 
-public class Message implements Serializable, SuperMessage {
-
+public class PictureMessage implements Serializable, SuperMessage {
     private String sender;
     private String receiver;
-    private String content;
+    private byte[] image;
     private String messageTime;
 
     public String getSender() {
@@ -23,12 +22,12 @@ public class Message implements Serializable, SuperMessage {
         this.receiver = receiver;
     }
 
-    public String getContent() {
-        return content;
+    public byte[] getImage() {
+        return image;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public String getMessageTime() {
@@ -41,10 +40,10 @@ public class Message implements Serializable, SuperMessage {
 
     @Override
     public String toString() {
+        Picture.displayPicture(image);
         return "\nMessage : " +
                 "\nsender : " + sender +
                 ", receiver :" + receiver +
-                "\ncontent : " + content +
                 "\nmessageTime : " + messageTime;
     }
 }

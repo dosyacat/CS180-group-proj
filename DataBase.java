@@ -22,11 +22,26 @@ public class DataBase{
             System.out.println();
             i++;
         }
+        while (true) {
+            System.out.println("Do you want to view user profile picture?");
+            System.out.println("Enter N to exit, Enter Y to view");
+            char answer = Input.readSelection();
+            if (answer == 'N') return;
+            System.out.println("Whose profile picture do you want to check");
+            String username = Input.readString(20, false);
+            while (DataBase.findUser(username) == null) {
+                System.out.println("User not found");
+                System.out.println("Enter N to exit, Enter Y to try it again.");
+                char answer1 = Input.readSelection();
+                if (answer1 == 'N') return;
+                username = Input.readString(20, false);
+            }
+            DataBase.findUser(username).showProfilePicture();
+        }
     }
 
     public static User findUser(String username) {
         return userHashMap.get(username);
     }
-
 
 }

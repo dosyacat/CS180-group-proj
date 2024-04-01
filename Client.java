@@ -52,10 +52,9 @@ public class Client {
         System.out.println("Please enter your bio, which will be limited to 100 words");
         String bio = Input.readString(100);
 
-
         User user = new User(username, password, email, bio);
         DataBase.add(user);
-        System.out.println("You have signed up successfully!");
+        System.out.println("You have signed up successfully! And you can upload a picture as your profile at Setting!");
     }
 
     private void userSignin() {
@@ -128,6 +127,8 @@ public class Client {
             System.out.println("\t\t\t\t2 Check Messages Received");
             System.out.println("\t\t\t\t3 Sent Messages");
             System.out.println("\t\t\t\t4 Delete Messages Sent");
+            System.out.println("\t\t\t\t5 Send Picture Message");
+            System.out.println("\t\t\t\t6 Check Picture Messages Received");
             System.out.println("\t\t\t\t9 Exit");
             String operation = Input.readString(1, false);
             switch (operation) {
@@ -143,6 +144,12 @@ public class Client {
                 case "4" :
                     deleteMessages(user);
                     break;
+                case "5" :
+                    sendPictureMessages(user);
+                    break;
+                case "6" :
+                    checkReceivePictures(user);
+                    break;
                 case "9" :
                     System.out.println("Exit!");
                     return;
@@ -155,6 +162,52 @@ public class Client {
 
     private void checkSendMessages(User user) {
         user.getMessageDataBase().showSendMessages();
+    }
+
+    private void sendPictureMessages(User user) {
+        while (true) {
+            System.out.println("Send private message");
+            System.out.println("Who do you want to send?");
+            String receiver = Input.readString(20);
+
+            if (DataBase.findUser(receiver) == null) {
+                System.out.print("Sending messages failed!");
+                System.out.println("Receiver not found");
+                System.out.println("Enter Y to exit, Enter N to try it again.");
+                char answer = Input.readSelection();
+                if (answer == 'Y') break;
+                continue;
+            }
+
+            if (!userService.chechMessagePrivacySetting(DataBase.findUser(receiver))) {
+                System.out.print("Sending messages failed!");
+                System.out.println("The other person has their settings " +
+                        "adjusted to only receive messages from friends!");
+                System.out.println("Enter Y to exit, Enter N to try it again.");
+                char answer = Input.readSelection();
+                if (answer == 'Y') break;
+                continue;
+            }
+
+            if (userService.checkBlocked(user, DataBase.findUser(receiver))) {
+                System.out.println("Sending messages failed! You can't message someone who has blocked you " +
+                        "or someone you have blocked.");
+                System.out.println("Enter Y to exit, Enter N to try it again.");
+                char answer = Input.readSelection();
+                if (answer == 'Y') break;
+                continue;
+            }
+
+            if (receiver.equals(user.getUsername()))
+                System.out.println("You are sending messages to yourself!");
+            MessageService.sendPictureMessage(user.getUsername(), receiver);
+            break;
+
+        }
+    }
+
+    private void checkReceivePictures(User user) {
+        user.getMessageDataBase().showReceivePictures();
     }
 
     private void checkReceiveMessages(User user) {
@@ -199,7 +252,6 @@ public class Client {
                 System.out.println("You are sending messages to yourself!");
             System.out.println("What do you want to send?");
             String content = Input.readString(100000);
-
             MessageService.sendMessage(user.getUsername(), receiver, content);
             break;
         }
@@ -207,7 +259,7 @@ public class Client {
 
     private void deleteMessages(User user) {
         user.getMessageDataBase().showReceiveMessages();
-        if (user.getMessageDataBase().getReceiveMessagesCount() == 0)
+        if (user.getMessageDataBase().getReceiveMessageHashMap().isEmpty())
             return;
         String name = null;
         while (true) {
@@ -239,14 +291,21 @@ public class Client {
     private void userSearch() {
         while (true) {
             System.out.println("Who are you searching for?");
-            String answer = Input.readString(20, false);
-            User user1 = DataBase.findUser(answer);
+            String username = Input.readString(20, false);
+            User user1 = DataBase.findUser(username);
             if (user1 == null)
                 System.out.println("The user you are looking for does not exist.");
-            else System.out.println(user1.toString());
-            System.out.println("Enter Y to Exit, Enter N to Continue.");
+            else {
+                System.out.println(user1.toString());
+                System.out.println("Do you want to view the user profile picture?");
+                System.out.println("Enter N to exit, Enter Y to view");
+                char answer = Input.readSelection();
+                if (answer == 'N') return;
+                else user1.showProfilePicture();
+            }
+            System.out.println("Enter N to Exit, Enter Y to Continue.");
             char answer1 = Input.readSelection();
-            if (answer1 == 'Y') return;
+            if (answer1 == 'N') return;
         }
     }
 
@@ -461,11 +520,15 @@ public class Client {
         while (true) {
             user.profileInformation();
             System.out.println("\t\t\t\t 1 Edit Profiles");
+            System.out.println("\t\t\t\t 2 Edit Profiles Picture");
             System.out.println("\t\t\t\t 9 Exit");
             String operation1 = Input.readString(1);
             switch (operation1) {
                 case "1":
                     editProfilesMenu(user);
+                    break;
+                case "2" :
+                    editProfilesPicture(user);
                     break;
                 case "9":
                     System.out.println("Exit!");
@@ -475,6 +538,32 @@ public class Client {
             }
         }
     }
+
+    private void editProfilesPicture(User user) {
+        while (true) {
+        System.out.println("\t\t\t\t 1 Show Current Profile Picture");
+        System.out.println("\t\t\t\t 2 Upload a new Profile Picture");
+        System.out.println("\t\t\t\t 9 Exit");
+        String operation1 = Input.readString(1);
+        switch (operation1) {
+            case "1":
+                user.showProfilePicture();
+                break;
+            case "2":
+                System.out.println("Image upload manager has opened, Please check all programs in your computer.");
+                user.uploadProfilePicture();
+                break;
+            case "9":
+                System.out.println("Exit!");
+                return;
+            default:
+                System.out.println("Invalid input! Enter again!");
+            }
+        }
+    }
+
+
+
 
     private void editProfilesMenu(User user) {
         while (true) {
