@@ -1,8 +1,7 @@
+import org.w3c.dom.Node;
+
 import java.awt.*;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -28,6 +27,7 @@ public class UserService {
             socket = new Socket(InetAddress.getByName("127.0.0.1"), 9999);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
             Message message = new Message();
             message.setMessageType(Message.Message_LOGIN_CLIENT);
             oos.writeObject(message);
@@ -87,13 +87,43 @@ public class UserService {
     }
 
     public void userView() {
+        try {
+            Message message = new Message();
+            message.setMessageType(Message.Message_USERVIEW_CLIENT);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.writeObject(message);
+            oos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void userSearch() {
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            System.out.println("Who are you searching for?");
+            String username = Input.readString(20, false);
+            Message message = new Message();
+            message.setMessageType(Message.Message_USESEARCH_CLIENT);
+            message.setContent(username);
+            oos.writeObject(message);
+            oos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void logout() {
         Message message = new Message();
-        message.setMessageType(Message.Message_USERVIEW_CLIENT);
+        message.setMessageType(Message.Message_EXIT);
+        message.setSender(u.getUsername());
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             oos.writeObject(message);
-
-        } catch (IOException e) {
+            System.out.println(u.getUsername() + "Exit!");
+            System.exit(0);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -131,7 +161,8 @@ public class UserService {
     }
 
     //check how many messages user2 has sent to user1
-    public int checkMessageCount(User user1, User user2) {
+    public int checkMessageCount(User user1, User user2)
+    {
         return user1.getMessageDataBase().getReceiveMessageHashMap().get(user2.getUsername()).size();
     }
 

@@ -21,6 +21,9 @@ public class Message implements Serializable {
     public final static String Message_LOGIN_FAIL = "6";
     public final static String Message_USERVIEW_CLIENT = "7";
     public final static String Message_USERVIEW_SERVER = "8";
+    public final static String Message_USESEARCH_CLIENT = "9";
+    public final static String Message_USESEARCH_SERVER = "10";
+    public final static String Message_EXIT = "10";
 
     private static final long serialVersionUID = 1L;
     private String sender;

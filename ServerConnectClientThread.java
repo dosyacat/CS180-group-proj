@@ -22,10 +22,31 @@ public class ServerConnectClientThread extends Thread {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 Message message = (Message) ois.readObject();
+
                 if (message.getMessageType().equals(Message.Message_USERVIEW_CLIENT)) {
                     Message message1 = new Message();
                     message1.setMessageType(Message.Message_USERVIEW_SERVER);
+                    oos.writeObject(message1);
+                    oos.flush();
                     oos.writeObject(DataBase.getUserHashMap());
+                    oos.flush();
+                }
+
+                if (message.getMessageType().equals(Message.Message_USESEARCH_CLIENT)) {
+
+                    User user = DataBase.findUser(message.getContent());
+                    Message message1 = new Message();
+                    message1.setMessageType(Message.Message_USESEARCH_SERVER);
+                    oos.writeObject(message1);
+                    oos.flush();
+                    oos.writeObject(user);
+                    oos.flush();
+                }
+
+                if (message.getMessageType().equals(Message.Message_EXIT)) {
+                    System.out.println(message.getSender() + "Exit!");
+                    socket.close();
+                    return;
                 }
 
 

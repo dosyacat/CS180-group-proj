@@ -16,15 +16,19 @@ public class ClientConnectServerThread extends Thread {
     }
 
     @Override
-    public void run() {
+    public synchronized void run() {
         while (true) {
-            ObjectInputStream ois = null;
+
             try {
-                ois = new ObjectInputStream(socket.getInputStream());
+                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 Message message = (Message) ois.readObject();
                 if (message.getMessageType().equals(Message.Message_USERVIEW_SERVER)) {
                     HashMap<String, User> userHashMap = (HashMap<String, User>) ois.readObject();
                     userInformation(userHashMap);
+                }
+                if (message.getMessageType().equals(Message.Message_USESEARCH_SERVER)) {
+                    User user = (User) ois.readObject();
+                    System.out.println(user);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

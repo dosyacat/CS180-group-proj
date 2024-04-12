@@ -72,12 +72,9 @@ public class Server {
                                 oos.flush();
                                 ServerConnectClientThread serverConnectClientThread = new ServerConnectClientThread(socket, u.getUsername());
                                 serverConnectClientThread.start();
-
-                                System.out.println(this.getName() + " Stop!");
                             } else {
                                 message1.setMessageType(Message.Message_LOGIN_FAIL);
                                 oos.writeObject(message1);
-
                                 oos.close();
                                 ois.close();
                                 socket.close();

@@ -84,7 +84,7 @@ public class View {
                     break;
 
                 case "3":
-                    userSearch();
+                    userService.userSearch();
                     break;
 
                 case "4":
@@ -99,7 +99,7 @@ public class View {
                     return;
 
                 case "9":
-                    System.out.println("Exit!");
+                    userService.logout();
                     System.exit(0);
 
                 default:
