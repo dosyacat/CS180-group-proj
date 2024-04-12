@@ -43,28 +43,7 @@ public class View {
     }
     // Method for user sign up
     private void userSignUp() {
-        System.out.println("Please enter your Username, which will be limited to 20 digits");
-        String username = Input.readString(20, false);
-        while (DataBase.findUser(username) != null) {
-            System.out.println("This username is already taken! Enter again!");
-            username = Input.readString(20, false);
-        }
-
-        System.out.println("Please enter your password, which will be limited to 20 digits");
-        String password = Input.readString(20, false);
-        System.out.println("Please enter your email");
-        String email = Input.readEmail(30, false);
-        System.out.println("Please enter your bio, which will be limited to 100 words");
-        String bio = Input.readString(100);
-        //Creating a new user object and adding it to database
-        User user = new User(username, password, email, bio);
-        DataBase.add(user);
-        try {
-            Information.writeUser(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("You have signed up successfully! And you can upload a picture as your profile at Setting!");
+        userService.userSignUp();
     }
     //Method for User SignIn
     private void userSignin() {
@@ -97,7 +76,7 @@ public class View {
             key = Input.readString();
             switch (key) {
                 case "1":
-                    DataBase.userInformation();
+                    userService.userView();
                     break;
 
                 case "2":

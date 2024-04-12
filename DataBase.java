@@ -1,5 +1,6 @@
 
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
   /**
@@ -12,15 +13,18 @@ import java.util.HashMap;
  
 
 public class DataBase implements Serializable {
+
+
     // HashMap to store users with their usernames as keys
     private static HashMap<String, User> userHashMap = new HashMap<>();
 
-
-
-
     //Adds a user to the database.
     public static void add(User user) {
-        userHashMap.put(user.getUsername(), user);
+        try {
+            Information.writeUser(user);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     //Checks if the provided account and password match any user in the database.
     public static boolean check(String account, String password) {
@@ -33,8 +37,15 @@ public class DataBase implements Serializable {
         if (user == null) return false;
         return user.getPassword().equals(password);
     }
-    //Displays information about all users in the database and allows viewing their profile pictures
+
+      public static HashMap<String, User> getUserHashMap() {
+          userHashMap = Information.readUser();
+          return userHashMap;
+      }
+
+      //Displays information about all users in the database and allows viewing their profile pictures
     public static void userInformation() {
+        userHashMap = Information.readUser();
         System.out.println("Here is the information for our users!");
         int i = 1;
         for (User user : userHashMap.values()) {
@@ -61,6 +72,8 @@ public class DataBase implements Serializable {
     }
     //Finds a user in the database by username.
     public static User findUser(String username) {
+        userHashMap = Information.readUser();
+        if (userHashMap == null) return null;
         return userHashMap.get(username);
     }
 

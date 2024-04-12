@@ -19,18 +19,37 @@ public class Server {
                 Socket socket = ss.accept();
                 System.out.println("Connect successful!");
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-                ObjectOutputStream ops = new ObjectOutputStream(socket.getOutputStream());
-                User u = (User) ois.readObject();
-                Message message = new Message();
-                if (DataBase.check(u.getUsername(), u.getPassword())) {
-                    message.setContent("Success!!");
-                    ops.writeObject(message);
-                    ServerConnectClientThread serverConnectClientThread = new ServerConnectClientThread(socket, u.getUsername());
-                    serverConnectClientThread.start();
-                }
-                else {
-                    message.setContent("Fail!!");
-                    ops.writeObject(message);
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+
+                Message message = (Message) ois.readObject();
+
+                switch (message.getMessageType()) {
+                    case Message.Message_SIGNUP_CLIENT :
+                        String userName = ((Message) ois.readObject()).getContent();
+                        if (DataBase.findUser(userName) != null) {
+                            Message message1 = new Message();
+                            message1.setMessageType(Message.Message_SIGNUP_FAIL);
+                            oos.writeObject(message1);
+                        } else {
+                            Message message1 = new Message();
+                            message1.setMessageType(Message.Message_SIGNUP_SUCCESSFUL);
+                            oos.writeObject(message1);
+                            User u = (User) ois.readObject();
+                            DataBase.add(u);
+                        }
+                        break;
+                    case Message.Message_LOGIN_CLIENT:
+                        User u = (User) ois.readObject();
+                        Message message1 = new Message();
+                        if (DataBase.check(u.getUsername(), u.getPassword())) {
+                            message1.setMessageType(Message.Message_LOGIN_SUCCESSFUL);
+                            oos.writeObject(message1);
+                            ServerConnectClientThread serverConnectClientThread = new ServerConnectClientThread(socket, u.getUsername());
+                            serverConnectClientThread.start();
+                        } else {
+                            message1.setMessageType(Message.Message_LOGIN_FAIL);
+                            oos.writeObject(message1);
+                        }
                 }
             }
         } catch (IOException | ClassNotFoundException e) {

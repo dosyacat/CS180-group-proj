@@ -17,9 +17,15 @@ public class ServerConnectClientThread extends Thread {
     public void run() {
         while (true) {
             try {
-                System.out.println("Server is connecting with" + userName);
+                System.out.println("Server is connecting with " + userName);
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 Message message = (Message) ois.readObject();
+                if (message.getMessageType().equals(Message.Message_USERVIEW_CLIENT)) {
+                    Message message1 = new Message();
+                    message1.setMessageType(Message.Message_USERVIEW_SERVER);
+                    oos.writeObject(DataBase.getUserHashMap());
+                }
 
 
             } catch (Exception e) {

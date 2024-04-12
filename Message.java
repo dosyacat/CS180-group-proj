@@ -10,12 +10,33 @@ import java.io.Serializable;
  */
 public class Message implements Serializable {
 
+    public final static String Message_SIGNUP_CLIENT = "0";
+    public final static String Message_SIGNUP_Server = "1";
+    public final static String Message_SIGNUP_SUCCESSFUL = "2";
+    public final static String Message_SIGNUP_FAIL = "3";
+
+    public final static String Message_LOGIN_SUCCESSFUL = "4";
+    public final static String Message_LOGIN_CLIENT = "5";
+    public final static String Message_LOGIN_SERVER = "9";
+    public final static String Message_LOGIN_FAIL = "6";
+    public final static String Message_USERVIEW_CLIENT = "7";
+    public final static String Message_USERVIEW_SERVER = "8";
 
     private static final long serialVersionUID = 1L;
     private String sender;
     private String receiver;
     private String content;
     private String messageTime;
+    private String messageType;
+
+    public String getMessageType() {
+        return messageType;
+    }
+
+    public void setMessageType(String messageType) {
+        this.messageType = messageType;
+    }
+
     //Gets the sender of the message.
     public String getSender() {
         return sender;

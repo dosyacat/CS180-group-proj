@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
@@ -17,6 +18,7 @@ public class UserService {
 
     private User u = new User();
     private Socket socket;
+    private ClientConnectServerThread clientConnectServerThread;
 
     public boolean checkSecurity(String account, String password) {
         boolean b = false;
@@ -25,13 +27,16 @@ public class UserService {
         try {
             socket = new Socket(InetAddress.getByName("127.0.0.1"), 9999);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            Message message = new Message();
+            message.setMessageType(Message.Message_LOGIN_CLIENT);
+            oos.writeObject(message);
+
             oos.writeObject(u);
 
-            ObjectInput ois = new ObjectInputStream(socket.getInputStream());
-            Message message = (Message) ois.readObject();
-            if (message.getContent().equals("Success!!")) {
-                ClientConnectServerThread clientConnectServerThread
-                        = new ClientConnectServerThread(socket);
+            Message message1 = (Message) ois.readObject();
+            if (message1.getMessageType().equals(Message.Message_LOGIN_SUCCESSFUL)) {
+                clientConnectServerThread = new ClientConnectServerThread(socket);
                 clientConnectServerThread.start();
                 return true;
             } else {
@@ -40,6 +45,56 @@ public class UserService {
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void userSignUp() {
+        try {
+            socket = new Socket(InetAddress.getByName("127.0.0.1"), 9999);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            Message message = new Message();
+            message.setMessageType(Message.Message_SIGNUP_CLIENT);
+            oos.writeObject(message);
+
+            System.out.println("Please enter your Username, which will be limited to 20 digits");
+            String username = Input.readString(20, false);
+
+            Message message2 = new Message();
+            message2.setContent(username);
+            oos.writeObject(message2);
+
+            Message message1 = (Message) ois.readObject();
+
+            if (message1.getMessageType().equals(Message.Message_SIGNUP_FAIL)) {
+                System.out.println("This username is already taken!");
+                return;
+            }
+
+            System.out.println("Please enter your password, which will be limited to 20 digits");
+            String password = Input.readString(20, false);
+            System.out.println("Please enter your email");
+            String email = Input.readEmail(30, false);
+            System.out.println("Please enter your bio, which will be limited to 100 words");
+            String bio = Input.readString(100);
+            //Creating a new user object and adding it to database
+            User user = new User(username, password, email, bio);
+            oos.writeObject(user);
+            System.out.println("You have signed up successfully! And you can upload a picture as your profile at Setting!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void userView() {
+        Message message = new Message();
+        message.setMessageType(Message.Message_USERVIEW_CLIENT);
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.writeObject(message);
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
