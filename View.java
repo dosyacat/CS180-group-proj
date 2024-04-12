@@ -52,7 +52,7 @@ public class View {
         System.out.print("Please enter your password:");
         String password = Input.readString();
         //Checking user security credentials
-        if (userService.checkSecurity(account, password)) {
+        if (userService.userSignIn(account, password)) {
             userMenu(account);
         } else {
             System.out.println("The account or password is not correct!");
@@ -616,7 +616,7 @@ public class View {
                         void judge() {
                             System.out.println("Please enter your current password!");
                             String currentPassword = Input.readString(20, false);
-                            while (!userService.checkSecurity(user.getUsername(), currentPassword)) {
+                            while (!userService.userSignIn(user.getUsername(), currentPassword)) {
                                 System.out.println("The password is not correct!");
                                 System.out.println("Enter Y to exit, Enter N to try again.");
                                 char answer = Input.readSelection();

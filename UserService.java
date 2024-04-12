@@ -20,7 +20,7 @@ public class UserService {
     private Socket socket;
     private ClientConnectServerThread clientConnectServerThread;
 
-    public boolean checkSecurity(String account, String password) {
+    public boolean userSignIn(String account, String password) {
         boolean b = false;
         u.setUsername(account);
         u.setPassword(password);

@@ -17,6 +17,7 @@ public class ServerConnectClientThread extends Thread {
     public void run() {
         while (true) {
             try {
+                System.out.println(socket.toString());
                 System.out.println("Server is connecting with " + userName);
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
