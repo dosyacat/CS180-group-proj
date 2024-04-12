@@ -1,15 +1,17 @@
 import java.io.Serializable;
-import java.util.ArrayList;
+
 /**
  * The User class represents a user in the messaging system.
  * Implements Serializable to allow objects of this class to be serialized.
- * Implements UserInterface to provide user-related functionality.
+ * Implements Interface.UserInterface to provide user-related functionality.
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 1, 2024
  */
 
-public class User implements Serializable, UserInterface {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private String username;
     private String password;
     private String email;
@@ -149,6 +151,19 @@ public class User implements Serializable, UserInterface {
         this.email = email;
         this.bio = bio;
     }
+
+    public User(String username,
+                String password,
+                String email,
+                String bio,
+                boolean messagePrivacySettings) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.bio = bio;
+        this.messagePrivacySettings = messagePrivacySettings;
+    }
+
     //Gets Username
     public String getUsername() {
         return username;
@@ -177,6 +192,7 @@ public class User implements Serializable, UserInterface {
     public String getBio() {
         return bio;
     }
+
     //Sets User's Bio
     public void setBio(String bio) {
         this.bio = bio;

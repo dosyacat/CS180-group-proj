@@ -1,3 +1,4 @@
+
 import java.util.*;
    /**
  * The Input class provides methods for reading user input from the console.
@@ -6,7 +7,7 @@ import java.util.*;
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 1, 2024
  */
-public class Input implements InputInterface {
+public class Input {
 
     private static Scanner scanner = new Scanner(System.in);
 

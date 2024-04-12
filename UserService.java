@@ -1,4 +1,12 @@
-    /**
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+/**
  * UserService Class - Facilitates the User Experience by providing various functions
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
@@ -7,8 +15,32 @@
 
 public class UserService {
 
+    private User u = new User();
+    private Socket socket;
+
     public boolean checkSecurity(String account, String password) {
-        return DataBase.check(account, password);
+        boolean b = false;
+        u.setUsername(account);
+        u.setPassword(password);
+        try {
+            socket = new Socket(InetAddress.getByName("127.0.0.1"), 9999);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.writeObject(u);
+
+            ObjectInput ois = new ObjectInputStream(socket.getInputStream());
+            Message message = (Message) ois.readObject();
+            if (message.getContent().equals("Success!!")) {
+                ClientConnectServerThread clientConnectServerThread
+                        = new ClientConnectServerThread(socket);
+                clientConnectServerThread.start();
+                return true;
+            } else {
+                socket.close();
+                return false;
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean checkBlocked(User user1, User user2) {

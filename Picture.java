@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.Serializable;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.io.IOException;
 /**
  * The Picture class provides methods for uploading and displaying images.
@@ -15,7 +15,7 @@ import java.io.IOException;
  * @version April 1, 2024
  */
 
-public class Picture implements PictureInterface {
+public class Picture implements Serializable {
     //Uploads a picture from the user's computer.
     public static byte[] uploadPicture() {
         byte[][] fileBytes = new byte[1][];

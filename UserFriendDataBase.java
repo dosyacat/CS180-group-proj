@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.HashMap;
 /**
  * UserFriendDataBase Class - To store information of friends
@@ -6,7 +7,7 @@ import java.util.HashMap;
  * @version April 1, 2024
  */
 
-public class UserFriendDataBase implements UserFriendDataBaseInterface {
+public class UserFriendDataBase implements Serializable {
     // HashMap to store friends
     private HashMap<String, User> friendHashMap = new HashMap<>();
     // HashMap to store friend requests

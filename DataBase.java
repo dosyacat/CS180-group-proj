@@ -1,3 +1,6 @@
+
+
+import java.io.Serializable;
 import java.util.HashMap;
   /**
  * The DataBase class manages the storage and retrieval of user data.
@@ -8,16 +11,25 @@ import java.util.HashMap;
  */
  
 
-public class DataBase implements DataBaseInterface {
+public class DataBase implements Serializable {
     // HashMap to store users with their usernames as keys
     private static HashMap<String, User> userHashMap = new HashMap<>();
+
+
+
+
     //Adds a user to the database.
     public static void add(User user) {
         userHashMap.put(user.getUsername(), user);
     }
     //Checks if the provided account and password match any user in the database.
     public static boolean check(String account, String password) {
-        User user = userHashMap.get(account);
+        User user = null;
+        try {
+            user = Information.readUser(account);
+        } catch (Exception e) {
+            System.out.println("Reading user error");
+        }
         if (user == null) return false;
         return user.getPassword().equals(password);
     }
