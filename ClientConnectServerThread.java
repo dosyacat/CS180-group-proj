@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.HashMap;
 
@@ -21,14 +22,36 @@ public class ClientConnectServerThread extends Thread {
 
             try {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 Message message = (Message) ois.readObject();
-                if (message.getMessageType().equals(Message.Message_USERVIEW_SERVER)) {
-                    HashMap<String, User> userHashMap = (HashMap<String, User>) ois.readObject();
-                    userInformation(userHashMap);
-                }
-                if (message.getMessageType().equals(Message.Message_USESEARCH_SERVER)) {
-                    User user = (User) ois.readObject();
-                    System.out.println(user);
+                switch (message.getMessageType()) {
+                    case Message.Message_USERVIEW_SERVER :
+                        HashMap<String, User> userHashMap = (HashMap<String, User>) ois.readObject();
+                        userInformation(userHashMap);
+                        break;
+                    case Message.Message_USESEARCH_SERVER :
+                        User user = (User) ois.readObject();
+                        System.out.println(user);
+                        break;
+                    case Message.Message_EDIT_USERNAME_SERVER_FAIL :
+                        System.out.println("This username is already taken!");
+                        break;
+                    case Message.Message_EDIT_USERNAME_SERVER_SUCCESSFUL :
+                        System.out.println("Username has been changed.");
+                        System.out.println(
+                                "Please proceed with caution " +
+                                        "and use the newly assigned username for login purposes.");
+                        break;
+                    case Message.Message_EDIT_EMAIL_SERVER :
+                        System.out.println("Email has been changed.");
+                        break;
+                    case Message.Message_EDIT_PASSWORD_SUCCESSFUL:
+                        System.out.println("Please enter your new password!");
+                        String password = Input.readString(20, false);
+                        Message message1 = new Message();
+                        message1.setContent(password);
+
+                        break;
                 }
             } catch (Exception e) {
                 e.printStackTrace();

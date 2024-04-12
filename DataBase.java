@@ -16,15 +16,12 @@ public class DataBase implements Serializable {
 
 
     // HashMap to store users with their usernames as keys
-    private static HashMap<String, User> userHashMap = new HashMap<>();
+    private static HashMap<String, User> userHashMap = Information.readUser();
 
     //Adds a user to the database.
     public static void add(User user) {
-        try {
-            Information.writeUser(user);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Information.writeUser(user);
+        userHashMap = Information.readUser();
     }
     //Checks if the provided account and password match any user in the database.
     public static boolean check(String account, String password) {
@@ -38,16 +35,29 @@ public class DataBase implements Serializable {
         return user.getPassword().equals(password);
     }
 
-      public static HashMap<String, User> getUserHashMap() {
-          userHashMap = Information.readUser();
+    public static HashMap<String, User> getUserHashMap() {
           return userHashMap;
-      }
+    }
 
     //Finds a user in the database by username.
-    public static User findUser(String username) {
-        userHashMap = Information.readUser();
+    public static User findUser(String userName) {
         if (userHashMap == null) return null;
-        return userHashMap.get(username);
+        return userHashMap.get(userName);
+    }
+
+    public static void editUserName(String oldUserName, String newUserName) {
+        User user = userHashMap.get(oldUserName);
+        user.setUsername(newUserName);
+        userHashMap.remove(oldUserName);
+        userHashMap.put(newUserName, user);
+        Information.writeUser(userHashMap);
+        userHashMap = Information.readUser();
+    }
+    public static void editEmail(String userName, String email) {
+        User user = userHashMap.get(userName);
+        user.setEmail(email);
+        Information.writeUser(userHashMap);
+        userHashMap = Information.readUser();
     }
 
 }

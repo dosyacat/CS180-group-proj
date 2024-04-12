@@ -14,7 +14,6 @@ public class Message implements Serializable {
     public final static String Message_SIGNUP_Server = "1";
     public final static String Message_SIGNUP_SUCCESSFUL = "2";
     public final static String Message_SIGNUP_FAIL = "3";
-
     public final static String Message_LOGIN_SUCCESSFUL = "4";
     public final static String Message_LOGIN_CLIENT = "5";
     public final static String Message_LOGIN_SERVER = "9";
@@ -23,7 +22,15 @@ public class Message implements Serializable {
     public final static String Message_USERVIEW_SERVER = "8";
     public final static String Message_USESEARCH_CLIENT = "9";
     public final static String Message_USESEARCH_SERVER = "10";
-    public final static String Message_EXIT = "10";
+    public final static String Message_EXIT = "11";
+    public final static String Message_EDIT_USERNAME_CLIENT = "12";
+    public final static String Message_EDIT_USERNAME_SERVER_FAIL = "13";
+    public final static String Message_EDIT_USERNAME_SERVER_SUCCESSFUL = "14";
+    public final static String Message_EDIT_EMAIL_CLIENT = "15";
+    public final static String Message_EDIT_EMAIL_SERVER = "16";
+    public final static String Message_EDIT_PASSWORD_CLIENT = "17";
+    public final static String Message_EDIT_PASSWORD_FAIL = "18";
+    public final static String Message_EDIT_PASSWORD_SUCCESSFUL = "18";
 
     private static final long serialVersionUID = 1L;
     private String sender;

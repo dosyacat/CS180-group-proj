@@ -2,6 +2,16 @@ import java.io.*;
 import java.util.HashMap;
 
 public class Information {
+    public static void clearFile(String filePath) {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath, false);
+            fileWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public static User readUser(String userName) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new FileReader("UserFile"));
         String line;
@@ -13,16 +23,22 @@ public class Information {
                 user = new User(userSplit[0], userSplit[1], userSplit[2], userSplit[3], messagePrivacySetting);
             }
         }
+        bufferedReader.close();
         return user;
     }
 
-    public static void writeUser(User user) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("UserFile", true));
-        bufferedWriter.append(user.getUsername() + " " + user.getPassword() +
-                " " + user.getEmail() + " " + user.getBio() + " " + user.isMessagePrivacySettings());
-        bufferedWriter.newLine();
-        bufferedWriter.close();
+    public static void writeUser(User user) {
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("UserFile", true));
+            bufferedWriter.append(user.getUsername() + " " + user.getPassword() +
+                    " " + user.getEmail() + " " + user.getBio() + " " + user.isMessagePrivacySettings());
+            bufferedWriter.newLine();
+            bufferedWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
 
     public static HashMap<String, User> readUser() {
         HashMap<String, User> userHashMap1 = new HashMap();
@@ -36,11 +52,19 @@ public class Information {
                 user = new User(userSplit[0], userSplit[1], userSplit[2], userSplit[3], messagePrivacySetting);
                 userHashMap1.put(userSplit[0], user);
             }
-            if (user == null) return null;
+            if (user == null) return new HashMap<>();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return userHashMap1;
+    }
+
+
+    public static void writeUser(HashMap<String, User> userHashMap) {
+        clearFile("UserFile");
+        for (User user : userHashMap.values()) {
+            writeUser(user);
+        }
     }
 
     public static void readMessage() {

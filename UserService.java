@@ -128,6 +128,52 @@ public class UserService {
         }
     }
 
+    public void editUserName() {
+        System.out.println("Please enter your new Username, which will be limited to 20 digits");
+        String username = Input.readString(20, false);
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            Message message = new Message();
+            message.setMessageType(Message.Message_EDIT_USERNAME_CLIENT);
+            message.setContent(username);
+            oos.writeObject(message);
+            oos.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editEmail() {
+        System.out.println("Please enter your email");
+        String email = Input.readEmail(30, false);
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            Message message = new Message();
+            message.setMessageType(Message.Message_EDIT_EMAIL_CLIENT);
+            message.setContent(email);
+            oos.writeObject(message);
+            oos.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editPassword() {
+        System.out.println("Please enter your current password!");
+        String currentPassword = Input.readString(20, false);
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            Message message = new Message();
+            message.setMessageType(Message.Message_EDIT_PASSWORD_CLIENT);
+            message.setContent(currentPassword);
+            oos.writeObject(message);
+            oos.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public boolean checkBlocked(User user1, User user2) {
         if (user1 == null || user2 == null) return false;
         return user1.getFriendDataBase().getBlockedFriendHashMap().containsKey(user2.getUsername()) ||

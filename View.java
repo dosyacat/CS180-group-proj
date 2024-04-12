@@ -579,27 +579,11 @@ public class View {
             switch (operation2) {
                 case "1":
                     //Editing the Username
-                    System.out.println("Please enter your Username, which will be limited to 20 digits");
-                    String username = Input.readString(20, false);
-
-                    while (DataBase.findUser(username) != null && !(username.equals(user.getUsername()))) {
-                        System.out.println("This username is already taken! Enter again!");
-                        System.out.println("Enter your original name if you do not wish to make changes.");
-                        username = Input.readString(20, false);
-                    }
-                    user.setUsername(username);
-                    System.out.println("Username has been changed.");
-                    System.out.println(
-                            "Please proceed with caution " +
-                                    "and use the newly assigned username for login purposes.");
-                    break;
+                   userService.editUserName();
+                   break;
 
                 case "2":
-                    //Editing the Email
-                    System.out.println("Please enter your email");
-                    String email = Input.readEmail(30, false);
-                    user.setEmail(email);
-                    System.out.println("Email has been changed.");
+                    userService.editEmail();
                     break;
 
                 case "3":
