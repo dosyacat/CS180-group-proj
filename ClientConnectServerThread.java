@@ -18,16 +18,12 @@ public class ClientConnectServerThread extends Thread {
 
     @Override
     public synchronized void run() {
-        while (true) {
+        /*while (true) {
 
             try {
-                ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+                ObjectInputStream ois = new ObjectInputStream();
                 Message message = (Message) ois.readObject();
                 switch (message.getMessageType()) {
-                    case Message.Message_USERVIEW_SERVER :
-                        HashMap<String, User> userHashMap = (HashMap<String, User>) ois.readObject();
-                        userInformation(userHashMap);
-                        break;
                     case Message.Message_USESEARCH_SERVER :
                         User user = (User) ois.readObject();
                         System.out.println(user);
@@ -44,8 +40,10 @@ public class ClientConnectServerThread extends Thread {
                     case Message.Message_EDIT_EMAIL_SERVER :
                         System.out.println("Email has been changed.");
                         break;
+                    case Message.Message_EDIT_BIO_SERVER :
+                        System.out.println("Bio has been changed.");
+                        break;
                     case Message.Message_EDIT_PASSWORD_SUCCESSFUL:
-                        Message message1 = new Message();
                         System.out.println("Password has been changed.");
                         break;
                     case Message.Message_EDIT_PASSWORD_FAIL:
@@ -59,14 +57,9 @@ public class ClientConnectServerThread extends Thread {
         }
     }
 
-    public void userInformation(HashMap<String, User> userHashMap) {
-        System.out.println("Here is the information for our users!");
-        int i = 1;
-        for (User user : userHashMap.values()) {
-            System.out.println("User" + i + ": " + user.toString());
-            System.out.println();
-            i++;
-        }
     }
+         */
 
+
+    }
 }

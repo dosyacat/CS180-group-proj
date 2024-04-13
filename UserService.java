@@ -5,6 +5,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 
 /**
  * UserService Class - Facilitates the User Experience by providing various functions
@@ -19,8 +20,7 @@ public class UserService {
     private Socket socket;
     private ClientConnectServerThread clientConnectServerThread;
 
-    public boolean userSignIn(String account, String password) {
-        boolean b = false;
+    public User userSignIn(String account, String password) {
         u.setUsername(account);
         u.setPassword(password);
         try {
@@ -36,12 +36,13 @@ public class UserService {
 
             Message message1 = (Message) ois.readObject();
             if (message1.getMessageType().equals(Message.Message_LOGIN_SUCCESSFUL)) {
+                u = (User) ois.readObject();
                 clientConnectServerThread = new ClientConnectServerThread(socket);
                 clientConnectServerThread.start();
-                return true;
+                return u;
             } else {
                 socket.close();
-                return false;
+                return null;
             }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -91,10 +92,26 @@ public class UserService {
             Message message = new Message();
             message.setMessageType(Message.Message_USERVIEW_CLIENT);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             oos.writeObject(message);
             oos.flush();
-        } catch (IOException e) {
+
+            Message message1 = (Message) ois.readObject();
+            if (message1.getMessageType().equals(Message.Message_USERVIEW_SERVER)) {
+                HashMap<String, User> userHashMap = (HashMap<String, User>) ois.readObject();
+                userInformation(userHashMap);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+    public void userInformation(HashMap<String, User> userHashMap) {
+        System.out.println("Here is the information for our users!");
+        int i = 1;
+        for (User user : userHashMap.values()) {
+            System.out.println("User" + i + ": " + user.toString());
+            System.out.println();
+            i++;
         }
     }
 
@@ -102,6 +119,7 @@ public class UserService {
 
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             System.out.println("Who are you searching for?");
             String username = Input.readString(20, false);
             Message message = new Message();
@@ -109,7 +127,12 @@ public class UserService {
             message.setContent(username);
             oos.writeObject(message);
             oos.flush();
-        } catch (IOException e) {
+            Message message1 = (Message) ois.readObject();
+            if (message1.getMessageType().equals(Message.Message_USESEARCH_SERVER)) {
+                User user = (User) ois.readObject();
+                System.out.println(user);
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -120,9 +143,9 @@ public class UserService {
         message.setSender(u.getUsername());
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+
             oos.writeObject(message);
             System.out.println(u.getUsername() + "Exit!");
-            System.exit(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,11 +156,23 @@ public class UserService {
         String username = Input.readString(20, false);
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             Message message = new Message();
             message.setMessageType(Message.Message_EDIT_USERNAME_CLIENT);
             message.setContent(username);
             oos.writeObject(message);
             oos.flush();
+            Message message1 = (Message) ois.readObject();
+            if (message1.getMessageType().equals(Message.Message_EDIT_USERNAME_SERVER_FAIL)) {
+                System.out.println("This username is already taken!");
+            } else if (message1.getMessageType().equals(Message.Message_EDIT_USERNAME_SERVER_SUCCESSFUL)) {
+                System.out.println("Username has been changed.");
+                System.out.println(
+                        "Please proceed with caution " +
+                                "and use the newly assigned username for login purposes.");
+                u.setUsername(username);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -148,11 +183,18 @@ public class UserService {
         String email = Input.readEmail(30, false);
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
             Message message = new Message();
             message.setMessageType(Message.Message_EDIT_EMAIL_CLIENT);
             message.setContent(email);
             oos.writeObject(message);
             oos.flush();
+            Message message1 = (Message) ois.readObject();
+            if (message1.getMessageType().equals(Message.Message_EDIT_EMAIL_SERVER)) {
+                System.out.println("Email has been changed.");
+                u.setEmail(email);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -161,19 +203,48 @@ public class UserService {
     public void editPassword() {
         System.out.println("Please enter your current password!");
         String currentPassword = Input.readString(20, false);
-        System.out.println("Please enter your new password!");
-        String password = Input.readString(20, false);
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
             Message message = new Message();
             message.setMessageType(Message.Message_EDIT_PASSWORD_CLIENT);
-            message.setContent(currentPassword + " " + password);
+            message.setContent(currentPassword);
             oos.writeObject(message);
             oos.flush();
+
+            Message message1 = (Message) ois.readObject();
+            if (message1.getMessageType().equals(Message.Message_EDIT_PASSWORD_SUCCESSFUL)) {
+                System.out.println("Please enter your new password!");
+                String password = Input.readString(20, false);
+                Message message2 = new Message();
+                message2.setContent(password);
+                oos.writeObject(message2);
+                System.out.println("Password has been changed!");
+                u.setPassword(password);
+            } else {
+                System.out.println("The current password is not correct!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void editBio() {
+        System.out.println("Please enter your bio, which will be limited to 100 words");
+        String bio = Input.readString(100);
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            Message message = new Message();
+            message.setMessageType(Message.Message_EDIT_BIO_CLIENT);
+            message.setContent(bio);
+            oos.writeObject(message);
+            oos.flush();
+            u.setBio(bio);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean checkBlocked(User user1, User user2) {

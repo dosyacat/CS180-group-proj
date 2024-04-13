@@ -31,10 +31,10 @@ public class ServerConnectClientThread extends Thread {
 
     @Override
     public void run() {
+
+        System.out.println("Server is connecting with " + userName);
         while (true) {
             try {
-                System.out.println(socket.toString());
-                System.out.println("Server is connecting with " + userName);
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 Message message = (Message) ois.readObject();
@@ -87,22 +87,31 @@ public class ServerConnectClientThread extends Thread {
                     DataBase.editEmail(this.userName, email);
                     Message message1 = new Message();
                     message1.setMessageType(Message.Message_EDIT_EMAIL_SERVER);
-
                     oos.writeObject(message1);
                     oos.flush();
 
                 }
 
-                if (message.getMessageType().equals(Message.Message_EDIT_PASSWORD_CLIENT)) {
-                    String[] passwords = message.getContent().split(" ");
-                    String currentPassword = passwords[0];
-                    String password = passwords[1];
+                if (message.getMessageType().equals(Message.Message_EDIT_BIO_CLIENT)) {
+                    String bio = message.getContent();
+                    DataBase.editBio(this.userName, bio);
                     Message message1 = new Message();
+                    message1.setMessageType(Message.Message_EDIT_BIO_SERVER);
+                    oos.writeObject(message1);
+                    oos.flush();
+                }
+
+                if (message.getMessageType().equals(Message.Message_EDIT_PASSWORD_CLIENT)) {
+                    String currentPassword = message.getContent();
+                    Message message1 = new Message();
+
                     if (DataBase.check(this.userName, currentPassword)) {
                         message1.setMessageType(Message.Message_EDIT_PASSWORD_SUCCESSFUL);
-                        DataBase.editPassword(this.userName, password);
                         oos.writeObject(message1);
                         oos.flush();
+                        Message message2 = (Message) ois.readObject();
+                        String password = message2.getContent();
+                        DataBase.editPassword(this.userName, password);
                     } else {
                         message1.setMessageType(Message.Message_EDIT_PASSWORD_FAIL);
                         oos.writeObject(message1);
@@ -112,7 +121,8 @@ public class ServerConnectClientThread extends Thread {
 
 
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(this.userName + "disconnect.");
+                return;
             }
         }
     }

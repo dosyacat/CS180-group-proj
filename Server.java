@@ -70,6 +70,8 @@ public class Server {
                                 message1.setMessageType(Message.Message_LOGIN_SUCCESSFUL);
                                 oos.writeObject(message1);
                                 oos.flush();
+                                User user = Information.readUser(u.getUsername());
+                                oos.writeObject(user);
                                 ServerConnectClientThread serverConnectClientThread = new ServerConnectClientThread(socket, u.getUsername());
                                 serverConnectClientThread.start();
                             } else {

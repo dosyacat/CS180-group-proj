@@ -52,19 +52,21 @@ public class View {
         System.out.print("Please enter your password:");
         String password = Input.readString();
         //Checking user security credentials
-        if (userService.userSignIn(account, password)) {
-            userMenu(account);
+        User user = userService.userSignIn(account, password);
+        if (user != null) {
+            userMenu(user);
         } else {
             System.out.println("The account or password is not correct!");
         }
     }
     //Method for user menu
-    private void userMenu(String account) {
-        System.out.println("==================== Welcome " + account + " !   =====================");
+    private void userMenu(User user) {
+        String userName = user.getUsername();
+        System.out.println("==================== Welcome " + userName + " !   =====================");
 
         while (true) {
-            User user = DataBase.findUser(account);
-            System.out.println("\t\t\t\t\tUser Menu (" + account + ")");
+
+            System.out.println("\t\t\t\t\tUser Menu (" + userName + ")");
             System.out.println("\t\t\t\t 1 User viewer");
             System.out.println("\t\t\t\t 2 Messages Menu");
             System.out.println("\t\t\t\t 3 User search");
@@ -96,6 +98,7 @@ public class View {
                     break;
 
                 case "8":
+                    userService.logout();
                     return;
 
                 case "9":
@@ -297,7 +300,6 @@ public class View {
             switch (operation) {
                 case "1":
                     user.getFriendDataBase().friendsInformation();
-                    Input.pressAnyKeyToExit();
                     break;
 
                 case "2":
@@ -565,11 +567,7 @@ public class View {
                     break;
 
                 case "3":
-                    //Edtiting the Bio
-                    System.out.println("Please enter your bio, which will be limited to 100 words");
-                    String bio = Input.readString(100);
-                    user.setBio(bio);
-                    System.out.println("Bio has been changed.");
+                    userService.editBio();
                     break;
 
                 case "4" :

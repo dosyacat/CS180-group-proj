@@ -28,6 +28,8 @@ public class Message implements Serializable {
     public final static String Message_EDIT_USERNAME_SERVER_SUCCESSFUL = "14";
     public final static String Message_EDIT_EMAIL_CLIENT = "15";
     public final static String Message_EDIT_EMAIL_SERVER = "16";
+    public final static String Message_EDIT_BIO_CLIENT = "20";
+    public final static String Message_EDIT_BIO_SERVER = "21";
     public final static String Message_EDIT_PASSWORD_CLIENT = "17";
     public final static String Message_EDIT_PASSWORD_FAIL = "18";
     public final static String Message_EDIT_PASSWORD_SUCCESSFUL = "19";

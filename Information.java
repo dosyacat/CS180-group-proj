@@ -26,7 +26,7 @@ public class Information {
         bufferedReader.close();
         return user;
     }
-
+    
     public static void writeUser(User user) {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("UserFile", true));
@@ -34,6 +34,11 @@ public class Information {
                     " " + user.getEmail() + " " + user.getBio() + " " + user.isMessagePrivacySettings());
             bufferedWriter.newLine();
             bufferedWriter.close();
+
+            BufferedWriter bufferedWriter1 = new BufferedWriter(new FileWriter("FriendsFile", true));
+            bufferedWriter1.append(user.getUsername() + ",");
+            bufferedWriter1.newLine();
+            bufferedWriter1.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,6 +70,10 @@ public class Information {
         for (User user : userHashMap.values()) {
             writeUser(user);
         }
+    }
+
+    public static void addFriends() {
+
     }
 
     public static void readMessage() {

@@ -57,6 +57,12 @@ public class DataBase implements Serializable {
         Information.writeUser(userHashMap);
         userHashMap = Information.readUser();
     }
+    public static void editBio(String userName, String bio) {
+      User user = userHashMap.get(userName);
+      user.setBio(bio);
+      Information.writeUser(userHashMap);
+      userHashMap = Information.readUser();
+    }
 
     public static void editPassword(String userName, String password) {
         User user = userHashMap.get(userName);
