@@ -161,11 +161,13 @@ public class UserService {
     public void editPassword() {
         System.out.println("Please enter your current password!");
         String currentPassword = Input.readString(20, false);
+        System.out.println("Please enter your new password!");
+        String password = Input.readString(20, false);
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             Message message = new Message();
             message.setMessageType(Message.Message_EDIT_PASSWORD_CLIENT);
-            message.setContent(currentPassword);
+            message.setContent(currentPassword + " " + password);
             oos.writeObject(message);
             oos.flush();
         } catch (Exception e) {

@@ -94,11 +94,19 @@ public class ServerConnectClientThread extends Thread {
                 }
 
                 if (message.getMessageType().equals(Message.Message_EDIT_PASSWORD_CLIENT)) {
-                    String currentPassword = message.getContent();
+                    String[] passwords = message.getContent().split(" ");
+                    String currentPassword = passwords[0];
+                    String password = passwords[1];
                     Message message1 = new Message();
                     if (DataBase.check(this.userName, currentPassword)) {
                         message1.setMessageType(Message.Message_EDIT_PASSWORD_SUCCESSFUL);
-
+                        DataBase.editPassword(this.userName, password);
+                        oos.writeObject(message1);
+                        oos.flush();
+                    } else {
+                        message1.setMessageType(Message.Message_EDIT_PASSWORD_FAIL);
+                        oos.writeObject(message1);
+                        oos.flush();
                     }
                 }
 

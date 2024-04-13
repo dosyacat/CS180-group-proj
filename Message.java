@@ -30,7 +30,7 @@ public class Message implements Serializable {
     public final static String Message_EDIT_EMAIL_SERVER = "16";
     public final static String Message_EDIT_PASSWORD_CLIENT = "17";
     public final static String Message_EDIT_PASSWORD_FAIL = "18";
-    public final static String Message_EDIT_PASSWORD_SUCCESSFUL = "18";
+    public final static String Message_EDIT_PASSWORD_SUCCESSFUL = "19";
 
     private static final long serialVersionUID = 1L;
     private String sender;

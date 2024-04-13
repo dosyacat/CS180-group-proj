@@ -22,7 +22,6 @@ public class ClientConnectServerThread extends Thread {
 
             try {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-                ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 Message message = (Message) ois.readObject();
                 switch (message.getMessageType()) {
                     case Message.Message_USERVIEW_SERVER :
@@ -46,11 +45,11 @@ public class ClientConnectServerThread extends Thread {
                         System.out.println("Email has been changed.");
                         break;
                     case Message.Message_EDIT_PASSWORD_SUCCESSFUL:
-                        System.out.println("Please enter your new password!");
-                        String password = Input.readString(20, false);
                         Message message1 = new Message();
-                        message1.setContent(password);
-
+                        System.out.println("Password has been changed.");
+                        break;
+                    case Message.Message_EDIT_PASSWORD_FAIL:
+                        System.out.println("The current password is not correct!");
                         break;
                 }
             } catch (Exception e) {

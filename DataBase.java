@@ -48,14 +48,19 @@ public class DataBase implements Serializable {
     public static void editUserName(String oldUserName, String newUserName) {
         User user = userHashMap.get(oldUserName);
         user.setUsername(newUserName);
-        userHashMap.remove(oldUserName);
-        userHashMap.put(newUserName, user);
         Information.writeUser(userHashMap);
         userHashMap = Information.readUser();
     }
     public static void editEmail(String userName, String email) {
         User user = userHashMap.get(userName);
         user.setEmail(email);
+        Information.writeUser(userHashMap);
+        userHashMap = Information.readUser();
+    }
+
+    public static void editPassword(String userName, String password) {
+        User user = userHashMap.get(userName);
+        user.setPassword(password);
         Information.writeUser(userHashMap);
         userHashMap = Information.readUser();
     }

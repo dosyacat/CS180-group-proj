@@ -280,28 +280,6 @@ public class View {
         int answer = Input.readRange(1, count);
         user.deleteMessage(name, answer);
     }
-    //Method to search for a user
-    private void userSearch() {
-        while (true) {
-            System.out.println("Who are you searching for?");
-            String username = Input.readString(20, false);
-            User user1 = DataBase.findUser(username);
-            if (user1 == null)
-                System.out.println("The user you are looking for does not exist.");
-            else {
-                System.out.println(user1.toString());
-                System.out.println("Do you want to view the user profile picture?");
-                System.out.println("Enter N to exit, Enter Y to view");
-                char answer = Input.readSelection();
-                if (answer == 'N') return;
-                else user1.showProfilePicture();
-            }
-            System.out.println("Enter N to Exit, Enter Y to Continue.");
-            char answer1 = Input.readSelection();
-            if (answer1 == 'N') return;
-        }
-    }
-    //Method for the friend Menu
     private void friendMenu(User user) {
         System.out.println("Welcome to your Friends Menu!");
         boolean flag = true;
@@ -596,27 +574,7 @@ public class View {
 
                 case "4" :
                     //Editing the password
-                    new Object() {
-                        void judge() {
-                            System.out.println("Please enter your current password!");
-                            String currentPassword = Input.readString(20, false);
-                            while (!userService.userSignIn(user.getUsername(), currentPassword)) {
-                                System.out.println("The password is not correct!");
-                                System.out.println("Enter Y to exit, Enter N to try again.");
-                                char answer = Input.readSelection();
-                                if (answer == 'Y') return;
-                                System.out.println("Please enter your current password!");
-                                currentPassword = Input.readString(20, false);
-                            }
-                            System.out.println("Please enter your new password!");
-                            String password = Input.readString(20, false);
-                            user.setPassword(password);
-                            System.out.println("Password has been changed.");
-                            System.out.println(
-                                    "Please proceed with caution and " +
-                                            "use the newly assigned password for login purposes.");
-                        }
-                    }.judge();
+                    userService.editPassword();
                     break;
                 case "9" :
                     System.out.println("Exit!");
