@@ -2,6 +2,7 @@
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
   /**
  * The DataBase class manages the storage and retrieval of user data.
@@ -69,6 +70,24 @@ public class DataBase implements Serializable {
         user.setPassword(password);
         Information.writeUser(userHashMap);
         userHashMap = Information.readUser();
+    }
+
+    public static void addrequestfriend(String userName1, String userName2) {
+        User user2 = DataBase.findUser(userName2);
+        ArrayList<String> requestFriendArrayList = user2.getRequestFriendArrayList();
+        requestFriendArrayList.add(userName1);
+        user2.setRequestFriendArrayList(requestFriendArrayList);
+        Information.writeFriend(userName1, userName2);
+    }
+
+    public static void removeFriend(String userName1, String userName2) {
+        User user1 = DataBase.findUser(userName1);
+        User user2 = DataBase.findUser(userName2);
+        ArrayList<String> user1FriendArrayList = user1.getFriendArrayList();
+        ArrayList<String> user2FriendArrayList = user2.getFriendArrayList();
+        user2FriendArrayList.remove(userName1);
+        user1FriendArrayList.remove(userName2);
+        Information.writeFriend(userName1, userName2);
     }
 
 }

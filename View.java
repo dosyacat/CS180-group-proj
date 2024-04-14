@@ -82,7 +82,6 @@ public class View {
                     break;
 
                 case "2":
-                    messagesMenu(user);
                     break;
 
                 case "3":
@@ -112,6 +111,7 @@ public class View {
     }
 
     //Method for Message Menu
+    /*
     private void messagesMenu(User user) {
         boolean flag = true;
         while (flag) {
@@ -158,6 +158,7 @@ public class View {
     }
 
     //Method for user to send pictures.
+    /*
     private void sendPictureMessages(User user) {
         while (true) {
             System.out.println("Send private message");
@@ -283,6 +284,8 @@ public class View {
         int answer = Input.readRange(1, count);
         user.deleteMessage(name, answer);
     }
+
+     */
     private void friendMenu(User user) {
         System.out.println("Welcome to your Friends Menu!");
         boolean flag = true;
@@ -293,36 +296,23 @@ public class View {
             System.out.println("\t\t\t\t 3 Remove a Friend");
             System.out.println("\t\t\t\t 4 Block a Friend");
             System.out.println("\t\t\t\t 5 Unblock a Friend");
-            System.out.println("\t\t\t\t 6 Blocked Friends List");
             System.out.println("\t\t\t\t 7 Friend requests");
             System.out.println("\t\t\t\t 9 Exit to User Menu");
             String operation = Input.readString(1);
             switch (operation) {
                 case "1":
-                    user.getFriendDataBase().friendsInformation();
+                    //user.getFriendDataBase().friendsInformation();
                     break;
 
                 case "2":
-                    //Adding a friend
-                    new Object() {
-                        void judge() {
-                            System.out.println("Who do you want to add?");
-                            String username = Input.readString(20, false);
-                            while (DataBase.findUser(username) == null) {
-                                System.out.println("The user you want to add does not exist.");
-                                System.out.println("Enter Y to exit, Enter N to try again.");
-                                char answer = Input.readSelection();
-                                if (answer == 'Y') return;
-                                System.out.println("Who do you want to add?");
-                                username = Input.readString(20, false);
-                            }
-                            user.addFriend(DataBase.findUser(username));
-                        }
-                    }.judge();
+                    userService.AddFriend();
                     break;
 
                 case "3":
-                    //Removing a Friend
+                    userService
+                    break;
+                //Removing a Friend
+                    /*
                     new Object() {
                         void judge() {
                             System.out.println("Who do you want to remove?");
@@ -444,11 +434,15 @@ public class View {
                         }
                     }
                     break;
+
+                     */
                 case "9":
                     return;
             }
         }
     }
+
+
 
     //Method for Setting Menu
     private void settingMenu(User user) {

@@ -247,42 +247,58 @@ public class UserService {
         }
     }
 
-    public boolean checkBlocked(User user1, User user2) {
-        if (user1 == null || user2 == null) return false;
-        return user1.getFriendDataBase().getBlockedFriendHashMap().containsKey(user2.getUsername()) ||
-                user2.getFriendDataBase().getBlockedFriendHashMap().containsKey(user1.getUsername());
-    }
-
-    public boolean checkFriend(User user1, User user2) {
-        if (user1 == null || user2 == null) return false;
-        return user1.getFriendDataBase().getFriendHashMap().containsKey(user2.getUsername()) &&
-                user2.getFriendDataBase().getFriendHashMap().containsKey(user1.getUsername());
-    }
-
-    public boolean existFriendRequest(User user1, User user2) {
-        if (user1 == null || user2 == null) return false;
-        return user1.getFriendDataBase().getRequestFriendHashMap().containsKey(user2.getUsername());
-    }
-
-    // check user MessagePrivacy status
-    public boolean chechMessagePrivacySetting(User user) {
+    public void AddFriend() {
+        System.out.println("Who do you want to add?");
+        String username = Input.readString(20, false);
+        if (u.getUsername().equals(username)) {
+            System.out.println("You cannot add yourself!");
+            return;
+        }
         try {
-            return user.isMessagePrivacySettings();
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+            Message message = new Message();
+            message.setMessageType(Message.Message_REQUESTFRIEND_CLIENT);
+            message.setContent(username);
+            oos.writeObject(message);
+            oos.flush();
+
+            Message message1 = (Message) ois.readObject();
+            if (message1.getMessageType().equals(Message.Message_REQUESTFRIEND_SERVER_SUCCESSFUL)) {
+                System.out.println("Add successfully");
+            } else if (message1.getMessageType().equals(Message.Message_REQUESTFRIEND_SERVER_FAIL)) {
+                System.out.println("The user you want to add doesn't exist or you have been blocked by they");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
         }
     }
 
-    // check if user2 has sent messages to user1
-    public boolean checkMessageReceive(User user1, User user2) {
-        return  (user1.getMessageDataBase().getReceiveMessageHashMap().containsKey(user2.getUsername()));
-    }
+    public void removeFriend() {
+        System.out.println("Who do you want to remove?");
+        String username = Input.readString(20, false);
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
-    //check how many messages user2 has sent to user1
-    public int checkMessageCount(User user1, User user2)
-    {
-        return user1.getMessageDataBase().getReceiveMessageHashMap().get(user2.getUsername()).size();
+            Message message = new Message();
+            message.setMessageType(Message.Message_REMOVEFRIEND_CLIENT);
+            message.setContent(username);
+            oos.writeObject(message);
+            oos.flush();
+
+            Message message1 = (Message) ois.readObject();
+            if (message1.getMessageType().equals(Message.Message_REQUESTFRIEND_SERVER_SUCCESSFUL)) {
+                System.out.println("Remove successfully");
+            } else if (message1.getMessageType().equals(Message.Message_REMOVEFRIEND_SERVER_FAIL)) {
+                System.out.println("The user you want to add doesn't exist or they are not your friend");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

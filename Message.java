@@ -33,6 +33,12 @@ public class Message implements Serializable {
     public final static String Message_EDIT_PASSWORD_CLIENT = "17";
     public final static String Message_EDIT_PASSWORD_FAIL = "18";
     public final static String Message_EDIT_PASSWORD_SUCCESSFUL = "19";
+    public final static String Message_REQUESTFRIEND_CLIENT = "22";
+    public final static String Message_REQUESTFRIEND_SERVER_FAIL = "23";
+    public final static String Message_REQUESTFRIEND_SERVER_SUCCESSFUL = "24";
+    public final static String Message_REMOVEFRIEND_CLIENT = "25";
+    public final static String Message_REMOVEFRIEND_SERVER_FAIL = "26";
+    public final static String Message_REMOVEFRIEND_SERVER_SUCCESSFUL = "27";
 
     private static final long serialVersionUID = 1L;
     private String sender;

@@ -119,6 +119,37 @@ public class ServerConnectClientThread extends Thread {
                     }
                 }
 
+                if (message.getMessageType().equals(Message.Message_REQUESTFRIEND_CLIENT)) {
+                    String userName2 = message.getContent();
+                    Message message1 = new Message();
+                    if (DataBase.findUser(userName2) == null) {
+                        message1.setMessageType(Message.Message_REQUESTFRIEND_SERVER_FAIL);
+                        oos.writeObject(message1);
+                        oos.flush();
+                    } else {
+                        message1.setMessageType(Message.Message_REQUESTFRIEND_SERVER_SUCCESSFUL);
+                        DataBase.addrequestfriend(this.userName, userName2);
+                        oos.writeObject(message1);
+                        oos.flush();
+                    }
+                }
+
+                if (message.getMessageType().equals(Message.Message_REMOVEFRIEND_CLIENT)) {
+                    String userName2 = message.getContent();
+                    Message message1 = new Message();
+                    User user = DataBase.findUser(this.userName);
+                    if (!user.getFriendArrayList().contains(userName2)) {
+                        message1.setMessageType(Message.Message_REMOVEFRIEND_SERVER_FAIL);
+                        oos.writeObject(message1);
+                        oos.flush();
+                    } else {
+                        message1.setMessageType(Message.Message_REMOVEFRIEND_SERVER_SUCCESSFUL);
+                        DataBase.removeFriend(this.userName, userName2);
+                        oos.writeObject(message1);
+                        oos.flush();
+                    }
+                }
+
 
             } catch (Exception e) {
                 System.out.println(this.userName + "disconnect.");

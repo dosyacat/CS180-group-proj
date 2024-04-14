@@ -13,7 +13,7 @@ public class MessageService {
        content  The content of the message */
 
     public static void sendMessage(String sender, String receiver, String content) {
-        
+        /*
         // Find the sender user from the database
         User senderUser = DataBase.findUser(sender);
         
@@ -64,4 +64,8 @@ public class MessageService {
         receiverUser.addReceivePicture(pictureMessage);
     }
 
+}
+
+         */
+    }
 }
