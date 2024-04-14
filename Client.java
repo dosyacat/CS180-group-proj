@@ -43,23 +43,7 @@ public class Client {
     }
     // Method for user sign up
     private void userSignUp() {
-        System.out.println("Please enter your Username, which will be limited to 20 digits");
-        String username = Input.readString(20, false);
-        while (DataBase.findUser(username) != null) {
-            System.out.println("This username is already taken! Enter again!");
-            username = Input.readString(20, false);
-        }
-
-        System.out.println("Please enter your password, which will be limited to 20 digits");
-        String password = Input.readString(20, false);
-        System.out.println("Please enter your email");
-        String email = Input.readEmail(30, false);
-        System.out.println("Please enter your bio, which will be limited to 100 words");
-        String bio = Input.readString(100);
-        //Creating a new user object and adding it to database
-        User user = new User(username, password, email, bio);
-        DataBase.add(user);
-        System.out.println("You have signed up successfully! And you can upload a picture as your profile at Setting!");
+        userService.userSignUp();
     }
     //Method for User SignIn
     private void userSignin() {
@@ -68,23 +52,25 @@ public class Client {
         System.out.print("Please enter your password:");
         String password = Input.readString();
         //Checking user security credentials
-        if (userService.checkSecurity(account, password)) {
-            userMenu(account);
+        User user = userService.userSignIn(account, password);
+        if (user != null) {
+            userMenu(user);
         } else {
             System.out.println("The account or password is not correct!");
         }
     }
     //Method for user menu
-    private void userMenu(String account) {
-        System.out.println("==================== Welcome " + account + " !   =====================");
+    private void userMenu(User user) {
+        String userName = user.getUsername();
+        System.out.println("==================== Welcome " + userName + " !   =====================");
 
         while (true) {
-            User user = DataBase.findUser(account);
-            System.out.println("\t\t\t\t\tUser Menu (" + account + ")");
+
+            System.out.println("\t\t\t\t\tUser Menu (" + userName + ")");
             System.out.println("\t\t\t\t 1 User viewer");
             System.out.println("\t\t\t\t 2 Messages Menu");
             System.out.println("\t\t\t\t 3 User search");
-            System.out.println("\t\t\t\t 4 Friends Munu");
+            System.out.println("\t\t\t\t 4 Friends Menu");
             System.out.println("\t\t\t\t 5 Setting");
             System.out.println("\t\t\t\t 8 Exit to Login interface");
             System.out.println("\t\t\t\t 9 Exit");
@@ -92,15 +78,14 @@ public class Client {
             key = Input.readString();
             switch (key) {
                 case "1":
-                    DataBase.userInformation();
+                    userService.userView();
                     break;
 
                 case "2":
-                    messagesMenu(user);
                     break;
 
                 case "3":
-                    userSearch();
+                    userService.userSearch();
                     break;
 
                 case "4":
@@ -112,10 +97,11 @@ public class Client {
                     break;
 
                 case "8":
+                    userService.logout();
                     return;
 
                 case "9":
-                    System.out.println("Exit!");
+                    userService.logout();
                     System.exit(0);
 
                 default:
@@ -125,6 +111,7 @@ public class Client {
     }
 
     //Method for Message Menu
+    /*
     private void messagesMenu(User user) {
         boolean flag = true;
         while (flag) {
@@ -171,6 +158,7 @@ public class Client {
     }
 
     //Method for user to send pictures.
+    /*
     private void sendPictureMessages(User user) {
         while (true) {
             System.out.println("Send private message");
@@ -296,28 +284,8 @@ public class Client {
         int answer = Input.readRange(1, count);
         user.deleteMessage(name, answer);
     }
-    //Method to search for a user
-    private void userSearch() {
-        while (true) {
-            System.out.println("Who are you searching for?");
-            String username = Input.readString(20, false);
-            User user1 = DataBase.findUser(username);
-            if (user1 == null)
-                System.out.println("The user you are looking for does not exist.");
-            else {
-                System.out.println(user1.toString());
-                System.out.println("Do you want to view the user profile picture?");
-                System.out.println("Enter N to exit, Enter Y to view");
-                char answer = Input.readSelection();
-                if (answer == 'N') return;
-                else user1.showProfilePicture();
-            }
-            System.out.println("Enter N to Exit, Enter Y to Continue.");
-            char answer1 = Input.readSelection();
-            if (answer1 == 'N') return;
-        }
-    }
-    //Method for the friend Menu
+
+     */
     private void friendMenu(User user) {
         System.out.println("Welcome to your Friends Menu!");
         boolean flag = true;
@@ -328,163 +296,36 @@ public class Client {
             System.out.println("\t\t\t\t 3 Remove a Friend");
             System.out.println("\t\t\t\t 4 Block a Friend");
             System.out.println("\t\t\t\t 5 Unblock a Friend");
-            System.out.println("\t\t\t\t 6 Blocked Friends List");
-            System.out.println("\t\t\t\t 7 Friend requests");
             System.out.println("\t\t\t\t 9 Exit to User Menu");
             String operation = Input.readString(1);
             switch (operation) {
                 case "1":
-                    user.getFriendDataBase().friendsInformation();
-                    Input.pressAnyKeyToExit();
+                    userService.showFriendList();
                     break;
 
                 case "2":
-                    //Adding a friend
-                    new Object() {
-                        void judge() {
-                            System.out.println("Who do you want to add?");
-                            String username = Input.readString(20, false);
-                            while (DataBase.findUser(username) == null) {
-                                System.out.println("The user you want to add does not exist.");
-                                System.out.println("Enter Y to exit, Enter N to try again.");
-                                char answer = Input.readSelection();
-                                if (answer == 'Y') return;
-                                System.out.println("Who do you want to add?");
-                                username = Input.readString(20, false);
-                            }
-                            user.addFriend(DataBase.findUser(username));
-                        }
-                    }.judge();
+                    userService.AddFriend();
                     break;
 
                 case "3":
-                    //Removing a Friend
-                    new Object() {
-                        void judge() {
-                            System.out.println("Who do you want to remove?");
-                            String username = Input.readString(20, false);
-                            while (!userService.checkFriend(user, DataBase.findUser(username))) {
-                                System.out.println("The user you want to remove does not exist in your friend list");
-                                System.out.println("Enter Y to exit, Enter N to try again.");
-                                char answer = Input.readSelection();
-                                if (answer == 'Y') return;
-                                System.out.println("Who do you want to remove?");
-                                username = Input.readString(20, false);
-                            }
-                            user.removeFriend(DataBase.findUser(username));
-                        }
-                    }.judge();
+                    userService.removeFriend();
                     break;
 
                 case "4":
-                    //Blocking a User
-                    new Object() {
-                        void judge() {
-                            System.out.println("Who do you want to block?");
-                            String username = Input.readString(20, false);
-                            while (DataBase.findUser(username) == null) {
-                                System.out.println("The user you want to block does not exist.");
-                                System.out.println("Enter Y to exit, Enter N to try again.");
-                                char answer = Input.readSelection();
-                                if (answer == 'Y') return;
-                                System.out.println("Who do you want to block?");
-                                username = Input.readString(20, false);
-                            }
-                            user.blockFriend(DataBase.findUser(username));
-                        }
-                    }.judge();
+                    userService.blockFriend();
                     break;
 
                 case "5":
-                    //Unblocking a user
-                    new Object() {
-                        void judge() {
-                            System.out.println("Who do you want to unblock?");
-                            String username = Input.readString(20, false);
-                            while (!userService.checkBlocked(user, DataBase.findUser(username))) {
-                                System.out.println("The user you want to unblock" +
-                                        " does not exist in your blocked list");
-                                System.out.println("Enter Y to exit, Enter N to try again.");
-                                char answer = Input.readSelection();
-                                if (answer == 'Y') return;
-                                System.out.println("Who do you want to unblock?");
-                                username = Input.readString(20, false);
-                            }
-                            user.unBlockFriend(DataBase.findUser(username));
-                        }
-                    }.judge();
-                    break;
-                case "6":
-                    //Displaying Blocked Accounts Lists
-                    user.getFriendDataBase().blockedFriendsInfromation();
-                    Input.pressAnyKeyToExit();
+                    userService.unBlockFriend();
                     break;
 
-
-                case "7":
-                    //Handling Friend Requests
-                    boolean flag1 = true;
-                    while (flag1) {
-                        user.getFriendDataBase().requestFriendsInformation();
-                        System.out.println("Enter 1 to Accept a friend request");
-                        System.out.println("Enter 2 to Decline a friend request");
-                        System.out.println("Enter 9 to Exit Friend Request List");
-                        String answer = Input.readString(1, false);
-                        switch (answer) {
-                            case "1":
-                                new Object() {
-                                    void judge() {
-                                        System.out.println("Who do you want to Accept?");
-                                        String username = Input.readString(20, false);
-                                        while (!userService.existFriendRequest(user, DataBase.findUser(username))) {
-                                            System.out.println("The user you want to Accept " +
-                                                    "does not exist in your Friend Request List");
-                                            System.out.println("Enter Y to exit, Enter N to try again.");
-                                            char answer = Input.readSelection();
-                                            if (answer == 'Y') return;
-                                            System.out.println("Who do you want to Accept?");
-                                            username = Input.readString(20, false);
-                                        }
-                                        user.acceptFriendRequest(DataBase.findUser(username));
-                                        System.out.println("Accept Successfully!");
-                                    }
-                                }.judge();
-                                break;
-
-                            case "2":
-                                new Object() {
-                                    void judge() {
-                                        System.out.println("Who do you want to Decline?");
-                                        String username = Input.readString(20, false);
-                                        while (!userService.existFriendRequest(user, DataBase.findUser(username))) {
-                                            System.out.println("The user you want to Decline " +
-                                                    "does not exist in your Friend Request List");
-                                            System.out.println("Enter Y to exit, Enter N to try again.");
-                                            char answer = Input.readSelection();
-                                            if (answer == 'Y') return;
-                                            System.out.println("Who do you want to Decline?");
-                                            username = Input.readString(20, false);
-                                        }
-                                        user.declineFriendRequest(DataBase.findUser(username));
-                                        System.out.println("Decline Successfully!");
-                                    }
-                                }.judge();
-                                break;
-
-                            case "9":
-                                System.out.println("Exit!");
-                                flag1 = false;
-                                break;
-                            default:
-                                System.out.println("Invalid input! Enter again!");
-                        }
-                    }
-                    break;
                 case "9":
                     return;
             }
         }
     }
+
+
 
     //Method for Setting Menu
     private void settingMenu(User user) {
@@ -595,60 +436,20 @@ public class Client {
             switch (operation2) {
                 case "1":
                     //Editing the Username
-                    System.out.println("Please enter your Username, which will be limited to 20 digits");
-                    String username = Input.readString(20, false);
-
-                    while (DataBase.findUser(username) != null && !(username.equals(user.getUsername()))) {
-                        System.out.println("This username is already taken! Enter again!");
-                        System.out.println("Enter your original name if you do not wish to make changes.");
-                        username = Input.readString(20, false);
-                    }
-                    user.setUsername(username);
-                    System.out.println("Username has been changed.");
-                    System.out.println(
-                            "Please proceed with caution " +
-                                    "and use the newly assigned username for login purposes.");
-                    break;
+                   userService.editUserName();
+                   break;
 
                 case "2":
-                    //Editing the Email
-                    System.out.println("Please enter your email");
-                    String email = Input.readEmail(30, false);
-                    user.setEmail(email);
-                    System.out.println("Email has been changed.");
+                    userService.editEmail();
                     break;
 
                 case "3":
-                    //Edtiting the Bio
-                    System.out.println("Please enter your bio, which will be limited to 100 words");
-                    String bio = Input.readString(100);
-                    user.setBio(bio);
-                    System.out.println("Bio has been changed.");
+                    userService.editBio();
                     break;
 
                 case "4" :
                     //Editing the password
-                    new Object() {
-                        void judge() {
-                            System.out.println("Please enter your current password!");
-                            String currentPassword = Input.readString(20, false);
-                            while (!userService.checkSecurity(user.getUsername(), currentPassword)) {
-                                System.out.println("The password is not correct!");
-                                System.out.println("Enter Y to exit, Enter N to try again.");
-                                char answer = Input.readSelection();
-                                if (answer == 'Y') return;
-                                System.out.println("Please enter your current password!");
-                                currentPassword = Input.readString(20, false);
-                            }
-                            System.out.println("Please enter your new password!");
-                            String password = Input.readString(20, false);
-                            user.setPassword(password);
-                            System.out.println("Password has been changed.");
-                            System.out.println(
-                                    "Please proceed with caution and " +
-                                            "use the newly assigned password for login purposes.");
-                        }
-                    }.judge();
+                    userService.editPassword();
                     break;
                 case "9" :
                     System.out.println("Exit!");

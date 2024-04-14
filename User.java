@@ -1,23 +1,149 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+
 /**
  * The User class represents a user in the messaging system.
  * Implements Serializable to allow objects of this class to be serialized.
- * Implements UserInterface to provide user-related functionality.
+ * Implements Interface.UserInterface to provide user-related functionality.
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 1, 2024
  */
 
-public class User implements Serializable, UserInterface {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     private String username;
     private String password;
     private String email;
     private String bio;
     private UserMessageDataBase messageDataBase = new UserMessageDataBase();
-    private UserFriendDataBase friendDataBase = new UserFriendDataBase();
     private boolean messagePrivacySettings = true;
     private byte[] picture;
+    private ArrayList<String> friendArrayList = new ArrayList<>();
+    private ArrayList<String> blockArrayList = new ArrayList<>();
+
+    public ArrayList<String> getFriendArrayList() {
+        return friendArrayList;
+    }
+
+    public void setFriendArrayList(ArrayList<String> friendArrayList) {
+        this.friendArrayList = friendArrayList;
+    }
+
+    public UserMessageDataBase getMessageDataBase() {
+        return messageDataBase;
+    }
+
+    public ArrayList<String> getBlockArrayList() {
+        return blockArrayList;
+    }
+
+    public void setBlockArrayList(ArrayList<String> blockArrayList) {
+        this.blockArrayList = blockArrayList;
+    }
+
+    // Method to find a friend by username
+    public boolean findFriend(String username) {
+        return friendArrayList.contains(username);
+    }
+
+    // Method to accept a friend request
+    public void acceptFriendRequest(User user) {
+        friendArrayList.add(user.getUsername());
+    }
+
+    // Method to display blocked friends
+    /*
+    public void blockedFriendsInfromation() {
+        if (blockedFriendArrayList.isEmpty()) {
+            System.out.println();
+            System.out.println("Your blocked friends list is empty now!");
+            return;
+        }
+        System.out.println("===================Blocked Friends List================");
+        int i = 1;
+        for (User user : blockedFriendArrayList.values()) {
+            System.out.println("User " + i + ": " + user.toString());
+            System.out.println();
+            i++;
+        }
+    }
+
+    // Method to display friend requests
+    public void requestFriendsInformation() {
+        if (requestFriendHashMap.isEmpty()) {
+            System.out.println();
+            System.out.println("Your friend request list is empty now!");
+            return;
+        }
+        System.out.println("===================Friend Request List================");
+        int i = 1;
+        for (User user : requestFriendHashMap.values()) {
+            System.out.println("User " + i + ": " + user.toString());
+            System.out.println();
+            i++;
+        }
+    }
+
+    // Method to display friends
+    public void friendsInformation() {
+        if (friendHashMap.isEmpty()) {
+            System.out.println();
+            System.out.println("Your friend list is empty now!");
+            return;
+        }
+        System.out.println("===================Friend List================");
+        int i = 1;
+        for (User user : friendHashMap.values()) {
+            System.out.println("Friend " + i + ": " + user.toString());
+            System.out.println();
+            i++;
+        }
+    }
+
+    // Method to add a friend
+    public boolean addFriend(User user) {
+        if (friendHashMap.get(user.getUsername()) != null) {
+            System.out.println(user.getUsername() + " is already your friend, you can't add again.");
+            return false;
+        }
+        return true;
+    }
+
+    // Method to remove a friend
+    public boolean removeFriend(User user) {
+        if (friendHashMap.get(user.getUsername()) == null) {
+            System.out.println(user.getUsername() + " is not your friend!");
+            return false;
+        }
+        friendHashMap.remove(user.getUsername());
+        return true;
+    }
+
+    // Method to block a friend
+    public void blockFriend(User user) {
+        if (blockedFriendHashMap.get(user.getUsername()) != null) {
+            System.out.println("You have blocked " + user.getUsername() + ". Cannot block again.");
+            return;
+        }
+        blockedFriendHashMap.put(user.getUsername(), user);
+        System.out.println("Block " + user.getUsername() + " successfully!");
+    }
+
+    // Method to unblock a friend
+    public void unBlockFriend(User user) {
+        if (blockedFriendHashMap.get(user.getUsername()) == null) {
+            System.out.println("Them is not in your block list!");
+            return;
+        }
+        blockedFriendHashMap.remove(user.getUsername());
+        System.out.println("unBlock " + user.getUsername() + " successfully!");
+    }
+
+     */
+
+
     //Sets the message database for the user.
     public void setMessageDataBase(UserMessageDataBase messageDataBase) {
         this.messageDataBase = messageDataBase;
@@ -52,11 +178,6 @@ public class User implements Serializable, UserInterface {
         System.out.println("Upload Successfully! You can view your profile picture now!");
     }
 
-
-    //Sets the friend database for the user.
-    public void setFriendDataBase(UserFriendDataBase friendDataBase) {
-        this.friendDataBase = friendDataBase;
-    }
     //Gets message privacy settings
     public boolean isMessagePrivacySettings() {
         return messagePrivacySettings;
@@ -65,8 +186,11 @@ public class User implements Serializable, UserInterface {
     public void setMessagePrivacySettings(boolean messagePrivacySettings) {
         this.messagePrivacySettings = messagePrivacySettings;
     }
+
     //Method to add friend to the database
+    /*
     public void addFriend(User user) {
+
         if (user.getFriendDataBase().getBlockedFriendHashMap().get(this.username) != null) {
             System.out.println("You've been blocked by them, so you can't add them as a friend.");
             return;
@@ -74,6 +198,8 @@ public class User implements Serializable, UserInterface {
         if (friendDataBase.addFriend(user))
             user.getFriendDataBase().getRequestFriendHashMap().put(this.getUsername(), this);
     }
+
+
     //Removes a friend
     public void removeFriend(User user) {
         if (!this.remove1(user)) return;
@@ -105,9 +231,7 @@ public class User implements Serializable, UserInterface {
         friendDataBase.declineFriendRequest(user);
     }
 
-    public UserFriendDataBase getFriendDataBase() {
-        return friendDataBase;
-    }
+
     //Adds the sent picture to the message database of the sender
     public void addSendPicture(PictureMessage pictureMessage) {
         messageDataBase.addSendPicture(pictureMessage);
@@ -133,6 +257,8 @@ public class User implements Serializable, UserInterface {
     public UserMessageDataBase getMessageDataBase() {
         return messageDataBase;
     }
+
+     */
     //Default Constructor
     public User() { }
     //Parameterized Constructor 
@@ -149,6 +275,19 @@ public class User implements Serializable, UserInterface {
         this.email = email;
         this.bio = bio;
     }
+
+    public User(String username,
+                String password,
+                String email,
+                String bio,
+                boolean messagePrivacySettings) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.bio = bio;
+        this.messagePrivacySettings = messagePrivacySettings;
+    }
+
     //Gets Username
     public String getUsername() {
         return username;
@@ -177,6 +316,7 @@ public class User implements Serializable, UserInterface {
     public String getBio() {
         return bio;
     }
+
     //Sets User's Bio
     public void setBio(String bio) {
         this.bio = bio;

@@ -1,3 +1,4 @@
+
 import java.util.Date;
 /**
  *  The MessageService class provides methods for sending messages and picture messages.
@@ -5,14 +6,14 @@ import java.util.Date;
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 1, 2024
  */
-public class MessageService implements MessageServiceInterface {
+public class MessageService {
     /* Sends a text message from the sender to the receiver with the given content.
        sender   The username of the sender
        receiver The username of the receiver
        content  The content of the message */
 
     public static void sendMessage(String sender, String receiver, String content) {
-        
+        /*
         // Find the sender user from the database
         User senderUser = DataBase.findUser(sender);
         
@@ -63,4 +64,8 @@ public class MessageService implements MessageServiceInterface {
         receiverUser.addReceivePicture(pictureMessage);
     }
 
+}
+
+         */
+    }
 }

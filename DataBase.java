@@ -1,5 +1,12 @@
+
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
-  /**
+import java.util.concurrent.ConcurrentHashMap;
+
+/**
  * The DataBase class manages the storage and retrieval of user data.
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
  *
@@ -8,48 +15,113 @@ import java.util.HashMap;
  */
  
 
-public class DataBase implements DataBaseInterface {
+public class DataBase implements Serializable {
+
+
     // HashMap to store users with their usernames as keys
-    private static HashMap<String, User> userHashMap = new HashMap<>();
+    private static ConcurrentHashMap<String, User> userHashMap = Information.readUser();
+
     //Adds a user to the database.
     public static void add(User user) {
-        userHashMap.put(user.getUsername(), user);
+        Information.writeUser(user);
+        userHashMap = Information.readUser();
     }
     //Checks if the provided account and password match any user in the database.
     public static boolean check(String account, String password) {
-        User user = userHashMap.get(account);
+        User user = null;
+        try {
+            user = Information.readUser(account);
+        } catch (Exception e) {
+            System.out.println("Reading user error");
+        }
         if (user == null) return false;
         return user.getPassword().equals(password);
     }
-    //Displays information about all users in the database and allows viewing their profile pictures
-    public static void userInformation() {
-        System.out.println("Here is the information for our users!");
-        int i = 1;
-        for (User user : userHashMap.values()) {
-            System.out.println("User" + i + ": " + user.toString());
-            System.out.println();
-            i++;
-        }
-        while (true) {
-            System.out.println("Do you want to view user profile picture?");
-            System.out.println("Enter N to exit, Enter Y to view");
-            char answer = Input.readSelection();
-            if (answer == 'N') return;
-            System.out.println("Whose profile picture do you want to check");
-            String username = Input.readString(20, false);
-            while (DataBase.findUser(username) == null) {
-                System.out.println("User not found");
-                System.out.println("Enter N to exit, Enter Y to try it again.");
-                char answer1 = Input.readSelection();
-                if (answer1 == 'N') return;
-                username = Input.readString(20, false);
+
+    public static ConcurrentHashMap<String, User> getUserHashMap() {
+          return userHashMap;
+    }
+
+    //Finds a user in the database by username.
+    public static User findUser(String userName) {
+        userHashMap = Information.readUser();
+        return userHashMap.get(userName);
+    }
+
+    public static void editUserName(String oldUserName, String newUserName) {
+        User user = userHashMap.get(oldUserName);
+        user.setUsername(newUserName);
+        Information.writeUser(userHashMap);
+    }
+    public static void editEmail(String userName, String email) {
+        User user = userHashMap.get(userName);
+        user.setEmail(email);
+        Information.writeUser(userHashMap);
+    }
+    public static void editBio(String userName, String bio) {
+      User user = userHashMap.get(userName);
+      user.setBio(bio);
+      Information.writeUser(userHashMap);
+    }
+
+    public static void editPassword(String userName, String password) {
+        User user = userHashMap.get(userName);
+        user.setPassword(password);
+        Information.writeUser(userHashMap);
+    }
+
+    public static void addFriend(String userName1, String userName2) {
+        User user1 = DataBase.findUser(userName1);
+        User user2 = DataBase.findUser(userName2);
+        synchronized (user1) {
+            synchronized (user2) {
+                ArrayList<String> friendArrayList1 = user1.getFriendArrayList();
+                ArrayList<String> friendArrayList2 = user2.getFriendArrayList();
+                friendArrayList1.add(userName2);
+                friendArrayList2.add(userName1);
+                user1.setFriendArrayList(friendArrayList1);
+                user2.setFriendArrayList(friendArrayList2);
+                Information.writeFriend(userName1, userName2, true);
             }
-            DataBase.findUser(username).showProfilePicture();
         }
     }
-    //Finds a user in the database by username.
-    public static User findUser(String username) {
-        return userHashMap.get(username);
+
+    public static void removeFriend(String userName1, String userName2) {
+        User user1 = DataBase.findUser(userName1);
+        User user2 = DataBase.findUser(userName2);
+        synchronized (user1) {
+            synchronized (user2) {
+                ArrayList<String> user1FriendArrayList = user1.getFriendArrayList();
+                ArrayList<String> user2FriendArrayList = user2.getFriendArrayList();
+                user2FriendArrayList.remove(userName1);
+                user1FriendArrayList.remove(userName2);
+                user1.setFriendArrayList(user1FriendArrayList);
+                user2.setFriendArrayList(user2FriendArrayList);
+            }
+        }
+        Information.writeFriend(userName1, userName2, false);
+
+    }
+    public static void blockFriend(String userName1, String userName2) {
+        User user1 = DataBase.findUser(userName1);
+        User user2 = DataBase.findUser(userName2);
+        ArrayList<String> user1BlockArrayList = user1.getBlockArrayList();
+        if (!user1BlockArrayList.contains(userName2)) {
+            user1BlockArrayList.add(userName2);
+            user1.setBlockArrayList(user1BlockArrayList);
+        }
+        Information.blockFriend(userName1, userName2, true);
+    }
+
+    public static void unBlockFriend(String userName1, String userName2) {
+        User user1 = DataBase.findUser(userName1);
+        User user2 = DataBase.findUser(userName2);
+        ArrayList<String> user1BlockArrayList = user1.getBlockArrayList();
+        if (user1BlockArrayList.contains(userName2)) {
+            user1BlockArrayList.remove(userName2);
+            user1.setBlockArrayList(user1BlockArrayList);
+        }
+        Information.blockFriend(userName1, userName2, false);
     }
 
 }

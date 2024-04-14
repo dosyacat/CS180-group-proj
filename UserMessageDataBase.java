@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +8,7 @@ import java.util.Map;
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 1, 2024
  */
-public class UserMessageDataBase {
+public class UserMessageDataBase implements Serializable {
 
     private int sentMessagesCount = 0;
     private ArrayList<Message> allSentMessages = new ArrayList<>();

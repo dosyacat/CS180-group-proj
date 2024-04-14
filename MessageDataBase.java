@@ -6,7 +6,7 @@ import java.util.HashMap;
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 1, 2024
  */
-public class MessageDataBase implements MessageDataBaseInterface {
+public class MessageDataBase {
     // ArrayList to store all messages
     private ArrayList<Message> arrayList = new ArrayList<>();
     // HashMap to store messages grouped by receiver
