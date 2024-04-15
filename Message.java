@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 15, 2024
  */
-public class Message implements Serializable {
+public class Message implements Serializable, MessageInterface {
 
     public final static String Message_SIGNUP_CLIENT = "0";
     public final static String Message_SIGNUP_Server = "1";
