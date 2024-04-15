@@ -6,7 +6,7 @@
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 15, 2024
  */
-public class Client {
+public class Client implements ClientInterface {
     
     private String key = "";
     private UserService userService = new UserService();
