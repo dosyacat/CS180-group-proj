@@ -1,5 +1,5 @@
 public interface InputInterface {
-    /**
+/**
  * Interface for Input Class
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
  *
