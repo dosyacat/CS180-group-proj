@@ -8,7 +8,11 @@ Our messaging platform, “ChatEase”, offers a unique user journey, ensuring s
 
 ### Usage
 
-Currently, our application is in the development phase. Our work in phase 2 lays groundwork for constructing a comprehensive social media or messaging platform that is "ChatEase." It undertakes crucial tasks such as user authentication, registration, managing messages, friends, and profile configurations. By extending its capabilities through additional development and seamless integration with backend servers and databases. Socket connections have been established to facilitate communication with clients.
+Currently, our application is in the development phase. Our work in phase 2 lays groundwork for constructing a comprehensive social media or messaging platform that is "ChatEase." It undertakes crucial tasks such as user authentication, registration, managing messages, friends, and profile configurations. By extending its capabilities through additional development and seamless integration with backend servers and databases. Socket connections have been established to facilitate communication with clients. This application would empower users to engage in communication, share content, and build connections within a digital community, offering a comprehensive online experience once fully completed.
+
+## Client.java
+
+The Client class serves as the backbone for executing the program. It facilitates user interaction, encompassing features like authentication, registration, messaging, friend management, and profile customization. By invoking methods from other classes, it orchestrates various functionalities, enabling users to navigate through menus, send messages, manage friends, and adjust settings. 
 
 ## 'User.java
 
