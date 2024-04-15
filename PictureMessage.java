@@ -8,12 +8,12 @@ import java.io.Serializable;
  * @version April 15, 2024
  */
 
-public class PictureMessage implements Serializable {
+public class PictureMessage implements Serializable, PictureMessageInterface {
     private String sender;
     private String receiver;
     private byte[] image;
     private String messageTime;
-    
+
     //Gets the sender of the picture message.
     public String getSender() {
         return sender;
