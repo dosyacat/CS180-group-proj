@@ -15,29 +15,30 @@ import java.net.Socket;
 public class ServerConnectClientThread extends Thread {
     private Socket socket;
     private String userName;
-
+    //Constructor
     public ServerConnectClientThread(Socket socket, String userName) {
         this.socket = socket;
         this.userName = userName;
     }
-
+    //Getter Method for socket
     public Socket getSocket() {
         return socket;
     }
-
+    //Setter Method for Socket
     public void setSocket(Socket socket) {
         this.socket = socket;
     }
-
+    //Getter menthod UserName
     public String getUserName() {
         return userName;
     }
-
+    //Setter menthod UserName
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
     @Override
+    //Function to run
     public void run() {
 
         System.out.println("Server is connecting with " + userName);
@@ -46,9 +47,10 @@ public class ServerConnectClientThread extends Thread {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 Message message = (Message) ois.readObject();
-
+                
+                 // Handle different types of client messages
                 switch (message.getMessageType()) {
-
+                    // Process user view request from the client
                     case Message.Message_USERVIEW_CLIENT: {
                         Message message1 = new Message();
                         message1.setMessageType(Message.Message_USERVIEW_SERVER);
@@ -58,7 +60,7 @@ public class ServerConnectClientThread extends Thread {
                         oos.flush();
                         break;
                     }
-
+                    // Process user search request from the client
                     case Message.Message_USESEARCH_CLIENT: {
                         User user = DataBase.findUser(message.getContent());
                         Message message1 = new Message();
@@ -69,13 +71,13 @@ public class ServerConnectClientThread extends Thread {
                         oos.flush();
                         break;
                     }
-
+                    // Handle client exit request
                     case Message.Message_EXIT: {
                         System.out.println(message.getSender() + "Exit!");
                         socket.close();
                         return;
                     }
-
+                    // Process username edit request from the client
                     case Message.Message_EDIT_USERNAME_CLIENT: {
                         String userName = message.getContent();
                         if (DataBase.findUser(userName) != null) {
@@ -93,7 +95,7 @@ public class ServerConnectClientThread extends Thread {
                         }
                         break;
                     }
-
+                    // Process email edit request from the client
                     case Message.Message_EDIT_EMAIL_CLIENT: {
                         String email = message.getContent();
                         DataBase.editEmail(this.userName, email);
@@ -103,7 +105,7 @@ public class ServerConnectClientThread extends Thread {
                         oos.flush();
                         break;
                     }
-
+                    // Process Bio edit request from the clien
                     case Message.Message_EDIT_BIO_CLIENT: {
                         String bio = message.getContent();
                         DataBase.editBio(this.userName, bio);
@@ -113,7 +115,7 @@ public class ServerConnectClientThread extends Thread {
                         oos.flush();
                         break;
                     }
-
+                    // Process password edit request from the clien
                     case Message.Message_EDIT_PASSWORD_CLIENT: {
                         String currentPassword = message.getContent();
                         Message message1 = new Message();
@@ -132,7 +134,7 @@ public class ServerConnectClientThread extends Thread {
                         }
                         break;
                     }
-
+                    // Process add friend request from the client
                     case Message.Message_ADDFRIEND_CLIENT: {
                         String userName2 = message.getContent();
                         User user2 = DataBase.findUser(userName2);
@@ -163,7 +165,7 @@ public class ServerConnectClientThread extends Thread {
                         }
                         break;
                     }
-
+                    // Process remove friend request from the client
                     case Message.Message_REMOVEFRIEND_CLIENT: {
                         String userName2 = message.getContent();
                         Message message1 = new Message();
@@ -180,7 +182,7 @@ public class ServerConnectClientThread extends Thread {
                         }
                         break;
                     }
-
+                    // Process block friend request from the client
                     case Message.Message_BLOCKFRIEND_CLIENT: {
                         String userName2 = message.getContent();
                         Message message1 = new Message();
@@ -224,16 +226,19 @@ public class ServerConnectClientThread extends Thread {
                         }
                         break;
                     }
+                    // Process show friend request from the client
                     case Message.Message_SHOWFRIEND_CLIENT: {
                         User user = DataBase.findUser(userName);
                         oos.writeObject(user.getFriendArrayList());
                         oos.flush();
                         break;
                     }
+                    // Process change privacy request from the client
                     case Message.Message_CHANGEPRIVACY_CLIENT: {
                         DataBase.changePrivacy(this.userName);
                         break;
                     }
+                    // Process general message request from the client
                     case Message.Message_GENERALMESSAGE_CLIENT: {
                         User user = DataBase.findUser(this.userName);
                         String receiver = message.getReceiver();
@@ -259,11 +264,13 @@ public class ServerConnectClientThread extends Thread {
                         }
                         break;
                     }
+                    // Process check message request from the client
                     case Message.Message_CHECKMESSAGE_CLIENT: {
                         oos.writeObject(MessageDataBase.checkMessage(this.userName));
                         oos.flush();
                         break;
                     }
+                    // Process delete message request from the client
                     case Message.Message_DELETEMESSAGE_CLIENT: {
                         String sender = message.getContent();
                         Message message1 = new Message();
