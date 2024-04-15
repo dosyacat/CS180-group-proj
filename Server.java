@@ -6,11 +6,11 @@ import java.net.Socket;
 
 public class Server {
     private ServerSocket ss = null;
-
+    // Main method to start the server
     public static void main(String[] args) {
         new Server();
     }
-
+    // Constructor to initialize the server
     public Server() {
         try {
             System.out.println("Server is listening");
@@ -24,7 +24,7 @@ public class Server {
             e.printStackTrace();
         }
     }
-
+    // Inner class to handle client requests in a separate thread
     private class ClientHandlerThread extends Thread {
         private Socket socket;
 
@@ -33,17 +33,19 @@ public class Server {
         }
 
         @Override
+        // Run method to handle client requests
         public void run() {
-
+            // Display message indicating successful connection
             System.out.println(this.getName() + " Connect successful! " + socket.toString());
 
 
             try {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-
+                // Read the message sent by the client
                 Message message = (Message) ois.readObject();
-
+                
+                    // Handle different types of client messages
                     switch (message.getMessageType()) {
                         case Message.Message_SIGNUP_CLIENT:
                             String userName = ((Message) ois.readObject()).getContent();
@@ -77,6 +79,7 @@ public class Server {
                             } else {
                                 message1.setMessageType(Message.Message_LOGIN_FAIL);
                                 oos.writeObject(message1);
+                                // Close streams and socket after handling client request
                                 oos.close();
                                 ois.close();
                                 socket.close();
