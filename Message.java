@@ -54,6 +54,14 @@ public class Message implements Serializable {
     public final static String Message_SHOWFRIEND_SERVER = "40";
     public final static String Message_CHANGEPRIVACY_CLIENT= "42";
     public final static String Message_CHANGEPRIVACY_SERVER = "43";
+    public final static String Message_GENERALMESSAGE_CLIENT = "45";
+    public final static String Message_GENERALMESSAGE_SERVER_FAIL1 = "47";
+    public final static String Message_GENERALMESSAGE_SERVER_FAIL2 = "48";
+    public final static String Message_GENERALMESSAGE_SERVER_FAIL3 = "49";
+    public final static String Message_GENERALMESSAGE_SERVER_SUCCESSFUL = "50";
+    public final static String Message_CHECKMESSAGE_CLIENT = "51";
+    public final static String Message_CHECKMESSAGE_SERVER = "52";
+    public final static String Message_DELETEMESSAGE_CLIENT = "52";
 
     private static final long serialVersionUID = 1L;
     private String sender;
@@ -61,6 +69,17 @@ public class Message implements Serializable {
     private String content;
     private String messageTime;
     private String messageType;
+
+    public Message() {
+
+    }
+
+    public Message(String sender, String receiver, String content, String messageTime) {
+        this.sender = sender;
+        this.receiver = receiver;
+        this.content = content;
+        this.messageTime = messageTime;
+    }
 
     public String getMessageType() {
         return messageType;

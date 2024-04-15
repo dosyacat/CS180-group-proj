@@ -30,11 +30,6 @@ public class User implements Serializable {
     public void setFriendArrayList(ArrayList<String> friendArrayList) {
         this.friendArrayList = friendArrayList;
     }
-
-    public UserMessageDataBase getMessageDataBase() {
-        return messageDataBase;
-    }
-
     public ArrayList<String> getBlockArrayList() {
         return blockArrayList;
     }
@@ -53,98 +48,7 @@ public class User implements Serializable {
         friendArrayList.add(user.getUsername());
     }
 
-    // Method to display blocked friends
-    /*
-    public void blockedFriendsInfromation() {
-        if (blockedFriendArrayList.isEmpty()) {
-            System.out.println();
-            System.out.println("Your blocked friends list is empty now!");
-            return;
-        }
-        System.out.println("===================Blocked Friends List================");
-        int i = 1;
-        for (User user : blockedFriendArrayList.values()) {
-            System.out.println("User " + i + ": " + user.toString());
-            System.out.println();
-            i++;
-        }
-    }
 
-    // Method to display friend requests
-    public void requestFriendsInformation() {
-        if (requestFriendHashMap.isEmpty()) {
-            System.out.println();
-            System.out.println("Your friend request list is empty now!");
-            return;
-        }
-        System.out.println("===================Friend Request List================");
-        int i = 1;
-        for (User user : requestFriendHashMap.values()) {
-            System.out.println("User " + i + ": " + user.toString());
-            System.out.println();
-            i++;
-        }
-    }
-
-    // Method to display friends
-    public void friendsInformation() {
-        if (friendHashMap.isEmpty()) {
-            System.out.println();
-            System.out.println("Your friend list is empty now!");
-            return;
-        }
-        System.out.println("===================Friend List================");
-        int i = 1;
-        for (User user : friendHashMap.values()) {
-            System.out.println("Friend " + i + ": " + user.toString());
-            System.out.println();
-            i++;
-        }
-    }
-
-    // Method to add a friend
-    public boolean addFriend(User user) {
-        if (friendHashMap.get(user.getUsername()) != null) {
-            System.out.println(user.getUsername() + " is already your friend, you can't add again.");
-            return false;
-        }
-        return true;
-    }
-
-    // Method to remove a friend
-    public boolean removeFriend(User user) {
-        if (friendHashMap.get(user.getUsername()) == null) {
-            System.out.println(user.getUsername() + " is not your friend!");
-            return false;
-        }
-        friendHashMap.remove(user.getUsername());
-        return true;
-    }
-
-    // Method to block a friend
-    public void blockFriend(User user) {
-        if (blockedFriendHashMap.get(user.getUsername()) != null) {
-            System.out.println("You have blocked " + user.getUsername() + ". Cannot block again.");
-            return;
-        }
-        blockedFriendHashMap.put(user.getUsername(), user);
-        System.out.println("Block " + user.getUsername() + " successfully!");
-    }
-
-    // Method to unblock a friend
-    public void unBlockFriend(User user) {
-        if (blockedFriendHashMap.get(user.getUsername()) == null) {
-            System.out.println("Them is not in your block list!");
-            return;
-        }
-        blockedFriendHashMap.remove(user.getUsername());
-        System.out.println("unBlock " + user.getUsername() + " successfully!");
-    }
-
-     */
-
-
-    //Sets the message database for the user.
     public void setMessageDataBase(UserMessageDataBase messageDataBase) {
         this.messageDataBase = messageDataBase;
     }
@@ -187,51 +91,6 @@ public class User implements Serializable {
         this.messagePrivacySettings = messagePrivacySettings;
     }
 
-    //Method to add friend to the database
-    /*
-    public void addFriend(User user) {
-
-        if (user.getFriendDataBase().getBlockedFriendHashMap().get(this.username) != null) {
-            System.out.println("You've been blocked by them, so you can't add them as a friend.");
-            return;
-        }
-        if (friendDataBase.addFriend(user))
-            user.getFriendDataBase().getRequestFriendHashMap().put(this.getUsername(), this);
-    }
-
-
-    //Removes a friend
-    public void removeFriend(User user) {
-        if (!this.remove1(user)) return;
-        user.remove2(this);
-    }
-
-    private boolean remove1(User user) {
-        return (friendDataBase.removeFriend(user));
-    }
-
-    private void remove2(User user) {
-        friendDataBase.removeFriend(user);
-    }
-    //Method to block a specific User
-    public void blockFriend(User user) {
-        friendDataBase.blockFriend(user);
-    }
-    //Method to Unblock a specific user
-    public void unBlockFriend(User user) {
-        friendDataBase.unBlockFriend(user);
-    }
-    //Method to accept friend requests
-    public void acceptFriendRequest(User user) {
-        friendDataBase.acceptFriendRequest(user);
-        user.getFriendDataBase().acceptFriendRequest(this);
-    }
-    //Method to declinefriend requests
-    public void declineFriendRequest(User user) {
-        friendDataBase.declineFriendRequest(user);
-    }
-
-
     //Adds the sent picture to the message database of the sender
     public void addSendPicture(PictureMessage pictureMessage) {
         messageDataBase.addSendPicture(pictureMessage);
@@ -258,7 +117,7 @@ public class User implements Serializable {
         return messageDataBase;
     }
 
-     */
+
     //Default Constructor
     public User() { }
     //Parameterized Constructor 

@@ -212,21 +212,79 @@ public class Information {
         }
     }
 
-    public static void addFriends() {
 
+    public static synchronized void addMessage(Message message) {
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("MessageFile", true));
+            String line = String.join("\t", message.getReceiver(), message.getSender(), message.getMessageTime());
+            bufferedWriter.append(line);
+            bufferedWriter.newLine();
+            bufferedWriter.append(message.getContent());
+            bufferedWriter.newLine();
+            bufferedWriter.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public static void readMessage() {
+    public static synchronized void removeMessage(String receiver, String sender) {
+        List<String> newLines = new ArrayList<>();
+        boolean skip = false;
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader("MessageFile"))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (skip) {
+                    skip = false;
+                    continue;
+                }
+                String[] parts = line.split(",", -1);
+                if (parts[0].equals(receiver) && parts[1].equals(sender)) {
+                    skip = true;
+                    continue;
+                }
+                newLines.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        clearFile("MessageFile");
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("MessageFile"))) {
+            for (String newLine : newLines) {
+                bufferedWriter.write(newLine);
+                bufferedWriter.newLine();
+                bufferedWriter.flush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
+    public static ConcurrentHashMap<String, ArrayList<Message>> readMessage() {
+        ConcurrentHashMap<String, ArrayList<Message>> userHashMap1 = new ConcurrentHashMap<>();
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader("MessageFile"));
+            String line = null;
+            Message message = null;
+            while ((line = bufferedReader.readLine()) != null) {
+                String contentLine = bufferedReader.readLine();
+                if (contentLine == null) break;
+                String[] parts = line.split("\\t", -1);
+                if (parts.length >= 3) {
+                    String receiver = parts[0];
+                    String sender = parts[1];
+                    String messageTime = parts[2];
+                    message = new Message(receiver, sender, contentLine, messageTime);
+                    userHashMap1.computeIfAbsent(message.getReceiver(), k -> new ArrayList<>()).add(message);
+                }
+            }
+            if (message == null) return new ConcurrentHashMap<String, ArrayList<Message>>();
 
-    public static void writeMessage() {
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return userHashMap1;
     }
-
 }
-
-
-
-
-

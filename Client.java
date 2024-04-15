@@ -82,6 +82,7 @@ public class Client {
                     break;
 
                 case "2":
+                    messagesMenu(user);
                     break;
 
                 case "3":
@@ -110,38 +111,24 @@ public class Client {
         }
     }
 
-    //Method for Message Menu
-    /*
     private void messagesMenu(User user) {
         boolean flag = true;
         while (flag) {
             System.out.println("\t\t\t\t\tWelcome to your Messages Menu!");
-            System.out.println("\t\t\t\t1 Check Messages Sent");
-            System.out.println("\t\t\t\t2 Check Messages Received");
-            System.out.println("\t\t\t\t3 Sent Messages");
-            System.out.println("\t\t\t\t4 Delete Messages Sent");
-            System.out.println("\t\t\t\t5 Send Picture Message");
-            System.out.println("\t\t\t\t6 Check Picture Messages Received");
+            System.out.println("\t\t\t\t1 Sent Messages");
+            System.out.println("\t\t\t\t2 Received Message");
+            System.out.println("\t\t\t\t3 Delete Messages");
             System.out.println("\t\t\t\t9 Exit");
             String operation = Input.readString(1, false);
             switch (operation) {
                 case "1" :
-                    checkSendMessages(user);
+                    userService.sendMessage();
                     break;
                 case "2" :
-                    checkReceiveMessages(user);
+                    userService.checkReceiveMessages();
                     break;
                 case "3" :
-                    sendMessages(user);
-                    break;
-                case "4" :
-                    deleteMessages(user);
-                    break;
-                case "5" :
-                    sendPictureMessages(user);
-                    break;
-                case "6" :
-                    checkReceivePictures(user);
+                    userService.deleteMessages();
                     break;
                 case "9" :
                     System.out.println("Exit!");
@@ -152,109 +139,9 @@ public class Client {
         }
 
     }
-    //Method for check messages the user have sent.
-    private void checkSendMessages(User user) {
-        user.getMessageDataBase().showSendMessages();
-    }
 
-    //Method for user to send pictures.
-    /*
-    private void sendPictureMessages(User user) {
-        while (true) {
-            System.out.println("Send private message");
-            System.out.println("Who do you want to send?");
-            String receiver = Input.readString(20);
-
-            if (DataBase.findUser(receiver) == null) {
-                System.out.print("Sending messages failed!");
-                System.out.println("Receiver not found");
-                System.out.println("Enter Y to exit, Enter N to try it again.");
-                char answer = Input.readSelection();
-                if (answer == 'Y') break;
-                continue;
-            }
-
-            if (!userService.chechMessagePrivacySetting(DataBase.findUser(receiver))) {
-                System.out.print("Sending messages failed!");
-                System.out.println("The other person has their settings " +
-                        "adjusted to only receive messages from friends!");
-                System.out.println("Enter Y to exit, Enter N to try it again.");
-                char answer = Input.readSelection();
-                if (answer == 'Y') break;
-                continue;
-            }
-
-            if (userService.checkBlocked(user, DataBase.findUser(receiver))) {
-                System.out.println("Sending messages failed! You can't message someone who has blocked you " +
-                        "or someone you have blocked.");
-                System.out.println("Enter Y to exit, Enter N to try it again.");
-                char answer = Input.readSelection();
-                if (answer == 'Y') break;
-                continue;
-            }
-
-            if (receiver.equals(user.getUsername()))
-                System.out.println("You are sending messages to yourself!");
-            MessageService.sendPictureMessage(user.getUsername(), receiver);
-            break;
-
-        }
-    }
-
-    //Method for check pirctures the user received
-    private void checkReceivePictures(User user) {
-        user.getMessageDataBase().showReceivePictures();
-    }
-
-    //Methods for check messages the user received.
-    private void checkReceiveMessages(User user) {
-        user.getMessageDataBase().showReceiveMessages();
-    }
-    //Method to send messages
-    private void sendMessages(User user) {
-        while (true) {
-            System.out.println("Send private message");
-            System.out.println("Who do you want to send?");
-            String receiver = Input.readString(20);
-
-            if (DataBase.findUser(receiver) == null) {
-                System.out.print("Sending messages failed!");
-                System.out.println("Receiver not found");
-                //Option to exit or to try again
-                System.out.println("Enter Y to exit, Enter N to try it again.");
-                char answer = Input.readSelection();
-                if (answer == 'Y') break;
-                continue;
-            }
-
-            if (!userService.chechMessagePrivacySetting(DataBase.findUser(receiver))) {
-                System.out.print("Sending messages failed!");
-                System.out.println("The other person has their settings " +
-                        "adjusted to only receive messages from friends!");
-                System.out.println("Enter Y to exit, Enter N to try it again.");
-                char answer = Input.readSelection();
-                if (answer == 'Y') break;
-                continue;
-            }
-
-            if (userService.checkBlocked(user, DataBase.findUser(receiver))) {
-                System.out.println("Sending messages failed! You can't message someone who has blocked you " +
-                        "or someone you have blocked.");
-                System.out.println("Enter Y to exit, Enter N to try it again.");
-                char answer = Input.readSelection();
-                if (answer == 'Y') break;
-                continue;
-            }
-
-            if (receiver.equals(user.getUsername()))
-                System.out.println("You are sending messages to yourself!");
-            System.out.println("What do you want to send?");
-            String content = Input.readString(100000);
-            MessageService.sendMessage(user.getUsername(), receiver, content);
-            break;
-        }
-    }
     //Method to Delete Messages
+    /*
     private void deleteMessages(User user) {
         user.getMessageDataBase().showReceiveMessages();
         if (user.getMessageDataBase().getReceiveMessageHashMap().isEmpty())
@@ -324,8 +211,6 @@ public class Client {
             }
         }
     }
-
-
 
     //Method for Setting Menu
     private void settingMenu(User user) {

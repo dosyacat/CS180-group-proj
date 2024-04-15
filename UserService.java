@@ -20,7 +20,6 @@ public class UserService {
 
     private User u = new User();
     private Socket socket;
-    private ClientConnectServerThread clientConnectServerThread;
 
     public User userSignIn(String account, String password) {
         u.setUsername(account);
@@ -39,8 +38,6 @@ public class UserService {
             Message message1 = (Message) ois.readObject();
             if (message1.getMessageType().equals(Message.Message_LOGIN_SUCCESSFUL)) {
                 u = (User) ois.readObject();
-                clientConnectServerThread = new ClientConnectServerThread(socket);
-                clientConnectServerThread.start();
                 return u;
             } else {
                 socket.close();
@@ -253,6 +250,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
+
     public void changeMessagesPrivacy() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -415,4 +413,85 @@ public class UserService {
             e.printStackTrace();
         }
     }
+
+    public void sendMessage() {
+        System.out.println("Who do you want to send?");
+        String receiver = Input.readString(20);
+        System.out.println("What do you want to send?");
+        String content = Input.readString(100000);
+
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+            Message message = MessageService.sendMessage(u.getUsername(), receiver, content);
+            message.setMessageType(Message.Message_GENERALMESSAGE_CLIENT);
+            oos.writeObject(message);
+            oos.flush();
+
+            Message message1 = (Message) ois.readObject();
+            if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_FAIL1)) {
+                System.out.println("Sending messages failed! Receiver not found.");
+            } else if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_FAIL2)) {
+                System.out.println("Sending messages failed! " +
+                        "The user has their settings adjusted to only receive messages from friends!");
+            } else if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_FAIL3)) {
+                System.out.println("Sending messages failed! " +
+                        "You can't message someone who has blocked you");
+            } else if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_SUCCESSFUL)) {
+                System.out.println("Sent successful!");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void checkReceiveMessages() {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+            Message message = new Message();
+            message.setMessageType(Message.Message_CHECKMESSAGE_CLIENT);
+            oos.writeObject(message);
+            oos.flush();
+
+            ArrayList<Message> arrayList = (ArrayList<Message>) ois.readObject();
+            if (arrayList == null || arrayList.isEmpty()) System.out.println("You haven't received any messages yet!");
+            else {
+                for (Message message1 : arrayList) {
+                    System.out.println(message1);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteMessages() {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+            Message message = new Message();
+            message.setMessageType(Message.Message_CHECKMESSAGE_CLIENT);
+            oos.writeObject(message);
+            oos.flush();
+
+            ArrayList<Message> arrayList = (ArrayList<Message>) ois.readObject();
+            if (arrayList == null || arrayList.isEmpty()) System.out.println("You haven't received any messages yet!");
+            else {
+                for (Message message1 : arrayList) {
+                    System.out.println(message1);
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

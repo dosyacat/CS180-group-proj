@@ -111,7 +111,7 @@ public class ServerConnectClientThread extends Thread {
                         Message message1 = new Message();
 
                         if (DataBase.check(this.userName, currentPassword)) {
-                            message1.setMessageType(Message.Message_EDIT_PASSWORD_SUCCESSFUL);
+                            message1.setMessageType(Message.Message_EDIT_PASSWORD_SUCCESSFUL); 
                             oos.writeObject(message1);
                             oos.flush();
                             Message message2 = (Message) ois.readObject();
@@ -226,9 +226,37 @@ public class ServerConnectClientThread extends Thread {
                         DataBase.changePrivacy(this.userName);
                         break;
                     }
+                    case Message.Message_GENERALMESSAGE_CLIENT: {
+                        User user = DataBase.findUser(this.userName);
+                        String receiver = message.getReceiver();
+                        Message message1 = new Message();
+                        if (DataBase.findUser(receiver) == null) {
+                            message1.setMessageType(Message.Message_GENERALMESSAGE_SERVER_FAIL1);
+                            oos.writeObject(message1);
+                            oos.flush();
+                        } else if (!DataBase.findUser(receiver).isMessagePrivacySettings()
+                            && !user.getFriendArrayList().contains(receiver)) {
+                            message1.setMessageType(Message.Message_GENERALMESSAGE_SERVER_FAIL2);
+                            oos.writeObject(message1);
+                            oos.flush();
+                        } else if (DataBase.findUser(receiver).getBlockArrayList().contains(this.userName)) {
+                            message1.setMessageType(Message.Message_GENERALMESSAGE_SERVER_FAIL3);
+                            oos.writeObject(message1);
+                            oos.flush();
+                        } else {
+                            MessageDataBase.addMessage(message);
+                            message1.setMessageType(Message.Message_GENERALMESSAGE_SERVER_SUCCESSFUL);
+                            oos.writeObject(message1);
+                            oos.flush();
+                        }
+                        break;
+                    }
+                    case Message.Message_CHECKMESSAGE_CLIENT: {
+                        oos.writeObject(MessageDataBase.checkMessage(this.userName));
+                        oos.flush();
+                    }
                 }
             } catch (Exception e) {
-                e.printStackTrace();
                 System.out.println(this.userName + " disconnect.");
                 return;
             }

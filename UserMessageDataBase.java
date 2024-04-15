@@ -116,6 +116,7 @@ public class UserMessageDataBase implements Serializable {
                 System.out.println(j + message.toString());
                 j++;
             }
+
             i++;
             j = 1;
         }
