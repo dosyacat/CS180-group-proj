@@ -1,10 +1,11 @@
 public interface InputInterface {
-
     /**
-     * Reads a single character from the console input.
-     *
-     * @return The character read from the console.
-     */
+ * Interface for Input Class
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ *
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong , Kaustubh Mathur
+ * @version April 15, 2024
+ */
     public static  char  readChar()
     {
         return '-';
