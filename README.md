@@ -66,6 +66,7 @@ The Information class handles user, friend, and message data stored in files. It
 
 ## ClientConnectServerThread.java
 
+The ClientConnectServerThread class manages the connection between the client and server, handling communication. It includes a parameterized constructor to initialize the socket and a run method to execute thread tasks. This threaded approach enables efficient client-server interaction, ensuring smooth data exchange.
 
 ## Interface.DataBaseInterface.java 
 
