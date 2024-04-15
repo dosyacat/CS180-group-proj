@@ -50,7 +50,15 @@ The Picture class facilitates image uploading and display in a graphical user in
 
 ## PictureMessage.java
 
-PictureMessage class represents a serialized message with an image, implementing Interface.SuperMessage for message functionalities. It stores sender, receiver, image data, and time. Methods manage message details, including toString() for displaying the message with the image.  
+PictureMessage class represents a serialized message with an image, implementing Interface.SuperMessage for message functionalities. It stores sender, receiver, image data, and time. Methods manage message details, including toString() for displaying the message with the image. 
+
+## Server.java
+
+The Server class manages client connections, using threads like ClientHandlerThread and ServerConnectClientThread to handle communication. This setup enables efficient handling of multiple clients concurrently.
+
+## ServerConnectClientThread.java
+
+
 
 ## Interface.DataBaseInterface.java 
 
