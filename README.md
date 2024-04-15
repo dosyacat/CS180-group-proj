@@ -12,11 +12,6 @@ Currently, our application is in the development phase. To begin using it, you w
 
 In Phase 2 of the project, we will implementing a feature to store the database so that users can resume their sessions if they terminate the program and restart it. To achieve this, we plan to store the data on the server side rather than using a file-based approach. Socket connections will be established to facilitate communication with clients. However, we are currently encountering an issue where the data from the previous session is lost upon restarting the program, i.e., "as of now upon restart the information is lost and is not saved in the database like one would desire it to." 
 
-
-## 'View.java'
-
-The View class serves as the primary interface for the messenger application, acting as the central entry point. It facilitates essential functionalities such as user authentication, sign-up processes, and navigation across different menus within the application's interface. This pivotal class orchestrates user interactions and ensures seamless navigation throughout the messaging platform's features and functionalities.
-
 ## 'User.java
 
 The User class embodies an individual within the messenger application, encapsulating vital user details like their username, password, email, and bio. Additionally, it furnishes methods for overseeing various aspects of user engagement, including friend interactions, message management, and profile information updates. This class serves as the foundational structure for user entities, ensuring comprehensive management and interaction capabilities within the messaging platform. 
@@ -39,11 +34,7 @@ The MessageDataBase class functions as a storage system for messages in the mess
 
 ## 'MessageService.java'
 
-The MessageService class facilitates the exchange of messages among users in the messenger application. It initializes a message object, configuring its attributes like sender, receiver, content, and timestamp, before adding the message to both the sender's and receiver's message repositories.  
-
-## 'UserFriendDataBase.java
-
-In Java, the UserFriendDataBase class implements the Interface.UserFriendDataBaseInterface, overseeing user friendships. It manages friend requests, blocking/unblocking friends, and displaying friend lists. Utilizing HashMaps, it effectively stores and manages friend, request, and blocked friend information in the application. 
+The MessageService class facilitates the exchange of messages among users in the messenger application. It initializes a message object, configuring its attributes like sender, receiver, content, and timestamp, before adding the message to both the sender's and receiver's message repositories.   
 
 ## 'UserMessageDataBase.java
 
@@ -91,11 +82,7 @@ The Interface.PictureMessageInterface handles picture messages in Java, allowing
 
 ## Interface.UserInterface.java 
 
-The Interface.UserInterface, which extends Serializable, outlines methods to handle user data in Java applications. It covers functions such as managing friends, message privacy settings, handling messages, and accessing user profile details. Serving as a blueprint, it ensures uniformity and adaptability in application development. 
-
-## Interface.UserFriendDataBaseInterface.java 
-
-The Interface.UserFriendDataBaseInterface in Java outlines operations for handling user friendships. It enables adding, removing, and manipulating friends, accepting or declining friend requests, and blocking or unblocking friends. This interface supports retrieval of data about blocked friends, pending requests, and existing connections, facilitating effective user interaction in applications. 
+The Interface.UserInterface, which extends Serializable, outlines methods to handle user data in Java applications. It covers functions such as managing friends, message privacy settings, handling messages, and accessing user profile details. Serving as a blueprint, it ensures uniformity and adaptability in application development.  
 
 ## Interface.UserMessageDataBaseInterface.java 
 
