@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * @version April 15, 2024
  */
 
-public class User implements Serializable {
+public class User implements Serializable, UserInterface {
 
     private static final long serialVersionUID = 1L;
     private String username;
