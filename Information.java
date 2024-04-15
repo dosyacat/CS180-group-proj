@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version April 15, 2024
  */
 
-public class Information {
+public class Information implements InformationInterface {
     public static void clearFile(String filePath) {
         try {
             FileWriter fileWriter = new FileWriter(filePath, false);
@@ -129,19 +129,19 @@ public class Information {
                 newLines.add(line);
             }
         } catch (Exception e) {
-                e.printStackTrace();
+            e.printStackTrace();
         }
 
         clearFile("FriendFile");
 
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("FriendFile"))) {
-                for (String newLine : newLines) {
-                    bufferedWriter.write(newLine);
-                    bufferedWriter.newLine();
-                    bufferedWriter.flush();
-                }
+            for (String newLine : newLines) {
+                bufferedWriter.write(newLine);
+                bufferedWriter.newLine();
+                bufferedWriter.flush();
+            }
         } catch (Exception e) {
-                e.printStackTrace();
+            e.printStackTrace();
         }
     }
     // Method to block or unblock a friend
