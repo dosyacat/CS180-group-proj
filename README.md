@@ -116,6 +116,10 @@ ServerConnectClientInterface is an interface facilitating client-server connecti
 
 ServerInterface outlines server functionalities, featuring a run method to manage tasks related to handling client connections.
 
+## Interface.InformationInterface.java
+
+InformationInterface defines operations for managing user data stored in files, covering reading, writing, and modifying user and friend details.
+
 
  
 
