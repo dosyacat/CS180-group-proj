@@ -11,7 +11,7 @@ public class Information {
             e.printStackTrace();
         }
     }
-
+    // Method to read user information from the UserFile
     public static User readUser(String userName) {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader("UserFile"));
@@ -32,7 +32,7 @@ public class Information {
             return null;
         }
     }
-
+    // Method to write user information to the UserFile and friend information to the FriendFile
     public static synchronized void writeUser(User user) {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("UserFile", true));
@@ -49,7 +49,7 @@ public class Information {
             e.printStackTrace();
         }
     }
-
+    // Method to read user's friend list and block list from the FriendFile
     public static void readUserFriendDataBase(User user) {
         try(BufferedReader bufferedReader = new BufferedReader(new FileReader("FriendFile"))) {
             String line = null;
@@ -74,7 +74,7 @@ public class Information {
             e.printStackTrace();
         }
     }
-
+    // Method to write friend information to the FriendFile
     public static synchronized void writeFriend(String userName1, String userName2, boolean flag) {
         List<String> newLines = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("FriendFile"))) {
@@ -137,7 +137,7 @@ public class Information {
                 e.printStackTrace();
         }
     }
-
+    // Method to block or unblock a friend
     public static synchronized void blockFriend(String userName1, String userName2, boolean flag) {
         List<String> newLines = new ArrayList<>();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("FriendFile"))) {
@@ -212,7 +212,7 @@ public class Information {
         }
     }
 
-
+    //Method to add messages
     public static synchronized void addMessage(Message message) {
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("MessageFile", true));
@@ -226,7 +226,7 @@ public class Information {
             e.printStackTrace();
         }
     }
-
+    //Method to remove messages
     public static synchronized void removeMessage(String receiver, String sender) {
         List<String> newLines = new ArrayList<>();
         boolean skip = false;
