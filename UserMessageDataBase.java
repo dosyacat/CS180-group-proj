@@ -8,7 +8,7 @@ import java.util.Map;
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 15, 2024
  */
-public class UserMessageDataBase implements Serializable {
+public class UserMessageDataBase implements Serializable, UserMessageDataBaseInterface {
     //Instance Variables
     private int sentMessagesCount = 0;
     private ArrayList<Message> allSentMessages = new ArrayList<>();
