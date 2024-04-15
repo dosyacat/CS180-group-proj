@@ -1,5 +1,4 @@
 
-
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,9 +12,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong , Kaustubh Mathur
  * @version April 15, 2024
  */
- 
 
-public class DataBase implements Serializable {
+
+public class DataBase implements Serializable, DataBaseInterface {
 
 
     // HashMap to store users with their usernames as keys
@@ -39,7 +38,7 @@ public class DataBase implements Serializable {
     }
 
     public static ConcurrentHashMap<String, User> getUserHashMap() {
-          return userHashMap;
+        return userHashMap;
     }
 
     //Finds a user in the database by username.
@@ -59,9 +58,9 @@ public class DataBase implements Serializable {
         Information.writeUser(userHashMap);
     }
     public static void editBio(String userName, String bio) {
-      User user = userHashMap.get(userName);
-      user.setBio(bio);
-      Information.writeUser(userHashMap);
+        User user = userHashMap.get(userName);
+        user.setBio(bio);
+        Information.writeUser(userHashMap);
     }
 
     public static void editPassword(String userName, String password) {
@@ -126,7 +125,5 @@ public class DataBase implements Serializable {
         }
         Information.blockFriend(userName1, userName2, false);
     }
-
-
 
 }
