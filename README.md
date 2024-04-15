@@ -112,6 +112,11 @@ The Interface.UserServiceInterface provides essential user-related functionaliti
 
 ServerConnectClientInterface is an interface facilitating client-server connectivity management, featuring methods to access and set sockets and usernames, along with a run function for task execution.
 
+## Interface.ServerInterface.java
+
+ServerInterface outlines server functionalities, featuring a run method to manage tasks related to handling client connections.
+
+
  
 
 	
