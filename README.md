@@ -120,6 +120,9 @@ ServerInterface outlines server functionalities, featuring a run method to manag
 
 InformationInterface defines operations for managing user data stored in files, covering reading, writing, and modifying user and friend details.
 
+## Interface.ClientConnectServerInterface.java
+
+ClientConnectServerInterface defines methods for managing client-server communication. It includes retrieving the socket and running the communication thread.
 
  
 
