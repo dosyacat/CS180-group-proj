@@ -108,6 +108,10 @@ The Java Interface.UserMessageDataBaseInterface manages user messages, enabling 
 
 The Interface.UserServiceInterface provides essential user-related functionalities in Java apps, including security checks, friendship, message handling, and privacy settings. These methods enable efficient user interaction and security management within the application environment. 
 
+## Interface.ServerConnectClientInterface.java
+
+ServerConnectClientInterface is an interface facilitating client-server connectivity management, featuring methods to access and set sockets and usernames, along with a run function for task execution.
+
  
 
 	
