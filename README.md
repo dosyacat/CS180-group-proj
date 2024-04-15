@@ -62,6 +62,8 @@ ServerConnectClientThread facilitates communication between a server and a clien
 
 ## Information.java
 
+The Information class handles user, friend, and message data stored in files. It offers methods for data manipulation, including file clearing, reading user details, writing user data, managing friendships, and message handling, facilitating efficient server-client interaction.
+
 ## ClientConnectServerThread.java
 
 
