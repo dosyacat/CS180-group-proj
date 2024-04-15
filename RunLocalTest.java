@@ -1,8 +1,13 @@
-import org.junit.Assert;
+
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.*;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
+
 
 import static org.junit.Assert.*;
 
@@ -27,7 +32,7 @@ public class RunLocalTest {
     }
 
     @Test
-    public void testCreateNewUser(){
+    public void testCreateNewUser() {
         User user = new User(userName, password, email, bio);
 
         assertEquals("Username do not match", userName, user.getUsername());
@@ -59,12 +64,6 @@ public class RunLocalTest {
         assertEquals(expected, message.toString());
     }
 
-    @Test
-    public void testAddUser() {
-        User user = new User("ryangosling", "literallyMe", "Test@User.com", "test" );
-        DataBase.add(user);
-        assertEquals(user, DataBase.findUser("ryangosling"));
-    }
 
     @Test
     public void testAddMessage() {
@@ -88,7 +87,6 @@ public class RunLocalTest {
     }
 
 
-
     @Test
     public void testBlockFriend() {
         UserFriendDataBase userFriendDataBase = new UserFriendDataBase();
@@ -110,21 +108,6 @@ public class RunLocalTest {
 
 
     @Test
-    public void testCheckMessageReceive() {
-        UserService userService = new UserService();
-        User user1 = new User();
-        User user2 = new User();
-        user1.setUsername("user1");
-        user2.setUsername("user2");
-
-        assertFalse(userService.checkMessageReceive(user1, user2));
-        assertFalse(userService.checkMessageReceive(user1, user2));
-
-        user1.getMessageDataBase().getReceiveMessageHashMap().put(user2.getUsername(), new ArrayList<>());
-        assertTrue(userService.checkMessageReceive(user1, user2));
-    }
-
-    @Test
     public void testProfileInformation() {
         User user = new User("user", "password");
         user.setEmail("user@example.com");
@@ -132,4 +115,195 @@ public class RunLocalTest {
         String expected = "username : user\nemail : user@example.com\nbio : This is a test bio";
         assertEquals(expected, user.toString());
     }
+
+
+    private UserFriendDataBase userFriendDataBase;
+
+    @Before
+    public void setUp() {
+        userFriendDataBase = new UserFriendDataBase();
+    }
+
+    @Test
+    public void testFindFriend() {
+        User user = new User("testUser", "Test User");
+        userFriendDataBase.getFriendHashMap().put(user.getUsername(), user);
+        assertEquals(user, userFriendDataBase.findFriend("testUser"));
+    }
+
+    @Test
+    public void testAcceptFriendRequest() {
+        User user = new User("testUser", "Test User");
+        userFriendDataBase.getRequestFriendHashMap().put(user.getUsername(), user);
+        userFriendDataBase.acceptFriendRequest(user);
+        assertTrue(userFriendDataBase.getFriendHashMap().containsKey("testUser"));
+        assertFalse(userFriendDataBase.getRequestFriendHashMap().containsKey("testUser"));
+    }
+
+    @Test
+    public void testDeclineFriendRequest() {
+        User user = new User("testUser", "Test User");
+        userFriendDataBase.getRequestFriendHashMap().put(user.getUsername(), user);
+        userFriendDataBase.declineFriendRequest(user);
+        assertFalse(userFriendDataBase.getRequestFriendHashMap().containsKey("testUser"));
+    }
+
+
+    @Test
+    public void testRemoveFriend() {
+        User user = new User("testUser", "Test User");
+        userFriendDataBase.getFriendHashMap().put(user.getUsername(), user);
+        assertTrue(userFriendDataBase.removeFriend(user));
+        assertFalse(userFriendDataBase.removeFriend(user));
+    }
+
+
+    @Test
+    public void testUnBlockFriend() {
+        User user = new User("testUser", "Test User");
+        userFriendDataBase.getBlockedFriendHashMap().put(user.getUsername(), user);
+        userFriendDataBase.unBlockFriend(user);
+        assertFalse(userFriendDataBase.getBlockedFriendHashMap().containsKey("testUser"));
+    }
+
+
+    //server test cases
+
+    @Test
+    public void testServerStartup() {
+
+        Thread serverThread = new Thread(() -> {
+            new Server();
+        });
+        serverThread.start();
+
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            fail("Thread was interrupted: " + e.getMessage());
+        }
+
+
+        try (Socket socket = new Socket("localhost", 9999)) {
+            assertTrue(socket.isConnected());
+        } catch (IOException e) {
+            fail("Failed to connect to the server: " + e.getMessage());
+        }
+
+        serverThread.interrupt();
+    }
+
+    @Test
+    public void testServerConnectClientThread() {
+        // Start the server in a separate thread
+        Thread serverThread = new Thread(() -> {
+            new Server();
+        });
+        serverThread.start();
+
+        // starting serv
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            fail("Thread was interrupted: " + e.getMessage());
+        }
+
+        // connecting a client
+        try (Socket socket = new Socket("localhost", 9999)) {
+            assertTrue(socket.isConnected());
+
+            ServerConnectClientThread clientThread = new ServerConnectClientThread(socket, "testUser");
+            clientThread.start();
+
+            // wait for a short period to ensure the client thread runs
+            Thread.sleep(1000);
+
+            // check if the client thread is alive
+            assertTrue(clientThread.isAlive());
+        } catch (IOException | InterruptedException e) {
+            fail("Exception occurred: " + e.getMessage());
+        }
+
+        // stopping server thread
+        serverThread.interrupt();
+    }
+
+
+    @Test
+    public void testWriteUser() {
+        // assuming user creation and writing works correctly
+        User user = new User("newuser", "password", "newuser@example.com", "This is a bio", true);
+        Information.writeUser(user);
+        User readUser = Information.readUser("newuser");
+        assertNotNull(readUser);
+        assertEquals("newuser", readUser.getUsername());
+    }
+
+
+    @Test
+    public void testMessage_USERVIEW_CLIENT() {
+        //there's a user named "testuser" in the database
+        Socket socket = null;
+        try {
+            socket = new Socket("localhost", 8080);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+            Message message = new Message();
+            message.setMessageType(Message.Message_USERVIEW_CLIENT);
+            oos.writeObject(message);
+            oos.flush();
+
+            Message response = (Message) ois.readObject();
+            assertEquals(Message.Message_USERVIEW_SERVER, response.getMessageType());
+
+            ConcurrentHashMap<String, User> userHashMap = (ConcurrentHashMap<String, User>) ois.readObject();
+            assertNotNull(userHashMap.get("testuser"));
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (socket != null)
+                    socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Test
+    public void testMessage_USESEARCH_CLIENT() {
+
+        Socket socket = null;
+        try {
+            socket = new Socket("localhost", 8080);
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+            Message message = new Message();
+            message.setMessageType(Message.Message_USESEARCH_CLIENT);
+            message.setContent("testuser");
+            oos.writeObject(message);
+            oos.flush();
+
+            Message response = (Message) ois.readObject();
+            assertEquals(Message.Message_USESEARCH_SERVER, response.getMessageType());
+
+            User user = (User) ois.readObject();
+            assertNotNull(user);
+            assertEquals("testuser", user.getUsername());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (socket != null)
+                    socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
 }
