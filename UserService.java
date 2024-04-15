@@ -20,7 +20,7 @@ public class UserService {
 
     private User u = new User();
     private Socket socket;
-
+    //Method to sign in
     public User userSignIn(String account, String password) {
         u.setUsername(account);
         u.setPassword(password);
@@ -47,7 +47,7 @@ public class UserService {
             throw new RuntimeException(e);
         }
     }
-
+    //Method to SignUp for new user
     public void userSignUp() {
         try {
             socket = new Socket(InetAddress.getByName("127.0.0.1"), 9999);
@@ -85,7 +85,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method to view User Information
     public void userView() {
         try {
             Message message = new Message();
@@ -104,7 +104,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method to display User Information
     public void userInformation(ConcurrentHashMap<String, User> userHashMap) {
         System.out.println("Here is the information for our users!");
         int i = 1;
@@ -114,7 +114,7 @@ public class UserService {
             i++;
         }
     }
-
+    //Method to search for a user
     public void userSearch() {
 
         try {
@@ -140,7 +140,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method to LogOut
     public void logout() {
         Message message = new Message();
         message.setMessageType(Message.Message_EXIT);
@@ -154,7 +154,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method to change and modify username
     public void editUserName() {
         System.out.println("Please enter your new Username, which will be limited to 20 digits");
         String username = Input.readString(20, false);
@@ -181,7 +181,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method to modify eMail
     public void editEmail() {
         System.out.println("Please enter your email");
         String email = Input.readEmail(30, false);
@@ -203,7 +203,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method to modify password
     public void editPassword() {
         System.out.println("Please enter your current password!");
         String currentPassword = Input.readString(20, false);
@@ -234,7 +234,7 @@ public class UserService {
         }
 
     }
-
+    //Method to modify Bio
     public void editBio() {
         System.out.println("Please enter your bio, which will be limited to 100 words");
         String bio = Input.readString(100);
@@ -264,7 +264,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method to add friend
     public void AddFriend() {
         System.out.println("Who do you want to add?");
         String username = Input.readString(20, false);
@@ -298,7 +298,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method to remove friend
     public void removeFriend() {
         System.out.println("Who do you want to remove?");
         String username = Input.readString(20, false);
@@ -329,7 +329,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method to block friend
     public void blockFriend() {
         System.out.println("Who do you want to block?");
         String username = Input.readString(20, false);
@@ -361,7 +361,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method to unblock friend
     public void unBlockFriend() {
         System.out.println("Who do you want to unblock?");
         String username = Input.readString(20, false);
@@ -393,7 +393,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method check friend list
     public void showFriendList() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -413,7 +413,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //method to send messages
     public void sendMessage() {
         System.out.println("Who do you want to send?");
         String receiver = Input.readString(20);
@@ -446,7 +446,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method to check received message
     public void checkReceiveMessages() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -469,7 +469,7 @@ public class UserService {
             e.printStackTrace();
         }
     }
-
+    //Method to Delete Message
     public void deleteMessages() {
         System.out.println("Whose messages do you want to delete?");
         String sender = Input.readString(20);
