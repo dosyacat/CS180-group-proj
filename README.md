@@ -126,6 +126,20 @@ InformationInterface defines operations for managing user data stored in files, 
 
 ClientConnectServerInterface defines methods for managing client-server communication. It includes retrieving the socket and running the communication thread.
 
+## Interface.ClientInterface.java
+
+ClientInterface defines methods for user interaction, including menus for sign-up, sign-in, messaging, friend management, settings, and profile editing.
+
+
+
+
+
+
+
+
+
+
+
  
 
 	
