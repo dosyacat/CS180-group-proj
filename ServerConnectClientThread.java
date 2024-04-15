@@ -3,6 +3,14 @@ import java.io.ObjectInput;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+/**
+ * The ServerConnectClientThread class represents a thread that handles communication 
+ * between the server and a specific client.
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
+ * @version April 15, 2024
+ */
+
 
 public class ServerConnectClientThread extends Thread {
     private Socket socket;
