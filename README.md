@@ -58,6 +58,11 @@ The Server class manages client connections, using threads like ClientHandlerThr
 
 ## ServerConnectClientThread.java
 
+ServerConnectClientThread facilitates communication between a server and a client, handling diverse client messages like user requests and edits. Its threaded design enables concurrent client handling, ensuring efficient interaction.
+
+## Information.java
+
+## ClientConnectServerThread.java
 
 
 ## Interface.DataBaseInterface.java 
