@@ -7,11 +7,11 @@ import java.util.HashMap;
 
 public class ClientConnectServerThread extends Thread {
     private Socket socket;
-
+    //Parameterized Constructor
     public ClientConnectServerThread(Socket socket) {
         this.socket = socket;
     }
-
+    //Getter Method for the socket
     public Socket getSocket() {
         return socket;
     }
