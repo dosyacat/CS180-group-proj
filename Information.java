@@ -238,7 +238,7 @@ public class Information {
                     skip = false;
                     continue;
                 }
-                String[] parts = line.split(",", -1);
+                String[] parts = line.split("\\t", -1);
                 if (parts[0].equals(receiver) && parts[1].equals(sender)) {
                     skip = true;
                     continue;

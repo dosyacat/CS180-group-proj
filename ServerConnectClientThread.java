@@ -254,6 +254,18 @@ public class ServerConnectClientThread extends Thread {
                     case Message.Message_CHECKMESSAGE_CLIENT: {
                         oos.writeObject(MessageDataBase.checkMessage(this.userName));
                         oos.flush();
+                        break;
+                    }
+                    case Message.Message_DELETEMESSAGE_CLIENT: {
+                        String sender = message.getContent();
+                        Message message1 = new Message();
+                        if (DataBase.findUser(sender) == null) {
+                            message1.setMessageType(Message.Message_DELETEMESSAGE_SERVER_FAIL);
+                            oos.writeObject(message1);
+                            oos.flush();
+                        } else {
+                            MessageDataBase.deleteMessage(this.userName, sender);
+                        }
                     }
                 }
             } catch (Exception e) {

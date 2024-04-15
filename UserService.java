@@ -471,21 +471,22 @@ public class UserService {
     }
 
     public void deleteMessages() {
+        System.out.println("Whose messages do you want to delete?");
+        String sender = Input.readString(20);
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-
             Message message = new Message();
-            message.setMessageType(Message.Message_CHECKMESSAGE_CLIENT);
+            message.setMessageType(Message.Message_DELETEMESSAGE_CLIENT);
+            message.setContent(sender);
             oos.writeObject(message);
             oos.flush();
 
-            ArrayList<Message> arrayList = (ArrayList<Message>) ois.readObject();
-            if (arrayList == null || arrayList.isEmpty()) System.out.println("You haven't received any messages yet!");
-            else {
-                for (Message message1 : arrayList) {
-                    System.out.println(message1);
-                }
+            Message message1 = (Message) ois.readObject();
+            if (message1.getMessageType().equals(Message.Message_DELETEMESSAGE_SERVER_FAIL)) {
+                System.out.println("Delete messages failed! The user not found.");
+            } else {
+                System.out.println("Messages has deleted");
             }
 
         } catch (Exception e) {

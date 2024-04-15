@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.Iterator;
 
 /**
  * The MessageDataBase class manages the storage and retrieval of messages.
@@ -38,6 +39,22 @@ public class MessageDataBase {
     }
     public static ArrayList<Message> checkMessage(String userName) {
         return messageHashMap.get(userName);
+    }
+
+    public static void deleteMessage(String receiver, String sender) {
+        ArrayList<Message> messages = messageHashMap.get(receiver);
+        if (messages != null) {
+            synchronized (messages) {
+                Iterator<Message> iterator = messages.iterator();
+                while (iterator.hasNext()) {
+                    Message message = iterator.next();
+                    if (message.getSender().equals(sender)) {
+                        iterator.remove();
+                    }
+                }
+            }
+        }
+        Information.removeMessage(receiver, sender);
     }
 
 }
