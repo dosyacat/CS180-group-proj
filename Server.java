@@ -32,7 +32,7 @@ public class Server {
         }
     }
     // Inner class to handle client requests in a separate thread
-    private class ClientHandlerThread extends Thread {
+    private class ClientHandlerThread extends Thread implements ServerInterface  {
         private Socket socket;
 
         public ClientHandlerThread(Socket socket) {
@@ -51,48 +51,48 @@ public class Server {
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 // Read the message sent by the client
                 Message message = (Message) ois.readObject();
-                
-                    // Handle different types of client messages
-                    switch (message.getMessageType()) {
-                        case Message.Message_SIGNUP_CLIENT:
-                            String userName = ((Message) ois.readObject()).getContent();
-                            if (DataBase.findUser(userName) != null) {
-                                Message message1 = new Message();
-                                message1.setMessageType(Message.Message_SIGNUP_FAIL);
-                                oos.writeObject(message1);
-                            } else {
-                                Message message1 = new Message();
-                                message1.setMessageType(Message.Message_SIGNUP_SUCCESSFUL);
-                                oos.writeObject(message1);
-                                User u = (User) ois.readObject();
-                                DataBase.add(u);
-                            }
+
+                // Handle different types of client messages
+                switch (message.getMessageType()) {
+                    case Message.Message_SIGNUP_CLIENT:
+                        String userName = ((Message) ois.readObject()).getContent();
+                        if (DataBase.findUser(userName) != null) {
+                            Message message1 = new Message();
+                            message1.setMessageType(Message.Message_SIGNUP_FAIL);
+                            oos.writeObject(message1);
+                        } else {
+                            Message message1 = new Message();
+                            message1.setMessageType(Message.Message_SIGNUP_SUCCESSFUL);
+                            oos.writeObject(message1);
+                            User u = (User) ois.readObject();
+                            DataBase.add(u);
+                        }
+                        oos.close();
+                        ois.close();
+                        System.out.println(this.getName() + " Stop!");
+                        socket.close();
+                        return;
+                    case Message.Message_LOGIN_CLIENT:
+                        User u = (User) ois.readObject();
+                        Message message1 = new Message();
+                        if (DataBase.check(u.getUsername(), u.getPassword())) {
+                            message1.setMessageType(Message.Message_LOGIN_SUCCESSFUL);
+                            oos.writeObject(message1);
+                            oos.flush();
+                            User user = Information.readUser(u.getUsername());
+                            oos.writeObject(user);
+                            ServerConnectClientThread serverConnectClientThread = new ServerConnectClientThread(socket, u.getUsername());
+                            serverConnectClientThread.start();
+                        } else {
+                            message1.setMessageType(Message.Message_LOGIN_FAIL);
+                            oos.writeObject(message1);
+                            // Close streams and socket after handling client request
                             oos.close();
                             ois.close();
-                            System.out.println(this.getName() + " Stop!");
                             socket.close();
-                            return;
-                        case Message.Message_LOGIN_CLIENT:
-                            User u = (User) ois.readObject();
-                            Message message1 = new Message();
-                            if (DataBase.check(u.getUsername(), u.getPassword())) {
-                                message1.setMessageType(Message.Message_LOGIN_SUCCESSFUL);
-                                oos.writeObject(message1);
-                                oos.flush();
-                                User user = Information.readUser(u.getUsername());
-                                oos.writeObject(user);
-                                ServerConnectClientThread serverConnectClientThread = new ServerConnectClientThread(socket, u.getUsername());
-                                serverConnectClientThread.start();
-                            } else {
-                                message1.setMessageType(Message.Message_LOGIN_FAIL);
-                                oos.writeObject(message1);
-                                // Close streams and socket after handling client request
-                                oos.close();
-                                ois.close();
-                                socket.close();
-                                System.out.println(this.getName() + " Stop!");
-                            }
-                    }
+                            System.out.println(this.getName() + " Stop!");
+                        }
+                }
             } catch (IOException | ClassNotFoundException e) {
                 System.out.println("Error handling client " + this.getName() + ": " + e.getMessage());
                 try {
