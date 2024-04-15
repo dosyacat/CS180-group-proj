@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @version April 15, 2024
  */
 
-public class UserService {
+public class UserService implements UserServiceInterface {
 
     private User u = new User();
     private Socket socket;
