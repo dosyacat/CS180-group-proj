@@ -15,7 +15,7 @@ import java.io.IOException;
  * @version April 15, 2024
  */
 
-public class Picture implements Serializable {
+public class Picture implements Serializable, PictureInterface {
     //Uploads a picture from the user's computer.
     public static byte[] uploadPicture() {
         byte[][] fileBytes = new byte[1][];
@@ -26,7 +26,7 @@ public class Picture implements Serializable {
                     // Creates a file chooser dialog
                     JFileChooser fileChooser = new JFileChooser();
                     fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-                    
+
                     // Sets a filter to allow only image files
                     FileNameExtensionFilter filter = new FileNameExtensionFilter(
                             "Image files", "jpg", "jpeg", "png", "bmp");
@@ -40,7 +40,7 @@ public class Picture implements Serializable {
                             byte[] bytes = Files.readAllBytes(selectedFile.toPath());
                             BufferedImage image = ImageIO.read(new ByteArrayInputStream(bytes));
                             if (image != null) {
-                                 // Stores the byte array in the fileBytes array
+                                // Stores the byte array in the fileBytes array
                                 fileBytes[0] = bytes;
                                 break;
                             } else {
