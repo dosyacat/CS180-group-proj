@@ -6,10 +6,10 @@ import java.util.Map;
  * UserMessageDataBase Class - Stores the information about all the messages sent, received and deleted
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
- * @version April 1, 2024
+ * @version April 15, 2024
  */
 public class UserMessageDataBase implements Serializable {
-
+    //Instance Variables
     private int sentMessagesCount = 0;
     private ArrayList<Message> allSentMessages = new ArrayList<>();
     private ArrayList<Message> sentArrayList = new ArrayList<>();
@@ -25,7 +25,7 @@ public class UserMessageDataBase implements Serializable {
 
     private ArrayList<PictureMessage> receivePictureArrayList = new ArrayList<>();
     private HashMap<String, ArrayList<PictureMessage>> receivePictureHashMap = new HashMap<>();
-
+    // Method to add a received picture message
     public void addReceivePicture(PictureMessage pictureMessage) {
         receiveMessagesCount++;
         receivePictureArrayList = receivePictureHashMap.get(pictureMessage.getReceiver());
@@ -33,7 +33,7 @@ public class UserMessageDataBase implements Serializable {
         receivePictureArrayList.add(pictureMessage);
         receivePictureHashMap.put(pictureMessage.getSender(), receivePictureArrayList);
     }
-
+    // Method to add a sent picture message
     public void addSendPicture(PictureMessage pictureMessage) {
         sentMessagesCount++;
         sentPictureArrayList = sentPictureHashMap.get(pictureMessage.getReceiver());
@@ -41,7 +41,7 @@ public class UserMessageDataBase implements Serializable {
         sentPictureArrayList.add(pictureMessage);
         sentPictureHashMap.put(pictureMessage.getReceiver(), sentPictureArrayList);
     }
-
+    // Method to display received pictures
     public void showReceivePictures() {
         if (receivePictureHashMap.isEmpty()) {
             System.out.println("You haven't received any pictures!");
@@ -60,10 +60,7 @@ public class UserMessageDataBase implements Serializable {
             j = 1;
         }
     }
-
-
-
-
+    // Method to add a sent text message
     public void addSendMessage(Message message) {
         sentMessagesCount++;
         allReceiveMessages.add(message);
@@ -72,7 +69,7 @@ public class UserMessageDataBase implements Serializable {
         sentArrayList.add(message);
         sentMessageHashMap.put(message.getReceiver(), sentArrayList);
     }
-
+    // Method to add a received text message
     public void addReceiveMessage(Message message) {
         receiveMessagesCount++;
         allReceiveMessages.add(message);
@@ -81,7 +78,7 @@ public class UserMessageDataBase implements Serializable {
         receiveArrayList.add(message);
         receiveMessageHashMap.put(message.getSender(), receiveArrayList);
     }
-
+    //Method to display sent text messaages
     public void showSendMessages() {
         if (sentMessageHashMap.isEmpty()) {
             System.out.println("You haven't sent any text messages!");
@@ -101,7 +98,7 @@ public class UserMessageDataBase implements Serializable {
             j = 1;
         }
     }
-
+    //Method to display received text messaages
     public void showReceiveMessages() {
         if (receiveMessageHashMap.isEmpty()) {
             System.out.println("You haven't received any text messages!");
@@ -121,7 +118,7 @@ public class UserMessageDataBase implements Serializable {
             j = 1;
         }
     }
-
+    //Method to delete text message
     public void deleteMessage(String name, int messageNumber) {
         Message message = receiveMessageHashMap.get(name).get(messageNumber - 1);
 
@@ -138,7 +135,7 @@ public class UserMessageDataBase implements Serializable {
         }
         System.out.println("You have deleted the message!");
     }
-
+    //Getters and Setters
     public ArrayList<Message> getReceiveArrayList() {
         return receiveArrayList;
     }
