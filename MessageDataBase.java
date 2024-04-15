@@ -9,7 +9,7 @@ import java.util.Iterator;
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 15, 2024
  */
-public class MessageDataBase {
+public class MessageDataBase implements MessageDataBaseInterface {
     // ArrayList to store all messages
     private static ArrayList<Message> arrayList = new ArrayList<>();
     // HashMap to store messages grouped by receiver
