@@ -11,8 +11,7 @@ import java.net.Socket;
  * @version April 15, 2024
  */
 
-
-public class ServerConnectClientThread extends Thread {
+public class ServerConnectClientThread extends Thread implements ServerConnectClientInterface {
     private Socket socket;
     private String userName;
     //Constructor
@@ -47,8 +46,8 @@ public class ServerConnectClientThread extends Thread {
                 ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                 Message message = (Message) ois.readObject();
-                
-                 // Handle different types of client messages
+
+                // Handle different types of client messages
                 switch (message.getMessageType()) {
                     // Process user view request from the client
                     case Message.Message_USERVIEW_CLIENT: {
@@ -121,7 +120,7 @@ public class ServerConnectClientThread extends Thread {
                         Message message1 = new Message();
 
                         if (DataBase.check(this.userName, currentPassword)) {
-                            message1.setMessageType(Message.Message_EDIT_PASSWORD_SUCCESSFUL); 
+                            message1.setMessageType(Message.Message_EDIT_PASSWORD_SUCCESSFUL);
                             oos.writeObject(message1);
                             oos.flush();
                             Message message2 = (Message) ois.readObject();
@@ -248,7 +247,7 @@ public class ServerConnectClientThread extends Thread {
                             oos.writeObject(message1);
                             oos.flush();
                         } else if (!DataBase.findUser(receiver).isMessagePrivacySettings()
-                            && !user.getFriendArrayList().contains(receiver)) {
+                                && !user.getFriendArrayList().contains(receiver)) {
                             message1.setMessageType(Message.Message_GENERALMESSAGE_SERVER_FAIL2);
                             oos.writeObject(message1);
                             oos.flush();
