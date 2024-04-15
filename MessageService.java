@@ -6,7 +6,7 @@ import java.util.Date;
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 15, 2024
  */
-public class MessageService {
+public class MessageService implements MessageServiceInterface {
     /* Sends a text message from the sender to the receiver with the given content.
        sender   The username of the sender
        receiver The username of the receiver
