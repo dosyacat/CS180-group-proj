@@ -3,6 +3,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+/**
+ * The Server class represents a server application that listens for client connections
+ * and handles client requests in separate threads.
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
+ * @version April 15, 2024
+ */
 
 public class Server {
     private ServerSocket ss = null;
