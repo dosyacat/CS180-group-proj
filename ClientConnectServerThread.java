@@ -13,7 +13,7 @@ import java.util.HashMap;
  */
 
 
-public class ClientConnectServerThread extends Thread {
+public class ClientConnectServerThread extends Thread implements ClientConnectServerInterface {
     private Socket socket;
     //Parameterized Constructor
     public ClientConnectServerThread(Socket socket) {
