@@ -1,6 +1,13 @@
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+/**
+ * This class provides methods to interact with user, friend, and message data stored in files.
+ * It includes methods to read, write, and manipulate user and friend information.
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
+ * @version April 15, 2024
+ */
 
 public class Information {
     public static void clearFile(String filePath) {
