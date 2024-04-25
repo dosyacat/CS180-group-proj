@@ -7,12 +7,13 @@ public class FriendMenu extends JDialog {
     private User user;
     private UserService userService;
 
+    //TODO: add a exit button which would do
     public FriendMenu(User user, UserService userService) {
         this.user = user;
         this.userService = userService;
 
         setTitle("Friends Menu");
-        setSize(400, 300);
+        setSize(800, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 
