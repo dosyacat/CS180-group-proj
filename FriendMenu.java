@@ -7,7 +7,7 @@ public class FriendMenu extends JDialog {
     private User user;
     private UserService userService;
 
-    //TODO: add a exit button which would do
+    //TODO: add an exit button
     public FriendMenu(User user, UserService userService) {
         this.user = user;
         this.userService = userService;
@@ -22,9 +22,11 @@ public class FriendMenu extends JDialog {
 
         JLabel titleLabel = new JLabel("Friends Menu (" + user.getUsername() + ")");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        titleLabel.setFont(new Font("Comic Sans MS", Font.BOLD, 20));
         mainPanel.add(titleLabel);
 
         JButton showFriendsButton = new JButton("Show Friends List");
+        showFriendsButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         showFriendsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -34,6 +36,7 @@ public class FriendMenu extends JDialog {
         mainPanel.add(showFriendsButton);
 
         JButton addFriendButton = new JButton("Add a Friend");
+        addFriendButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         addFriendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -43,6 +46,7 @@ public class FriendMenu extends JDialog {
         mainPanel.add(addFriendButton);
 
         JButton removeFriendButton = new JButton("Remove a Friend");
+        removeFriendButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         removeFriendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -52,6 +56,7 @@ public class FriendMenu extends JDialog {
         mainPanel.add(removeFriendButton);
 
         JButton blockFriendButton = new JButton("Block a Friend");
+        blockFriendButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         blockFriendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,6 +66,7 @@ public class FriendMenu extends JDialog {
         mainPanel.add(blockFriendButton);
 
         JButton unblockFriendButton = new JButton("Unblock a Friend");
+        unblockFriendButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         unblockFriendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
