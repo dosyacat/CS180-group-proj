@@ -86,6 +86,7 @@ public class MainMenu extends JDialog {
     private class FriendMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            new FriendMenu(user, userService);
         }
     }
 
