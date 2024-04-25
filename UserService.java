@@ -427,82 +427,117 @@ public class UserService implements UserServiceInterface {
     }
     //Method to add friend
     public void AddFriend() {
-        System.out.println("Who do you want to add?");
-        String username = Input.readString(20, false);
-        if (u.getUsername().equals(username)) {
-            System.out.println("You cannot add yourself!");
-            return;
-        }
         try {
+            // Assume 'socket' is already initialized
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
+            // Get username input using a graphical input dialog
+            String username = JOptionPane.showInputDialog(null, "Who do you want to add?", "Add Friend", JOptionPane.QUESTION_MESSAGE);
+
+            if (username == null) {
+                JOptionPane.showMessageDialog(null, "Operation canceled", "Info", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            // Check if the username is the same as the current user
+            if (u.getUsername().equals(username)) {
+                JOptionPane.showMessageDialog(null, "You cannot add yourself!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Send message to server
             Message message = new Message();
             message.setMessageType(Message.Message_ADDFRIEND_CLIENT);
             message.setContent(username);
             oos.writeObject(message);
             oos.flush();
 
-            Message message1 = (Message) ois.readObject();
-            if (message1.getMessageType().equals(Message.Message_ADDFRIEND_SERVER_SUCCESSFUL)) {
-                System.out.println("Add successfully");
-            } else if (message1.getMessageType().equals(Message.Message_ADDFRIEND_SERVER_FAIL_1)) {
-                System.out.println("The user you want to add doesn't exist");
-            } else if (message1.getMessageType().equals(Message.Message_ADDFRIEND_SERVER_FAIL_2)) {
-                System.out.println("The user you have added!");
-            } else if (message1.getMessageType().equals(Message.Message_ADDFRIEND_SERVER_FAIL_3)) {
-                System.out.println("You are blocked by the user!");
-            } else if (message1.getMessageType().equals(Message.Message_ADDFRIEND_SERVER_FAIL_4)) {
-                System.out.println("Sorry, you have to unblock him before you can add him as a friend!");
+            // Receive response from server
+            Message response = (Message) ois.readObject();
+            switch (response.getMessageType()) {
+                case Message.Message_ADDFRIEND_SERVER_SUCCESSFUL:
+                    JOptionPane.showMessageDialog(null, "Add successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                case Message.Message_ADDFRIEND_SERVER_FAIL_1:
+                    JOptionPane.showMessageDialog(null, "The user you want to add doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case Message.Message_ADDFRIEND_SERVER_FAIL_2:
+                    JOptionPane.showMessageDialog(null, "The user you have added!", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case Message.Message_ADDFRIEND_SERVER_FAIL_3:
+                    JOptionPane.showMessageDialog(null, "You are blocked by the user!", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case Message.Message_ADDFRIEND_SERVER_FAIL_4:
+                    JOptionPane.showMessageDialog(null, "Sorry, you have to unblock him before you can add him as a friend!", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Unknown error occurred", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     //Method to remove friend
     public void removeFriend() {
-        System.out.println("Who do you want to remove?");
-        String username = Input.readString(20, false);
-
-        if (u.getUsername().equals(username)) {
-            System.out.println("You cannot remove yourself!");
-            return;
-        }
-
         try {
+            // Assume 'socket' is already initialized
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
+            // Get username input using a graphical input dialog
+            String username = JOptionPane.showInputDialog(null, "Who do you want to remove?", "Remove Friend", JOptionPane.QUESTION_MESSAGE);
+
+            if (username == null) {
+                JOptionPane.showMessageDialog(null, "Operation canceled", "Info", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+            // Check if the username is the same as the current user
+            if (u.getUsername().equals(username)) {
+                JOptionPane.showMessageDialog(null, "You cannot remove yourself!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Send message to server
             Message message = new Message();
             message.setMessageType(Message.Message_REMOVEFRIEND_CLIENT);
             message.setContent(username);
             oos.writeObject(message);
             oos.flush();
 
-            Message message1 = (Message) ois.readObject();
-            if (message1.getMessageType().equals(Message.Message_REMOVEFRIEND_SERVER_SUCCESSFUL)) {
-                System.out.println("Remove successfully");
-            } else if (message1.getMessageType().equals(Message.Message_REMOVEFRIEND_SERVER_FAIL)) {
-                System.out.println("The user is not your friend");
+            // Receive response from server
+            Message response = (Message) ois.readObject();
+            if (response.getMessageType().equals(Message.Message_REMOVEFRIEND_SERVER_SUCCESSFUL)) {
+                JOptionPane.showMessageDialog(null, "Remove successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else if (response.getMessageType().equals(Message.Message_REMOVEFRIEND_SERVER_FAIL)) {
+                JOptionPane.showMessageDialog(null, "The user is not your friend", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     //Method to block friend
     public void blockFriend() {
-        System.out.println("Who do you want to block?");
-        String username = Input.readString(20, false);
-
-        if (u.getUsername().equals(username)) {
-            System.out.println("You cannot block yourself!");
-            return;
-        }
-
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+
+            String username = JOptionPane.showInputDialog(null, "Who do you want to block?", "Block Friend", JOptionPane.QUESTION_MESSAGE);
+
+            if (username == null) {
+                JOptionPane.showMessageDialog(null, "Operation canceled", "Info", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            if (u.getUsername().equals(username)) {
+                JOptionPane.showMessageDialog(null, "You cannot block yourself!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             Message message = new Message();
             message.setMessageType(Message.Message_BLOCKFRIEND_CLIENT);
@@ -510,31 +545,39 @@ public class UserService implements UserServiceInterface {
             oos.writeObject(message);
             oos.flush();
 
-            Message message1 = (Message) ois.readObject();
-            if (message1.getMessageType().equals(Message.Message_BLOCKFRIEND_SERVER_SUCCESSFUL)) {
-                System.out.println("BLOCK successfully!");
-            } else if (message1.getMessageType().equals(Message.Message_BLOCKFRIEND_SERVER_FAIL)) {
-                System.out.println("The User doesn't exist");
-            } else if (message1.getMessageType().equals(Message.Message_BLOCKFRIEND_SERVER_FAIL_2)) {
-                System.out.println("Sorry, you have to delete him as a friend before you can block him!");
+            Message response = (Message) ois.readObject();
+            if (response.getMessageType().equals(Message.Message_BLOCKFRIEND_SERVER_SUCCESSFUL)) {
+                JOptionPane.showMessageDialog(null, "Block successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else if (response.getMessageType().equals(Message.Message_BLOCKFRIEND_SERVER_FAIL)) {
+                JOptionPane.showMessageDialog(null, "The user doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (response.getMessageType().equals(Message.Message_BLOCKFRIEND_SERVER_FAIL_2)) {
+                JOptionPane.showMessageDialog(null, "Sorry, you have to delete him as a friend before you can block him!", "Error", JOptionPane.ERROR_MESSAGE);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    //Method to unblock friend
+
     public void unBlockFriend() {
-        System.out.println("Who do you want to unblock?");
-        String username = Input.readString(20, false);
-
-        if (u.getUsername().equals(username)) {
-            System.out.println("You cannot unblock yourself!");
-            return;
-        }
-
         try {
+
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+
+
+            String username = JOptionPane.showInputDialog(null, "Who do you want to unblock?", "Unblock Friend", JOptionPane.QUESTION_MESSAGE);
+
+            if (username == null) {
+                JOptionPane.showMessageDialog(null, "Operation canceled", "Info", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            if (u.getUsername().equals(username)) {
+                JOptionPane.showMessageDialog(null, "You cannot unblock yourself!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             Message message = new Message();
             message.setMessageType(Message.Message_UNBLOCKFRIEND_CLIENT);
@@ -542,19 +585,23 @@ public class UserService implements UserServiceInterface {
             oos.writeObject(message);
             oos.flush();
 
-            Message message1 = (Message) ois.readObject();
-            if (message1.getMessageType().equals(Message.Message_UNBLOCKFRIEND_SERVER_SUCCESSFUL)) {
-                System.out.println("UNBLOCK successfully!");
-            } else if (message1.getMessageType().equals(Message.Message_UNBLOCKFRIEND_SERVER_FAIL_1)) {
-                System.out.println("The user doesn't exit!");
-            } else if (message1.getMessageType().equals(Message.Message_UNBLOCKFRIEND_SERVER_FAIL_2)) {
-                System.out.println("You didn't block the user yet!");
+            Message response = (Message) ois.readObject();
+            if (response.getMessageType().equals(Message.Message_UNBLOCKFRIEND_SERVER_SUCCESSFUL)) {
+                JOptionPane.showMessageDialog(null, "Unblock successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else if (response.getMessageType().equals(Message.Message_UNBLOCKFRIEND_SERVER_FAIL_1)) {
+                JOptionPane.showMessageDialog(null, "The user doesn't exist!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else if (response.getMessageType().equals(Message.Message_UNBLOCKFRIEND_SERVER_FAIL_2)) {
+                JOptionPane.showMessageDialog(null, "You didn't block the user yet!", "Error", JOptionPane.ERROR_MESSAGE);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     //Method check friend list
+
+
     public void showFriendList() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -566,14 +613,22 @@ public class UserService implements UserServiceInterface {
             oos.flush();
             ArrayList<String> arrayList = (ArrayList) ois.readObject();
             if (arrayList.isEmpty()) {
-                System.out.println("You have not added any friends yet.");
+                JOptionPane.showMessageDialog(null, "You have not added any friends yet.", "Friend List", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                System.out.println(arrayList);
+                StringBuilder friendListText = new StringBuilder("Your friends:\n");
+                for (String friend : arrayList) {
+                    friendListText.append(friend).append("\n");
+                }
+                JOptionPane.showMessageDialog(null, friendListText.toString(), "Friend List", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
+
+
     //method to send messages
     public void sendMessage() {
         System.out.println("Who do you want to send?");

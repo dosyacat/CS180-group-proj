@@ -55,7 +55,7 @@ public class FriendMenu extends JDialog {
         });
         mainPanel.add(removeFriendButton);
 
-        JButton blockFriendButton = new JButton("Block a Friend");
+        JButton blockFriendButton = new JButton("Block an User");
         blockFriendButton.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         blockFriendButton.addActionListener(new ActionListener() {
             @Override
