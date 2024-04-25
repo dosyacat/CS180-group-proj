@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class FriendMenu extends JPanel {
+public class FriendMenu extends JDialog {
     private User user;
     private UserService userService;
 
@@ -11,11 +11,17 @@ public class FriendMenu extends JPanel {
         this.user = user;
         this.userService = userService;
 
-        setLayout(new GridLayout(6, 1));
+        setTitle("Friends Menu");
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+
+        JPanel mainPanel = new JPanel(new GridLayout(6, 1));
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         JLabel titleLabel = new JLabel("Friends Menu (" + user.getUsername() + ")");
         titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        add(titleLabel);
+        mainPanel.add(titleLabel);
 
         JButton showFriendsButton = new JButton("Show Friends List");
         showFriendsButton.addActionListener(new ActionListener() {
@@ -24,7 +30,7 @@ public class FriendMenu extends JPanel {
                 userService.showFriendList();
             }
         });
-        add(showFriendsButton);
+        mainPanel.add(showFriendsButton);
 
         JButton addFriendButton = new JButton("Add a Friend");
         addFriendButton.addActionListener(new ActionListener() {
@@ -33,7 +39,7 @@ public class FriendMenu extends JPanel {
                 userService.AddFriend();
             }
         });
-        add(addFriendButton);
+        mainPanel.add(addFriendButton);
 
         JButton removeFriendButton = new JButton("Remove a Friend");
         removeFriendButton.addActionListener(new ActionListener() {
@@ -42,7 +48,7 @@ public class FriendMenu extends JPanel {
                 userService.removeFriend();
             }
         });
-        add(removeFriendButton);
+        mainPanel.add(removeFriendButton);
 
         JButton blockFriendButton = new JButton("Block a Friend");
         blockFriendButton.addActionListener(new ActionListener() {
@@ -51,7 +57,7 @@ public class FriendMenu extends JPanel {
                 userService.blockFriend();
             }
         });
-        add(blockFriendButton);
+        mainPanel.add(blockFriendButton);
 
         JButton unblockFriendButton = new JButton("Unblock a Friend");
         unblockFriendButton.addActionListener(new ActionListener() {
@@ -60,6 +66,9 @@ public class FriendMenu extends JPanel {
                 userService.unBlockFriend();
             }
         });
-        add(unblockFriendButton);
+        mainPanel.add(unblockFriendButton);
+
+        add(mainPanel);
+        setVisible(true);
     }
 }
