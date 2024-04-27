@@ -186,6 +186,7 @@ public class ServerConnectClientThread extends Thread implements ServerConnectCl
                         String userName2 = message.getContent();
                         Message message1 = new Message();
                         User user = DataBase.findUser(this.userName);
+
                         if (DataBase.findUser(userName2) == null) {
                             message1.setMessageType(Message.Message_BLOCKFRIEND_SERVER_FAIL);
                             oos.writeObject(message1);

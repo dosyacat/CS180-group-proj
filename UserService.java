@@ -454,13 +454,6 @@ public class UserService implements UserServiceInterface {
             }
 
 
-            // Check if the username is the same as the current user
-            if (u.getUsername().equals(username)) {
-                JOptionPane.showMessageDialog(null, "You cannot add yourself!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-
             // Send message to server
             Message message = new Message();
             message.setMessageType(Message.Message_ADDFRIEND_CLIENT);
@@ -518,12 +511,6 @@ public class UserService implements UserServiceInterface {
             }
 
 
-            // Check if the username is the same as the current user
-            if (u.getUsername().equals(username)) {
-                JOptionPane.showMessageDialog(null, "You cannot remove yourself!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
             // Send message to server
             Message message = new Message();
             message.setMessageType(Message.Message_REMOVEFRIEND_CLIENT);
@@ -564,10 +551,6 @@ public class UserService implements UserServiceInterface {
                 username = usernameField.getText();
             }
 
-            if (u.getUsername().equals(username)) {
-                JOptionPane.showMessageDialog(null, "You cannot block yourself!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
 
             Message message = new Message();
             message.setMessageType(Message.Message_BLOCKFRIEND_CLIENT);
@@ -609,11 +592,6 @@ public class UserService implements UserServiceInterface {
                 username = usernameField.getText();
             }
 
-            if (u.getUsername().equals(username)) {
-                JOptionPane.showMessageDialog(null, "You cannot unblock yourself!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
 
             Message message = new Message();
             message.setMessageType(Message.Message_UNBLOCKFRIEND_CLIENT);
@@ -635,7 +613,6 @@ public class UserService implements UserServiceInterface {
             JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-    //Method check friend list
 
 
     public void showFriendList() {
