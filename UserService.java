@@ -10,11 +10,13 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * UserService Class - Facilitates the User Experience by providing various functions
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ *
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
  * @version April 15, 2024
  */
@@ -23,6 +25,7 @@ public class UserService implements UserServiceInterface {
 
     private User u = new User();
     private Socket socket;
+
     //Method to sign in
     public User userSignIn(String account, String password) {
         u.setUsername(account);
@@ -49,6 +52,7 @@ public class UserService implements UserServiceInterface {
             throw new RuntimeException(e);
         }
     }
+
     public void userView() {
         try {
             Message message = new Message();
@@ -67,6 +71,7 @@ public class UserService implements UserServiceInterface {
             e.printStackTrace();
         }
     }
+
     //Method to display User Information
     public void userInformation(ConcurrentHashMap<String, User> userHashMap) {
         JDialog dialog = new JDialog();
@@ -139,7 +144,7 @@ public class UserService implements UserServiceInterface {
                             textArea.setText("The user you search didn't exist!");
                         } else {
                             textArea.setText("User: " + user.getUsername() + "\nEmail: " + user.getEmail()
-                            + "\nBio: " + user.getBio());
+                                    + "\nBio: " + user.getBio());
                         }
                     }
                 } catch (Exception ex) {
@@ -162,6 +167,7 @@ public class UserService implements UserServiceInterface {
             e.printStackTrace();
         }
     }
+
     //Method to change and modify username
     public void editUserName() {
         JDialog dialog = new JDialog();
@@ -278,6 +284,7 @@ public class UserService implements UserServiceInterface {
         });
         dialog.setVisible(true);
     }
+
     //Method to modify password
     public void editPassword() {
         JDialog dialog = new JDialog();
@@ -357,6 +364,7 @@ public class UserService implements UserServiceInterface {
 
         dialog.setVisible(true);
     }
+
     //Method to modify Bio
     public void editBio() {
         JDialog dialog = new JDialog();
@@ -390,7 +398,7 @@ public class UserService implements UserServiceInterface {
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    String bio= textField.getText();
+                    String bio = textField.getText();
                     ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
                     ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
                     Message message = new Message();
@@ -425,6 +433,7 @@ public class UserService implements UserServiceInterface {
             e.printStackTrace();
         }
     }
+
     //Method to add friend
     public void AddFriend() {
         try {
@@ -432,19 +441,25 @@ public class UserService implements UserServiceInterface {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
-            // Get username input using a graphical input dialog
-            String username = JOptionPane.showInputDialog(null, "Who do you want to add?", "Add Friend", JOptionPane.QUESTION_MESSAGE);
+            JTextField usernameField = new JTextField();
+            Object[] messag = {
+                    "Username:", usernameField
+            };
 
-            if (username == null) {
-                JOptionPane.showMessageDialog(null, "Operation canceled", "Info", JOptionPane.INFORMATION_MESSAGE);
-                return;
+            int option = JOptionPane.showConfirmDialog(null, messag, "Add Friend", JOptionPane.OK_CANCEL_OPTION);
+            String username = "";
+
+            if (option == JOptionPane.OK_OPTION) {
+                username = usernameField.getText();
             }
+
 
             // Check if the username is the same as the current user
             if (u.getUsername().equals(username)) {
                 JOptionPane.showMessageDialog(null, "You cannot add yourself!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
 
             // Send message to server
             Message message = new Message();
@@ -475,11 +490,13 @@ public class UserService implements UserServiceInterface {
                     JOptionPane.showMessageDialog(null, "Unknown error occurred", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     //Method to remove friend
     public void removeFriend() {
         try {
@@ -488,12 +505,19 @@ public class UserService implements UserServiceInterface {
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
             // Get username input using a graphical input dialog
-            String username = JOptionPane.showInputDialog(null, "Who do you want to remove?", "Remove Friend", JOptionPane.QUESTION_MESSAGE);
+            JTextField usernameField = new JTextField();
+            Object[] messag = {
+                    "Username:", usernameField
+            };
 
-            if (username == null) {
-                JOptionPane.showMessageDialog(null, "Operation canceled", "Info", JOptionPane.INFORMATION_MESSAGE);
-                return;
+            int option = JOptionPane.showConfirmDialog(null, messag, "Remove Friend", JOptionPane.OK_CANCEL_OPTION);
+            String username = "";
+
+            if (option == JOptionPane.OK_OPTION) {
+                username = usernameField.getText();
             }
+
+
             // Check if the username is the same as the current user
             if (u.getUsername().equals(username)) {
                 JOptionPane.showMessageDialog(null, "You cannot remove yourself!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -520,6 +544,7 @@ public class UserService implements UserServiceInterface {
             JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
     //Method to block friend
     public void blockFriend() {
         try {
@@ -527,11 +552,16 @@ public class UserService implements UserServiceInterface {
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
 
-            String username = JOptionPane.showInputDialog(null, "Who do you want to block?", "Block Friend", JOptionPane.QUESTION_MESSAGE);
+            JTextField usernameField = new JTextField();
+            Object[] messag = {
+                    "Username: ", usernameField
+            };
 
-            if (username == null) {
-                JOptionPane.showMessageDialog(null, "Operation canceled", "Info", JOptionPane.INFORMATION_MESSAGE);
-                return;
+            int option = JOptionPane.showConfirmDialog(null, messag, "Block Friend", JOptionPane.OK_CANCEL_OPTION);
+            String username = "";
+
+            if (option == JOptionPane.OK_OPTION) {
+                username = usernameField.getText();
             }
 
             if (u.getUsername().equals(username)) {
@@ -567,17 +597,23 @@ public class UserService implements UserServiceInterface {
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
 
 
-            String username = JOptionPane.showInputDialog(null, "Who do you want to unblock?", "Unblock Friend", JOptionPane.QUESTION_MESSAGE);
+            JTextField usernameField = new JTextField();
+            Object[] messag = {
+                    "Username:", usernameField
+            };
 
-            if (username == null) {
-                JOptionPane.showMessageDialog(null, "Operation canceled", "Info", JOptionPane.INFORMATION_MESSAGE);
-                return;
+            int option = JOptionPane.showConfirmDialog(null, messag, "Unblock Friend", JOptionPane.OK_CANCEL_OPTION);
+            String username = "";
+
+            if (option == JOptionPane.OK_OPTION) {
+                username = usernameField.getText();
             }
 
             if (u.getUsername().equals(username)) {
                 JOptionPane.showMessageDialog(null, "You cannot unblock yourself!", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
 
             Message message = new Message();
             message.setMessageType(Message.Message_UNBLOCKFRIEND_CLIENT);
@@ -627,8 +663,6 @@ public class UserService implements UserServiceInterface {
     }
 
 
-
-
     //method to send messages
     public void sendMessage() {
         System.out.println("Who do you want to send?");
@@ -662,6 +696,7 @@ public class UserService implements UserServiceInterface {
             e.printStackTrace();
         }
     }
+
     //Method to check received message
     public void checkReceiveMessages() {
         try {
@@ -685,6 +720,7 @@ public class UserService implements UserServiceInterface {
             e.printStackTrace();
         }
     }
+
     //Method to Delete Message
     public void deleteMessages() {
         System.out.println("Whose messages do you want to delete?");
