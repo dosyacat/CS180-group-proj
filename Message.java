@@ -127,10 +127,10 @@ public class Message implements Serializable, MessageInterface {
     @Override
     //Returns a string representation of the message.
     public String toString() {
-        return "\nMessage : " +
-                "\nsender : " + sender +
-                ", receiver :" + receiver +
-                "\ncontent : " + content +
-                "\nmessageTime : " + messageTime;
+        return "Message : " +
+                "\nsender: " + sender +
+                ", receiver: " + receiver +
+                "\ncontent: " + content +
+                "\nmessageTime: " + messageTime;
     }
 }

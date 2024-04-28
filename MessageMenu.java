@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+
 public class MessageMenu extends JFrame {
     public final static Color lightGreen = new Color(152, 251, 152);
     public MessageMenu(UserService userService) {
@@ -47,6 +49,16 @@ public class MessageMenu extends JFrame {
         buttonPanel.add(sendMessage);
         JButton viewMessages = new JButton("Check Received Messages");
         viewMessages.addActionListener(e -> {
+            String otherUser = JOptionPane.showInputDialog(mainPanel, "Whose conversation do you want to view?");
+            // get an ArrayList with the messages between current user and other user
+            // something like ArrayList<Message> messages = userService.viewMessages(otherUser);
+            // creating a fake ArrayList right now
+            ArrayList<Message> messages = new ArrayList<>();
+            messages.add(new Message("kaus", "receiver", "content", "10 BC"));
+            messages.add(new Message("kaus", "receiver", "part 2", "10 BC"));
+            messages.add(new Message("kaus", "receiver", "hi !", "10 BC"));
+            messages.add(new Message("receiver", "kaus", "weunweiun", "10 BC"));
+            new ConversationBetweenUsers(messages);
             userService.checkReceiveMessages();
         });
         buttonPanel.add(viewMessages);
