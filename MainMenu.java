@@ -80,6 +80,7 @@ public class MainMenu extends JDialog {
     private class MessageMenuListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            new MessageMenu(userService);
         }
     }
 

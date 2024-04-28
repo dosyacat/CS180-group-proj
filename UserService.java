@@ -641,11 +641,7 @@ public class UserService implements UserServiceInterface {
 
 
     //method to send messages
-    public void sendMessage() {
-        System.out.println("Who do you want to send?");
-        String receiver = Input.readString(20);
-        System.out.println("What do you want to send?");
-        String content = Input.readString(100000);
+    public String sendMessage(String receiver, String content) {
 
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -658,20 +654,22 @@ public class UserService implements UserServiceInterface {
 
             Message message1 = (Message) ois.readObject();
             if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_FAIL1)) {
-                System.out.println("Sending messages failed! Receiver not found.");
+                return Message.Message_GENERALMESSAGE_SERVER_FAIL1;
             } else if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_FAIL2)) {
-                System.out.println("Sending messages failed! " +
-                        "The user has their settings adjusted to only receive messages from friends!");
+                return Message.Message_GENERALMESSAGE_SERVER_FAIL2;
             } else if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_FAIL3)) {
-                System.out.println("Sending messages failed! " +
-                        "You can't message someone who has blocked you");
+                return Message.Message_GENERALMESSAGE_SERVER_FAIL3;
             } else if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_SUCCESSFUL)) {
-                System.out.println("Sent successful!");
+                return Message.Message_GENERALMESSAGE_SERVER_SUCCESSFUL;
+            }
+            else {
+                return "56";
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "56";
     }
 
     //Method to check received message

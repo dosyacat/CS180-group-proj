@@ -76,7 +76,7 @@ public class Client implements ClientInterface {
             String operation = Input.readString(1, false);
             switch (operation) {
                 case "1" :
-                    userService.sendMessage();
+                    userService.sendMessage("", "");
                     break;
                 case "2" :
                     userService.checkReceiveMessages();
