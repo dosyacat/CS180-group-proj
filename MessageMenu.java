@@ -1,7 +1,16 @@
 import javax.swing.*;
 import java.awt.*;
+/**
+ * Class for creating Messages Menu
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ *
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong , Kaustubh Mathur
+ * @version April 29, 2024
+ */
 
-public class MessageMenu extends JFrame {
+
+public class MessageMenu extends JFrame implements MessagesMenuInterface
+{
     public final static Color lightGreen = new Color(152, 251, 152);
 
     public MessageMenu(UserService userService) {
