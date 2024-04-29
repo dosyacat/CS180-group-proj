@@ -641,15 +641,15 @@ public class UserService implements UserServiceInterface {
 
 
     //method to send messages
-    public void sendMessage() {
+    public void sendMessage(JPanel panel) {
         try {
 
-            String receiver = JOptionPane.showInputDialog(null, "Who do you want to send the message to?");
+            String receiver = JOptionPane.showInputDialog(panel, "Who do you want to send the message to?");
             if (receiver == null || receiver.isEmpty()) {
                 return;
             }
 
-            String content = JOptionPane.showInputDialog(null, "Enter the message");
+            String content = JOptionPane.showInputDialog(panel, "Enter the message");
             if (content == null || content.isEmpty()) {
                 return;
             }
@@ -664,18 +664,18 @@ public class UserService implements UserServiceInterface {
 
             Message message1 = (Message) ois.readObject();
             if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_FAIL1)) {
-                JOptionPane.showMessageDialog(null, "Sending messages failed! Receiver not found.",
+                JOptionPane.showMessageDialog(panel, "Sending messages failed! Receiver not found.",
                         "Error", JOptionPane.ERROR_MESSAGE);
 
             } else if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_FAIL2)) {
-                JOptionPane.showMessageDialog(null, "Sending messages failed! The user has their settings adjusted to only receive messages from friends!",
+                JOptionPane.showMessageDialog(panel, "Sending messages failed! The user has their settings adjusted to only receive messages from friends!",
                         "Error", JOptionPane.ERROR_MESSAGE);
 
             } else if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_FAIL3)) {
-                JOptionPane.showMessageDialog(null, "Sending messages failed! You can't message someone who has blocked you",
+                JOptionPane.showMessageDialog(panel, "Sending messages failed! You can't message someone who has blocked you",
                         "Error", JOptionPane.ERROR_MESSAGE);
             } else if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_SUCCESSFUL)) {
-                JOptionPane.showMessageDialog(null, "Sent Successfully!",
+                JOptionPane.showMessageDialog(panel, "Sent Successfully!",
                         "Sent!", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
@@ -685,7 +685,7 @@ public class UserService implements UserServiceInterface {
     }
 
     //Method to check received message
-    public void checkReceiveMessages() {
+    public void checkReceiveMessages(JPanel panel) {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
@@ -697,13 +697,13 @@ public class UserService implements UserServiceInterface {
 
             ArrayList<Message> messages = (ArrayList<Message>) ois.readObject();
             if (messages == null || messages.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "You have not received any messages!", "No Messages", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "You have not received any messages!", "No Messages", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 StringBuilder sb = new StringBuilder();
                 for (Message msg : messages) {
                     sb.append(msg.toString()).append("\n");
                 }
-                JOptionPane.showMessageDialog(null, sb.toString(), "Received Messages", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(panel, sb.toString(), "Received Messages", JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -711,8 +711,8 @@ public class UserService implements UserServiceInterface {
     }
 
     //Method to Delete Message
-    public void deleteMessages() {
-        String sender = JOptionPane.showInputDialog(null, "Whose messages do you want to delete?", "Delete Messages", JOptionPane.QUESTION_MESSAGE);
+    public void deleteMessages(JPanel panel) {
+        String sender = JOptionPane.showInputDialog(panel, "Whose messages do you want to delete?", "Delete Messages", JOptionPane.QUESTION_MESSAGE);
         if (sender != null && !sender.isEmpty()) {
             try {
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
