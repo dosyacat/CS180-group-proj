@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class EditProfile extends JDialog {
+public class EditProfile extends JDialog implements EditProfileInterface {
     private User user;
     private UserService userService;
 
