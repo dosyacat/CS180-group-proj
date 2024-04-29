@@ -1,5 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+/**
+ * Class for creating Editing Profile Menu
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ *
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong , Kaustubh Mathur
+ * @version April 29, 2024
+ */
 
 public class EditProfile extends JDialog implements EditProfileInterface {
     private User user;
