@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * It includes methods to read, write, and manipulate user and friend information.
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
- * @version April 15, 2024
+ * @version April 29, 2024
  */
 
 public class Information implements InformationInterface {
