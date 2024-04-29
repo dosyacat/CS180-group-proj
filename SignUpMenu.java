@@ -4,8 +4,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
+/**
+ * Class for creating SignIn Menu
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ *
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong , Kaustubh Mathur
+ * @version April 29, 2024
+ */
 
-public class SignUpMenu extends JDialog {
+public class SignUpMenu extends JDialog implements SignUpInterface {
     private Socket socket;
     private JPanel panel;
     private JTextField usernameField, passwordField, emailField, bioField;
