@@ -2,20 +2,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 /**
  * Class for creating Friends Menu
- * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ * <p>
+ * Purdue University -- CS18000 -- Spring 2024
+ * </p>
  *
- * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong , Kaustubh Mathur
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong ,
+ *         Kaustubh Mathur
  * @version April 29, 2024
  */
-
 
 public class FriendMenu extends JDialog implements FriendsMenuInterface {
     private User user;
     private UserService userService;
 
-    //TODO: add an exit button
+    // TODO: add an exit button
     public FriendMenu(User user, UserService userService) {
         this.user = user;
         this.userService = userService;
@@ -38,7 +41,7 @@ public class FriendMenu extends JDialog implements FriendsMenuInterface {
         showFriendsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                userService.showFriendList();
+                userService.showFriendList(mainPanel);
             }
         });
         mainPanel.add(showFriendsButton);
@@ -48,7 +51,7 @@ public class FriendMenu extends JDialog implements FriendsMenuInterface {
         addFriendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                userService.AddFriend();
+                userService.AddFriend(mainPanel);
             }
         });
         mainPanel.add(addFriendButton);
@@ -58,7 +61,7 @@ public class FriendMenu extends JDialog implements FriendsMenuInterface {
         removeFriendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                userService.removeFriend();
+                userService.removeFriend(mainPanel);
             }
         });
         mainPanel.add(removeFriendButton);
@@ -68,7 +71,7 @@ public class FriendMenu extends JDialog implements FriendsMenuInterface {
         blockFriendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                userService.blockFriend();
+                userService.blockFriend(mainPanel);
             }
         });
         mainPanel.add(blockFriendButton);
@@ -78,7 +81,7 @@ public class FriendMenu extends JDialog implements FriendsMenuInterface {
         unblockFriendButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                userService.unBlockFriend();
+                userService.unBlockFriend(mainPanel);
             }
         });
         mainPanel.add(unblockFriendButton);

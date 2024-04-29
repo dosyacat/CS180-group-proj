@@ -12,6 +12,5 @@ import java.net.Socket;
  * @version April 29, 2024
  */
 public interface ServerInterface {
-    public void run();
 }
 

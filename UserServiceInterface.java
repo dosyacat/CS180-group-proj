@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public interface UserServiceInterface
 {
     /**
@@ -14,9 +16,9 @@ public interface UserServiceInterface
     public void editEmail();
     public void editPassword();
     public void editBio();
-    public void removeFriend();
-    public void blockFriend();
-    public void unBlockFriend();
-    public void showFriendList();
+    public void removeFriend(JPanel panel);
+    public void blockFriend(JPanel panel);
+    public void unBlockFriend(JPanel panel);
+    public void showFriendList(JPanel panel);
 
 }

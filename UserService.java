@@ -14,10 +14,14 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * UserService Class - Facilitates the User Experience by providing various functions
- * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ * UserService Class - Facilitates the User Experience by providing various
+ * functions
+ * <p>
+ * Purdue University -- CS18000 -- Spring 2024
+ * </p>
  *
- * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong ,
+ *         Kaustubh Mathur
  * @version April 29, 2024
  */
 
@@ -26,7 +30,7 @@ public class UserService implements UserServiceInterface {
     private User u = new User();
     private Socket socket;
 
-    //Method to sign in
+    // Method to sign in
     public User userSignIn(String account, String password) {
         u.setUsername(account);
         u.setPassword(password);
@@ -72,7 +76,7 @@ public class UserService implements UserServiceInterface {
         }
     }
 
-    //Method to display User Information
+    // Method to display User Information
     public void userInformation(ConcurrentHashMap<String, User> userHashMap) {
         JDialog dialog = new JDialog();
         dialog.setTitle("User Information");
@@ -94,7 +98,7 @@ public class UserService implements UserServiceInterface {
         dialog.setVisible(true);
     }
 
-    //Method to search for a user
+    // Method to search for a user
     public void userSearch() {
         JDialog dialog = new JDialog();
         dialog.setTitle("User Search");
@@ -168,7 +172,7 @@ public class UserService implements UserServiceInterface {
         }
     }
 
-    //Method to change and modify username
+    // Method to change and modify username
     public void editUserName() {
         JDialog dialog = new JDialog();
         dialog.setTitle("Edit Username");
@@ -232,7 +236,7 @@ public class UserService implements UserServiceInterface {
         dialog.setVisible(true);
     }
 
-    //Method to modify eMail
+    // Method to modify eMail
     public void editEmail() {
         JDialog dialog = new JDialog();
         dialog.setTitle("Edit Email");
@@ -285,7 +289,7 @@ public class UserService implements UserServiceInterface {
         dialog.setVisible(true);
     }
 
-    //Method to modify password
+    // Method to modify password
     public void editPassword() {
         JDialog dialog = new JDialog();
         dialog.setTitle("Edit Password");
@@ -365,7 +369,7 @@ public class UserService implements UserServiceInterface {
         dialog.setVisible(true);
     }
 
-    //Method to modify Bio
+    // Method to modify Bio
     public void editBio() {
         JDialog dialog = new JDialog();
         dialog.setTitle("Edit Bio");
@@ -434,8 +438,8 @@ public class UserService implements UserServiceInterface {
         }
     }
 
-    //Method to add friend
-    public void AddFriend() {
+    // Method to add friend
+    public void AddFriend(JPanel panel) {
         try {
             // Assume 'socket' is already initialized
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -446,13 +450,12 @@ public class UserService implements UserServiceInterface {
                     "Username:", usernameField
             };
 
-            int option = JOptionPane.showConfirmDialog(null, messag, "Add Friend", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(panel, messag, "Add Friend", JOptionPane.OK_CANCEL_OPTION);
             String username = "";
 
             if (option == JOptionPane.OK_OPTION) {
                 username = usernameField.getText();
             }
-
 
             // Send message to server
             Message message = new Message();
@@ -465,33 +468,39 @@ public class UserService implements UserServiceInterface {
             Message response = (Message) ois.readObject();
             switch (response.getMessageType()) {
                 case Message.Message_ADDFRIEND_SERVER_SUCCESSFUL:
-                    JOptionPane.showMessageDialog(null, "Add successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "Add successful", "Success", JOptionPane.INFORMATION_MESSAGE);
                     break;
                 case Message.Message_ADDFRIEND_SERVER_FAIL_1:
-                    JOptionPane.showMessageDialog(null, "The user you want to add doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "The user you want to add doesn't exist", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
                 case Message.Message_ADDFRIEND_SERVER_FAIL_2:
-                    JOptionPane.showMessageDialog(null, "The user you have added!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "The user you have added!", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
                 case Message.Message_ADDFRIEND_SERVER_FAIL_3:
-                    JOptionPane.showMessageDialog(null, "You are blocked by the user!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "You are blocked by the user!", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
                 case Message.Message_ADDFRIEND_SERVER_FAIL_4:
-                    JOptionPane.showMessageDialog(null, "Sorry, you have to unblock him before you can add him as a friend!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel,
+                            "Sorry, you have to unblock him before you can add him as a friend!", "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Unknown error occurred", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "Unknown error occurred", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(panel, "An error occurred: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    //Method to remove friend
-    public void removeFriend() {
+    // Method to remove friend
+    public void removeFriend(JPanel panel) {
         try {
             // Assume 'socket' is already initialized
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -503,13 +512,12 @@ public class UserService implements UserServiceInterface {
                     "Username:", usernameField
             };
 
-            int option = JOptionPane.showConfirmDialog(null, messag, "Remove Friend", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(panel, messag, "Remove Friend", JOptionPane.OK_CANCEL_OPTION);
             String username = "";
 
             if (option == JOptionPane.OK_OPTION) {
                 username = usernameField.getText();
             }
-
 
             // Send message to server
             Message message = new Message();
@@ -521,36 +529,35 @@ public class UserService implements UserServiceInterface {
             // Receive response from server
             Message response = (Message) ois.readObject();
             if (response.getMessageType().equals(Message.Message_REMOVEFRIEND_SERVER_SUCCESSFUL)) {
-                JOptionPane.showMessageDialog(null, "Remove successful", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "Remove successful", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else if (response.getMessageType().equals(Message.Message_REMOVEFRIEND_SERVER_FAIL)) {
-                JOptionPane.showMessageDialog(null, "The user is not your friend", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "The user is not your friend", "Error", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(panel, "An error occurred: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    //Method to block friend
-    public void blockFriend() {
+    // Method to block friend
+    public void blockFriend(JPanel panel) {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-
 
             JTextField usernameField = new JTextField();
             Object[] messag = {
                     "Username: ", usernameField
             };
 
-            int option = JOptionPane.showConfirmDialog(null, messag, "Block Friend", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(panel, messag, "Block Friend", JOptionPane.OK_CANCEL_OPTION);
             String username = "";
 
             if (option == JOptionPane.OK_OPTION) {
                 username = usernameField.getText();
             }
-
 
             Message message = new Message();
             message.setMessageType(Message.Message_BLOCKFRIEND_CLIENT);
@@ -560,38 +567,39 @@ public class UserService implements UserServiceInterface {
 
             Message response = (Message) ois.readObject();
             if (response.getMessageType().equals(Message.Message_BLOCKFRIEND_SERVER_SUCCESSFUL)) {
-                JOptionPane.showMessageDialog(null, "Block successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "Block successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else if (response.getMessageType().equals(Message.Message_BLOCKFRIEND_SERVER_FAIL)) {
-                JOptionPane.showMessageDialog(null, "The user doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "The user doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
             } else if (response.getMessageType().equals(Message.Message_BLOCKFRIEND_SERVER_FAIL_2)) {
-                JOptionPane.showMessageDialog(null, "Sorry, you have to delete him as a friend before you can block him!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(panel,
+                        "Sorry, you have to delete him as a friend before you can block him!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(panel, "An error occurred: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    public void unBlockFriend() {
+    public void unBlockFriend(JPanel panel) {
         try {
 
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
-
 
             JTextField usernameField = new JTextField();
             Object[] messag = {
                     "Username:", usernameField
             };
 
-            int option = JOptionPane.showConfirmDialog(null, messag, "Unblock Friend", JOptionPane.OK_CANCEL_OPTION);
+            int option = JOptionPane.showConfirmDialog(panel, messag, "Unblock Friend", JOptionPane.OK_CANCEL_OPTION);
             String username = "";
 
             if (option == JOptionPane.OK_OPTION) {
                 username = usernameField.getText();
             }
-
 
             Message message = new Message();
             message.setMessageType(Message.Message_UNBLOCKFRIEND_CLIENT);
@@ -601,21 +609,22 @@ public class UserService implements UserServiceInterface {
 
             Message response = (Message) ois.readObject();
             if (response.getMessageType().equals(Message.Message_UNBLOCKFRIEND_SERVER_SUCCESSFUL)) {
-                JOptionPane.showMessageDialog(null, "Unblock successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "Unblock successful!", "Success", JOptionPane.INFORMATION_MESSAGE);
             } else if (response.getMessageType().equals(Message.Message_UNBLOCKFRIEND_SERVER_FAIL_1)) {
-                JOptionPane.showMessageDialog(null, "The user doesn't exist!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "The user doesn't exist!", "Error", JOptionPane.ERROR_MESSAGE);
             } else if (response.getMessageType().equals(Message.Message_UNBLOCKFRIEND_SERVER_FAIL_2)) {
-                JOptionPane.showMessageDialog(null, "You didn't block the user yet!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "You didn't block the user yet!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "An error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(panel, "An error occurred: " + e.getMessage(), "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
     }
 
-
-    public void showFriendList() {
+    public void showFriendList(JPanel panel) {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
@@ -626,21 +635,22 @@ public class UserService implements UserServiceInterface {
             oos.flush();
             ArrayList<String> arrayList = (ArrayList) ois.readObject();
             if (arrayList.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "You have not added any friends yet.", "Friend List", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "You have not added any friends yet.", "Friend List",
+                        JOptionPane.INFORMATION_MESSAGE);
             } else {
                 StringBuilder friendListText = new StringBuilder("Your friends:\n");
                 for (String friend : arrayList) {
                     friendListText.append(friend).append("\n");
                 }
-                JOptionPane.showMessageDialog(null, friendListText.toString(), "Friend List", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(panel, friendListText.toString(), "Friend List",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
-    //method to send messages
+    // method to send messages
     public void sendMessage(JPanel panel) {
         try {
 
@@ -668,11 +678,13 @@ public class UserService implements UserServiceInterface {
                         "Error", JOptionPane.ERROR_MESSAGE);
 
             } else if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_FAIL2)) {
-                JOptionPane.showMessageDialog(panel, "Sending messages failed! The user has their settings adjusted to only receive messages from friends!",
+                JOptionPane.showMessageDialog(panel,
+                        "Sending messages failed! The user has their settings adjusted to only receive messages from friends!",
                         "Error", JOptionPane.ERROR_MESSAGE);
 
             } else if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_FAIL3)) {
-                JOptionPane.showMessageDialog(panel, "Sending messages failed! You can't message someone who has blocked you",
+                JOptionPane.showMessageDialog(panel,
+                        "Sending messages failed! You can't message someone who has blocked you",
                         "Error", JOptionPane.ERROR_MESSAGE);
             } else if (message1.getMessageType().equals(Message.Message_GENERALMESSAGE_SERVER_SUCCESSFUL)) {
                 JOptionPane.showMessageDialog(panel, "Sent Successfully!",
@@ -684,7 +696,7 @@ public class UserService implements UserServiceInterface {
 
     }
 
-    //Method to check received message
+    // Method to check received message
     public void checkReceiveMessages(JPanel panel) {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -697,22 +709,25 @@ public class UserService implements UserServiceInterface {
 
             ArrayList<Message> messages = (ArrayList<Message>) ois.readObject();
             if (messages == null || messages.isEmpty()) {
-                JOptionPane.showMessageDialog(panel, "You have not received any messages!", "No Messages", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "You have not received any messages!", "No Messages",
+                        JOptionPane.INFORMATION_MESSAGE);
             } else {
                 StringBuilder sb = new StringBuilder();
                 for (Message msg : messages) {
                     sb.append(msg.toString()).append("\n");
                 }
-                JOptionPane.showMessageDialog(panel, sb.toString(), "Received Messages", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(panel, sb.toString(), "Received Messages",
+                        JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    //Method to Delete Message
+    // Method to Delete Message
     public void deleteMessages(JPanel panel) {
-        String sender = JOptionPane.showInputDialog(panel, "Whose messages do you want to delete?", "Delete Messages", JOptionPane.QUESTION_MESSAGE);
+        String sender = JOptionPane.showInputDialog(panel, "Whose messages do you want to delete?", "Delete Messages",
+                JOptionPane.QUESTION_MESSAGE);
         if (sender != null && !sender.isEmpty()) {
             try {
                 ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
@@ -725,16 +740,18 @@ public class UserService implements UserServiceInterface {
 
                 Message message1 = (Message) ois.readObject();
                 if (message1.getMessageType().equals(Message.Message_DELETEMESSAGE_SERVER_FAIL)) {
-                    JOptionPane.showMessageDialog(null, "Delete failed!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "Delete failed!", "Error", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Messages have been deleted.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(panel, "Messages have been deleted.", "Success",
+                            JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error occurred: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(panel, "Error occurred: " + ex.getMessage(), "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 ex.printStackTrace();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "No user name entered!", "Error", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(panel, "No user name entered!", "Error", JOptionPane.WARNING_MESSAGE);
         }
     }
 }
