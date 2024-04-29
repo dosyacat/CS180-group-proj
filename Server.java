@@ -11,7 +11,7 @@ import java.net.Socket;
  * @version April 29, 2024
  */
 
-public class Server {
+public class Server implements ServerInterface {
     private ServerSocket ss = null;
     // Main method to start the server
     public static void main(String[] args) {
