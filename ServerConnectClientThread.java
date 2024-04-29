@@ -278,13 +278,23 @@ public class ServerConnectClientThread extends Thread implements ServerConnectCl
                             message1.setMessageType(Message.Message_DELETEMESSAGE_SERVER_FAIL);
                             oos.writeObject(message1);
                             oos.flush();
+                            return;
+                        }
+                        boolean f = MessageDataBase.deleteMessage(this.userName, sender);
+                        if (!f) {
+                            message1.setMessageType(Message.Message_DELETEMESSAGE_SERVER_FAIL);
+                            oos.writeObject(message1);
+                            oos.flush();
                         } else {
-                            MessageDataBase.deleteMessage(this.userName, sender);
+                            message1.setMessageType(Message.Message_DELETEMESSAGE_SERVER_SUCCESSFUL);
+                            oos.writeObject(message1);
+                            oos.flush();
                         }
                     }
                 }
             } catch (Exception e) {
                 System.out.println(this.userName + " disconnect.");
+                e.printStackTrace();
                 return;
             }
         }

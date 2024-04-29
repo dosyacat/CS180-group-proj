@@ -64,6 +64,8 @@ public class Message implements Serializable, MessageInterface {
     public final static String Message_CHECKMESSAGE_SERVER = "52";
     public final static String Message_DELETEMESSAGE_CLIENT = "54";
     public final static String Message_DELETEMESSAGE_SERVER_FAIL = "55";
+    public final static String Message_DELETEMESSAGE_SERVER_FAIL_1 = "566";
+    public final static String Message_DELETEMESSAGE_SERVER_SUCCESSFUL = "546";
 
     private static final long serialVersionUID = 1L;
     private String sender;
@@ -73,7 +75,6 @@ public class Message implements Serializable, MessageInterface {
     private String messageType;
 
     public Message() {
-
     }
 
     public Message(String sender, String receiver, String content, String messageTime) {

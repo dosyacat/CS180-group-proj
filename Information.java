@@ -283,7 +283,7 @@ public class Information implements InformationInterface {
                     String receiver = parts[0];
                     String sender = parts[1];
                     String messageTime = parts[2];
-                    message = new Message(receiver, sender, contentLine, messageTime);
+                    message = new Message(sender, receiver, contentLine, messageTime);
                     userHashMap1.computeIfAbsent(message.getReceiver(), k -> new ArrayList<>()).add(message);
                 }
             }

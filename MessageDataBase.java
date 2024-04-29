@@ -37,11 +37,14 @@ public class MessageDataBase implements MessageDataBaseInterface {
         messageHashMap.computeIfAbsent(message.getReceiver(), k -> new ArrayList<>()).add(message);
         Information.addMessage(message);
     }
+
     public static ArrayList<Message> checkMessage(String userName) {
+        messageHashMap = Information.readMessage();
         return messageHashMap.get(userName);
     }
 
-    public static void deleteMessage(String receiver, String sender) {
+    public static boolean deleteMessage(String receiver, String sender) {
+
         ArrayList<Message> messages = messageHashMap.get(receiver);
         if (messages != null) {
             synchronized (messages) {
@@ -53,8 +56,11 @@ public class MessageDataBase implements MessageDataBaseInterface {
                     }
                 }
             }
+            Information.removeMessage(receiver, sender);
+            return true;
+        } else {
+            return false;
         }
-        Information.removeMessage(receiver, sender);
     }
 
 }
