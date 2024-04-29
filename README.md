@@ -72,8 +72,31 @@ The ClientConnectServerThread class manages the connection between the client an
 
 ## EditProfile.java
 
-
 The EditProfile class generates a menu for editing user profiles, providing options to modify various details. It adheres to the EditProfileInterface and features buttons for editing username, password, email, bio, and message privacy.
+
+## FriendMenu.java
+
+The FriendMenu class generates a menu dedicated to friend management. It presents functionalities including displaying the friends list, adding a friend, removing a friend, blocking a user, and unblocking a friend.
+
+## LoginMenu.java
+
+The LoginMenu class acts as the primary interface for users to initiate their interaction with the application. It displays a welcoming window that offers choices for either signing in or signing up. Sporting a calming light green color palette for a visually appealing ambiance, the interface centers around a warm greeting message and provides two prominently displayed buttons labeled "Sign In" and "Sign Up". Each button prompts a specific action - initiating either a Sign In or Sign Up process. The layout is carefully crafted to ensure a user-friendly experience, with elements neatly aligned and adequate spacing provided. With its intuitive design and smooth functionality, the LoginMenu class establishes a seamless starting point for users to begin their journey with the application.
+
+## MainMenu.java
+
+The MainMenu class serves as the core menu interface of the application, presenting a range of options including User Viewer, User Search, Messages Menu, Friends Menu, Settings, and Logout.
+
+## SettingMenu.java
+
+The SettingMenu class creates a menu interface dedicated to user settings. It offers functionalities to both display and adjust user details, including username, email, bio, and message privacy settings.
+
+## SignInMenu.java
+
+The SignInMenu class constructs a dialog interface for user sign-in. It prompts users to enter their account credentials and provides buttons for signing in and returning to the login page.
+
+## SignUpMenu.java
+
+The SignUpMenu class enables users to register via a dialog interface. It requests users to input their chosen username, password, email, and bio, communicating with a server for validation and storage purposes.
 
 ## Interface.DataBaseInterface.java 
 
