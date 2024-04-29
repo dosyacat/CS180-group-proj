@@ -7,17 +7,6 @@
  */
 public interface ClientInterface {
 
-    private void userMenu(User user)
-    {}
-    private void messagesMenu(User user)
-    {}
-    private void friendMenu(User user)
-    {}
-    private void settingMenu(User user)
-    {}
-    private void profilesMenu(User user)
-    {}
-    private void editProfilesMenu(User user)
-    {}
+
 
 }
