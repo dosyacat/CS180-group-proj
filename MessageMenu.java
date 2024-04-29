@@ -21,21 +21,21 @@ public class MessageMenu extends JFrame {
         JButton sendMessage = new JButton("Send a Message");
         sendMessage.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         sendMessage.addActionListener(e -> {
-            userService.sendMessage();
+            userService.sendMessage(mainPanel);
         });
         mainPanel.add(sendMessage);
 
         JButton viewMessages = new JButton("Check Received Messages");
         viewMessages.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         viewMessages.addActionListener(e -> {
-            userService.checkReceiveMessages();
+            userService.checkReceiveMessages(mainPanel);
         });
         mainPanel.add(viewMessages);
 
         JButton deleteMessages = new JButton("Delete Messages!");
         deleteMessages.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
         deleteMessages.addActionListener( e -> {
-            userService.deleteMessages();
+            userService.deleteMessages(mainPanel);
         });
         mainPanel.add(deleteMessages);
 
