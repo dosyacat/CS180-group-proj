@@ -13,4 +13,3 @@ import java.net.Socket;
  */
 public interface ServerInterface {
 }
-
