@@ -7,7 +7,7 @@ import java.util.Iterator;
  * The MessageDataBase class manages the storage and retrieval of messages.
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong  , Kaustubh Mathur
- * @version April 15, 2024
+ * @version April 29, 2024
  */
 public class MessageDataBase implements MessageDataBaseInterface {
     // ArrayList to store all messages
