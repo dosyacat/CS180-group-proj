@@ -2,8 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+/**
+ * Class for creating Settings Menu
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ *
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong , Kaustubh Mathur
+ * @version April 29, 2024
+ */
 
-public class SettingMenu extends JDialog {
+
+public class SettingMenu extends JDialog implements SettingsMenuInterface {
     private User user;
     private UserService userService;
     JLabel usernameLabel;
