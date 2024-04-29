@@ -5,7 +5,7 @@ import java.io.ObjectOutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 /**
- * Class for creating SignIn Menu
+ * Class for creating SignUp Menu
  * <p>Purdue University -- CS18000 -- Spring 2024</p>
  *
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong , Kaustubh Mathur
