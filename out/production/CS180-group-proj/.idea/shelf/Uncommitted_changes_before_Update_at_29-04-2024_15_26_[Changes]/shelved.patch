@@ -1,0 +1,80 @@
+Index: FriendFile
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>uhan3,usman,\r\nyoohan,,\r\nusman,uhan3,usman yoohan\r\ndosya,,\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/FriendFile b/FriendFile
+--- a/FriendFile	
++++ b/FriendFile	
+@@ -1,4 +1,5 @@
+-uhan3,usman,
+-yoohan,,
+-usman,uhan3,usman yoohan
++uhan3,,
+ dosya,,
++yoohan,,
++kaus,,
++usman,,
+Index: UserFIle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>uhan3 321 uhan3@gmail.com Hi! false\r\nyoohan 123 yoohan@gmai nihao true\r\nusman bro dos@gmail.com I like big dicks false\r\ndosya boner dosya@gmail.com dosyacat true\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/UserFIle b/UserFIle
+--- a/UserFIle	
++++ b/UserFIle	
+@@ -1,4 +1,5 @@
+ uhan3 321 uhan3@gmail.com Hi! false
+-yoohan 123 yoohan@gmai nihao true
+-usman bro dos@gmail.com I like big dicks false
+ dosya boner dosya@gmail.com dosyacat true
++yoohan 123 yoohan@gmai nihao true
++kaus 123 kaus@gmail.com Fuck bitches get money false
++usman bro dos@gmail.com I false
+Index: out/production/CS180-group-proj/UserFIle
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>uhan3 321 uhan3@gmail.com Hi! false\r\nyoohan 123 yoohan@gmai nihao true\r\nusman bro dos@gmail.com I like big dicks false\r\n
+===================================================================
+diff --git a/out/production/CS180-group-proj/UserFIle b/out/production/CS180-group-proj/UserFIle
+--- a/out/production/CS180-group-proj/UserFIle	
++++ b/out/production/CS180-group-proj/UserFIle	
+@@ -1,3 +1,5 @@
+ uhan3 321 uhan3@gmail.com Hi! false
++dosya boner dosya@gmail.com dosyacat true
+ yoohan 123 yoohan@gmai nihao true
+-usman bro dos@gmail.com I like big dicks false
++kaus 123 kaus@gmail.com Fuck bitches get money false
++usman bro dos@gmail.com I false
+Index: out/production/CS180-group-proj/FriendFile
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>uhan3,,\r\nyoohan,usman,\r\nusman,yoohan,\r\n
+===================================================================
+diff --git a/out/production/CS180-group-proj/FriendFile b/out/production/CS180-group-proj/FriendFile
+--- a/out/production/CS180-group-proj/FriendFile	
++++ b/out/production/CS180-group-proj/FriendFile	
+@@ -1,3 +1,5 @@
+ uhan3,,
+-yoohan,usman,
+-usman,yoohan,
++dosya,,
++yoohan,,
++kaus,,
++usman,,
+Index: out/production/CS180-group-proj/MessageFile
+===================================================================
+diff --git a/out/production/CS180-group-proj/MessageFile b/out/production/CS180-group-proj/MessageFile
+--- a/out/production/CS180-group-proj/MessageFile	
++++ b/out/production/CS180-group-proj/MessageFile	
+@@ -1,0 +1,6 @@
++yoohan	kaus	Sun Apr 28 04:14:40 EDT 2024
++Hi bro
++yoohan	kaus	Sun Apr 28 04:27:47 EDT 2024
++hi part 2
++yoohan	kaus	Sun Apr 28 05:59:49 EDT 2024
++Hey buddy how u doin
