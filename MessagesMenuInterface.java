@@ -4,6 +4,7 @@
  *
  * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong , Kaustubh Mathur
  * @version April 29, 2024
- */public interface MessagesMenuInterface
+ */
+public interface MessagesMenuInterface
   {
   }
