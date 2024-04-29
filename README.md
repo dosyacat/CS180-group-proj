@@ -70,6 +70,11 @@ The Information class handles user, friend, and message data stored in files. It
 
 The ClientConnectServerThread class manages the connection between the client and server, handling communication. It includes a parameterized constructor to initialize the socket and a run method to execute thread tasks. This threaded approach enables efficient client-server interaction, ensuring smooth data exchange.
 
+## EditProfile.java
+
+
+The EditProfile class generates a menu for editing user profiles, providing options to modify various details. It adheres to the EditProfileInterface and features buttons for editing username, password, email, bio, and message privacy.
+
 ## Interface.DataBaseInterface.java 
 
 The Interface.DataBaseInterface defines methods for database management in Java. It covers adding users, checking credentials, displaying user info with profile pictures, and finding users by username. It's a blueprint for implementing database operations, ensuring standardized interaction with user data. Implementing classes customize these methods as needed. 
