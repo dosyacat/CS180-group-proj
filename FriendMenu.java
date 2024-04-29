@@ -2,8 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+/**
+ * Class for creating Friends Menu
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ *
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong , Kaustubh Mathur
+ * @version April 29, 2024
+ */
 
-public class FriendMenu extends JDialog {
+
+public class FriendMenu extends JDialog implements FriendsMenuInterface {
     private User user;
     private UserService userService;
 
