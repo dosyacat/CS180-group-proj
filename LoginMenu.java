@@ -2,8 +2,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+/**
+ * Class for creating Login Menu
+ * <p>Purdue University -- CS18000 -- Spring 2024</p>
+ *
+ * @author Yuhan Zeng, Yeldos Zhumakyn, Shresthi Srivastava, Bryce Wong , Kaustubh Mathur
+ * @version April 29, 2024
+ */
 
-public class LoginMenu extends JFrame {
+public class LoginMenu extends JFrame implements LoginInterface {
 
     private JButton signInButton;
     private JButton signUpButton;
